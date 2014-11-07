@@ -22,7 +22,7 @@ load full res for them and shrink.  With srcset, it could be that you actually s
 
 We may want this for other features, so let's load it BEFORE ANYTHING ELSE so that we have a defined value ANYWHERE about what device we're on
 
-
+/// upload size
 
 **/
 require_once("library/mobile-detect/Mobile_Detect.php");
@@ -32,6 +32,11 @@ $detect = new Mobile_Detect;
 define("ISMOBILE", $detect->isMobile());
 define("ISTABLET", $detect->isTablet());
 
+
+//Upload size:
+@ini_set( 'upload_max_size' , '64M' );
+@ini_set( 'post_max_size', '64M');
+@ini_set( 'max_execution_time', '300' );
 
 
 // LOAD BONES CORE (if you remove this, the theme will break)

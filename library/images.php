@@ -96,7 +96,7 @@ function create_picture_element($id, $images, $caption, $title) {
 
 
 	    $html = '<picture>';
-		$html .= '<!--[if IE 9]><video style="display: none;"><![endif]-->"';
+		$html .= '<!--[if IE 9]><video style="display: none;"><![endif]-->';
 
 
 		$img_full = wp_get_attachment_image_src($id, $images["large"]["name"]);
