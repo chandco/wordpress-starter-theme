@@ -215,3 +215,7 @@ function bones_fonts() {
 add_action('wp_enqueue_scripts ', 'bones_fonts');
 
 
+/* cleanup */
+require_once("library/plugin-cleanup.php");
+
+
