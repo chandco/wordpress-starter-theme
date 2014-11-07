@@ -107,11 +107,10 @@ if ( ! isset( $content_width ) ) {
 
 
 
-/** include images **/
+/** image based updates - this also includes gallery updates, required within the file below **/
 require_once("library/images.php");
 
-/** fix the gallery **/
-require_once("library/gallery.php");
+
 /************* THEME CUSTOMIZE *********************/
 
 /* 

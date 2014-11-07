@@ -6,21 +6,23 @@
 
 function oikos_get_attachment_link_filter( $content, $post_id, $size, $permalink ) {
  
-    // do this for all attachments, we are stopping permalinks from showing.
-    
-        $image = wp_get_attachment_image_src( $post_id, 'large' );
-        /*
-        Removed this:
+    // do this for all attachments
+    //if (! $permalink) {
+        // This returns an array of (url, width, height)
+	//echo $size;
 
-        	data-fancybox-group=\'articlegallery\' rel=\'lightbox[gallery]\''
+	$size = 'gallery-large'; // let the responsive thing fix it
+	
+	$size = responsive_conditional_size($size);
 
-        	This is because we probably don't want this extra markup, and can target the gallery with JS / MP
-
-        */
-        $new_content = preg_replace('/href=\'(.*?)\'/', 'href=\'' . $image[0] . '\' ', $content );
+	//	echo $size;
+        $image = wp_get_attachment_image_src( $post_id, $size );
+        $new_content = preg_replace('/href=\'(.*?)\'/', 'href=\'' . $image[0] . '\'', $content );
         return $new_content;
-   
-
+    //} else {
+		// change attachment page to 
+    //    return $content;
+    //}
 }
  
 add_filter('wp_get_attachment_link', 'oikos_get_attachment_link_filter', 10, 4);
@@ -69,7 +71,7 @@ function cf_cleaner_gallery( $output, $attr ) {
 		'icontag'     => 'div',
 		'captiontag'  => 'figcaption',
 		'columns'     => 0,
-		'size'        => 'blog-thumbnail',
+		'size'        => 'gallery-thumb',
 		'ids'         => '',
 		'include'     => '',
 		'exclude'     => '',

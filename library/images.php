@@ -2,15 +2,58 @@
 
 /************* THUMBNAIL SIZE OPTIONS *************/
 
+/* sizes needed 
+
+ 		gallery
+
+
+ 		gallery-thumb
+
+*/
+
+ $cropped_ratio = 1.5; // 6 x 4
+
+ $max = 1000;
+ $max_tablet = 900;
+ $max_phone = 600;
+
 
 $imagesizes = array( 
-	'gallery-large' => array( 700, 700, true ), 
-	'gallery-thumbnail' => array( 700, 700, true ),
+
+
+
+	// This approach creates a lot of assets, but I don't know if I mind this - it's more important to serve the correct sizes for devices
+	// than to save our own server space, which is generally unlimited these days.  Do consider when there is an overlap
+
+	// This does not consider retina displays yet.
+
+
+	
+
+
+	'gallery-thumb' => array( 300, ( / $cropped_ratio), true ), // same for everything, why not
 
 	/* add mobile sizes */
 
-	'tablet-max' => array( 900, 900, false ),
-	'mobile-max' => array( 600, 600, false ),
+	// add upper limit for default sizes
+
+	'large-tablet' => array( $max_tablet, 	$max_tablet, 	false ), 
+	'large-mobile' => array( $max_phone, 	$max_phone, 	false ), 
+
+	// This may be a bad idea, but by setting a lot of images to be basically the same file, we encourage reuse of assets, and not a lot of sizes.
+	'medium-tablet' => array( $max_tablet, 	$max_tablet, 	false ), 
+	'medium-mobile' => array( $max_phone, 	$max_phone, 	false ), 
+
+	
+	'featured-image' => 		array( $max, 	($max / $cropped_ratio), 	true ), 
+	'featured-image-tablet' => 	array( $max_tablet, 	($max_tablet / $cropped_ratio), 	true ), 
+	'featured-image-mobile' => 	array( $max_phone, 	($max_phone / $cropped_ratio), 		true ), 
+
+	'gallery-large' => 			array( $max, 	$max, 	false ), 
+	'gallery-large-tablet' => 	array( $max_tablet, 	$max_tablet, 	false ), 
+	'gallery-large-mobile' => 	array( $max_phone, 	$max_phone, 	false ), 
+
+	'feed-image' => array( $max_phone, 	($max_phone / $cropped_ratio), 		true ) // duplicates mobile for now, but this is okay, that generally means it's a reusable image, without changing theme code
 
 	);
 
@@ -23,47 +66,30 @@ foreach ($imagesizes as $key => $imagesize) {
 
 
 
+
+
+
 add_filter("post_thumbnail_size","responsive_conditional_size");
 function responsive_conditional_size($size) {
 
 	if (ISMOBILE) {
-
-	switch ($size) 
-	{
-		case 'featured-image':
-		case 'large':
-		case 'full':
-		case false:
-
-		return 'mobile-large';
-		break;
-
-		default:
+		$newsize = $size . "-mobile";
+	} else if (ISTABLET) { 
+		$newsize = $size . "-tablet";		
+	} else {
+		// no change needed, we're on a desktop m9s
 		return $size;
-		break;
 	}
 
 
-	
-	} elseif (ISTABLET) { 
+	// if we got this far then work out a new size
+	global $imagesizes;
 
-		switch ($size) 
-		{
-			case 'featured-image':
-			case 'large':
-			case 'full':
-			case false:
+	if (isset($imagesizes[$newsize])) {
 
-			return 'tablet-large';
-			break;
-
-			default:
-			return $size;
-			break;
-		}
-
+		return $newsize;
 	} else {
-		return $size;
+		return $size; // if we didn't define it we can't ask for it, just give the original
 	}
 }
 
@@ -94,7 +120,12 @@ function bones_custom_image_sizes( $sizes ) {
 	global $imagesizes;
 	$tomerge = array();
 	foreach ($imagesizes as $key => $imagesize) {
-		$tomerge[$key] = __($imagesize[0] . 'px by ' . $imagesize[1] . 'px');
+		if ($imagesize[2]) {
+			$tomerge[$key] = __("Cropped to " . $imagesize[0] . 'px by ' . $imagesize[1] . 'px');
+		} else {
+			$tomerge[$key] = __("Uncropped, within " . $imagesize[0] . 'px by ' . $imagesize[1] . 'px');	
+		}
+		
 	}
     return array_merge( $sizes, $tomerge );
 }
@@ -107,3 +138,5 @@ duplicate one of the lines in the array and name it according to your
 new image size.
 */
 
+// Now fix the gallery:
+require_once("gallery.php");
