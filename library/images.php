@@ -23,6 +23,50 @@ foreach ($imagesizes as $key => $imagesize) {
 
 
 
+add_filter("post_thumbnail_size","responsive_conditional_size");
+function responsive_conditional_size($size) {
+
+	if (ISMOBILE) {
+
+	switch ($size) 
+	{
+		case 'featured-image':
+		case 'large':
+		case 'full':
+		case false:
+
+		return 'mobile-large';
+		break;
+
+		default:
+		return $size;
+		break;
+	}
+
+
+	
+	} elseif (ISTABLET) { 
+
+		switch ($size) 
+		{
+			case 'featured-image':
+			case 'large':
+			case 'full':
+			case false:
+
+			return 'tablet-large';
+			break;
+
+			default:
+			return $size;
+			break;
+		}
+
+	} else {
+		return $size;
+	}
+}
+
 /*
 to add more sizes, simply copy a line from above
 and change the dimensions & name. As long as you

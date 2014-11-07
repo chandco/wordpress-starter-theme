@@ -1,12 +1,38 @@
 <?php
 /*
-Author: Eddie Machado
-URL: htp://themble.com/bones/
+Author: Nathan Edwards
+URL: http://cowfields.co.uk on behalf of http://www.chandco.net
 
-This is where you can drop your custom functions or
-just edit things like thumbnail sizes, header images,
-sidebars, comments, ect.
+## It's currently 18:40 on a friday night, so I'm crediting myself ##
+
+
+Based on Bones theme.  I'm modifying it to my own standards
+
 */
+
+// BEFORE LOAD CORE 
+
+
+/** load responsive class 
+
+I'm loading this up top.  Time will tell if this is useful, or if the polyfill is better.  
+We should run some tests with and without, because the problem / advantage with the server side method is the images
+don't technically "respond" in the browser.  However it's only on a Desktop where the images may 'shrink', and we'll happily
+load full res for them and shrink.  With srcset, it could be that you actually slow down desktop experience.
+
+We may want this for other features, so let's load it BEFORE ANYTHING ELSE so that we have a defined value ANYWHERE about what device we're on
+
+
+
+**/
+require_once("mobile-detect/Mobile_Detect.php");
+
+$detect = new Mobile_Detect;
+
+define("ISMOBILE", $detect->isMobile());
+define("ISTABLET", $detect->isTablet());
+
+
 
 // LOAD BONES CORE (if you remove this, the theme will break)
 require_once( 'library/bones.php' );
@@ -73,6 +99,12 @@ add_action( 'after_setup_theme', 'bones_ahoy' );
 if ( ! isset( $content_width ) ) {
 	$content_width = 640;
 }
+
+
+
+
+
+
 
 
 /** include images **/
