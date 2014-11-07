@@ -43,6 +43,9 @@ function bones_ahoy() {
   // clean up gallery output in wp
   add_filter( 'gallery_style', 'bones_gallery_style' );
 
+  // fix gallery markup in wp
+  add_filter( 'post_gallery', 'cf_cleaner_gallery', 10, 2 );
+
   // enqueue base scripts and styles
   add_action( 'wp_enqueue_scripts', 'bones_scripts_and_styles', 999 );
   // ie conditional wrapper
@@ -75,6 +78,8 @@ if ( ! isset( $content_width ) ) {
 /** include images **/
 require_once("library/images.php");
 
+/** fix the gallery **/
+require_once("library/gallery.php");
 /************* THEME CUSTOMIZE *********************/
 
 /* 
