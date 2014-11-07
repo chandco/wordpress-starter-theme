@@ -58,6 +58,8 @@ function bones_ahoy() {
 
   // launching operation cleanup
   add_action( 'init', 'bones_head_cleanup' );
+
+
   // A better title
   add_filter( 'wp_title', 'rw_title', 10, 3 );
   // remove WP version from RSS
@@ -102,7 +104,8 @@ if ( ! isset( $content_width ) ) {
 
 
 
-
+// install our must use plugins
+require_once("install-plugins.php");
 
 
 
