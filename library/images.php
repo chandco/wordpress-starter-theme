@@ -11,24 +11,35 @@
 
 */
 
+
+## Configure your sizes here.  This generally sets the media queries and image sizes to go with it.
+
+ // you'll want to sync this with your LESS variables.
+
  $cropped_ratio = 1.5; // 6 x 4
 
- $max = 1000;
- $max_tablet = 900;
- $max_phone = 600;
+ $max = 981;
+ $max_tablet = 768; // making these up a bit
+ $max_phone = 580;
+
+
+
+
+
+/*
+$tomerge['gallery-large'] = __("Uncropped Responsive Image");
+	$tomerge['featured-image'] = __("Cropped*/
 
 
 $imagesizes = array( 
-
-
 
 	// This approach creates a lot of assets, but I don't know if I mind this - it's more important to serve the correct sizes for devices
 	// than to save our own server space, which is generally unlimited these days.  Do consider when there is an overlap
 
 	// This does not consider retina displays yet.
 
+	// it also relies heavily on featured-image and gallery-large
 
-	
 
 
 	'gallery-thumb' => array( 300, ( / $cropped_ratio), true ), // same for everything, why not
@@ -45,6 +56,13 @@ $imagesizes = array(
 	'medium-mobile' => array( $max_phone, 	$max_phone, 	false ), 
 
 	
+	## DO NOT REMOVE THESE WITHOUT RECONFIGURING THINGS BELOW ##
+
+	/*
+		It should really be such that it is more dynamic and less hard coded to these two names, and a trio of sizes, 
+		but this up for adaptation later and should serve most situations
+	*/
+
 	'featured-image' => 		array( $max, 	($max / $cropped_ratio), 	true ), 
 	'featured-image-tablet' => 	array( $max_tablet, 	($max_tablet / $cropped_ratio), 	true ), 
 	'featured-image-mobile' => 	array( $max_phone, 	($max_phone / $cropped_ratio), 		true ), 
@@ -66,9 +84,97 @@ foreach ($imagesizes as $key => $imagesize) {
 
 
 
+/* Change the add media editor, to insert a <picture> if the criteria is right.  
+
+This is flawed in that it may encourage content editors to not use it, which is bad, so we may need to remove the defaults somehow or force this on thumb/medium/large
+
+*/
+
+// only add a responsive image if they asked for one
+
+function create_picture_element($id, $images, $caption, $title) {
+
+
+	    $html = '<picture>';
+		$html .= '<!--[if IE 9]><video style="display: none;"><![endif]-->"';
+
+
+		$img_full = wp_get_attachment_image_src($id, $images["large"]["name"]);
+		$img_tablet = wp_get_attachment_image_src($id, $images["medium"]["name"]);
+		$img_mobile = wp_get_attachment_image_src($id, $images["small"]["name"]);
+
+
+		$srcset =  '<source srcset ="' . $img_full[0] . '" media="(min-width: ' . $images["large"]["size"] . 'px)">';
+		$srcset .= '<source srcset ="' . $img_tablet[0] . '" media="(min-width: ' . $images["medium"]["size"] . 'px)">';
+		$srcset .= '<source srcset ="' . $img_mobile[0] . '" media="(min-width: ' . $images["small"]["size"] . 'px)">';
+
+
+		$html .= '<!--[if IE 9]></video><![endif]-->';
+		$html .= $srcset;
+		$html .= '<img srcset="' . $img_tablet[0] . '" alt="' . $caption . '" title="' . $title . '">';
+		$html .= '</picture>';
+
+		return $html;
+
+	
+}
+
+
+function responsive_editor_filter($html, $id, $caption, $title, $align, $url, $size) {
+    
+    // this should probably be a bit more dynamic but then it's linked to the editor add sizes below so, it's okay for now.
+    if ($size == "gallery-large" || $size == "featured-image") {
+    	
+    	global $imagesizes;
+
+	    $images = array(
+					"large" => array(
+						"name" => $size,
+						"size" => $imagesizes[$size][1]
+						),
+					"medium" => array(
+						"name" => $size . "-tablet",
+						"size" => $imagesizes[$size . "-tablet"][1]
+						),
+					"small" => array(
+						"name" => $size,
+						"size" => $imagesizes[$size . "-mobile"][1]
+						),
+					);
+
+	    return create_picture_element($id, $images, $caption, $title);
+
+
+    } else if ($size == "large" || $size == "medium" || $size == "thumbnail") {
+
+    	global $max, $max_phone, $max_tablet;
+    	// these will always exist in wordpress
+		$images = array(
+					"large" => array(
+						"name" => "large",
+						"size" => $max
+						),
+					"medium" => array(
+						"name" => "medium",
+						"size" => $max_tablet
+						),
+					"small" => array(
+						"name" => "thumbnail",
+						"size" => $max_phone
+						),
+					);
+
+    	return create_picture_element($id, $images, $caption, $title)
+
+    } else {
+    	return $html;
+    }
+}
+add_filter('image_send_to_editor', 'responsive_editor_filter', 10, 9);
 
 
 
+// We may not want this, but it's going to kick in for the gallery, which won't be using picture fill.
 add_filter("post_thumbnail_size","responsive_conditional_size");
 function responsive_conditional_size($size) {
 
@@ -113,20 +219,15 @@ You can change the names and dimensions to whatever
 you like. Enjoy!
 */
 
-add_filter( 'image_size_names_choose', 'bones_custom_image_sizes' );
+add_filter( 'image_size_names_choose', 'cf_custom_image_sizes' );
 
-function bones_custom_image_sizes( $sizes ) {
+function cf_custom_image_sizes( $sizes ) {
 
-	global $imagesizes;
+	//global $imagesizes;
 	$tomerge = array();
-	foreach ($imagesizes as $key => $imagesize) {
-		if ($imagesize[2]) {
-			$tomerge[$key] = __("Cropped to " . $imagesize[0] . 'px by ' . $imagesize[1] . 'px');
-		} else {
-			$tomerge[$key] = __("Uncropped, within " . $imagesize[0] . 'px by ' . $imagesize[1] . 'px');	
-		}
-		
-	}
+	$tomerge['gallery-large'] = __("Uncropped Responsive Image");
+	$tomerge['featured-image'] = __("Cropped Responsive Image");	
+	
     return array_merge( $sizes, $tomerge );
 }
 
