@@ -25,7 +25,7 @@ We may want this for other features, so let's load it BEFORE ANYTHING ELSE so th
 
 
 **/
-require_once("mobile-detect/Mobile_Detect.php");
+require_once("library/mobile-detect/Mobile_Detect.php");
 
 $detect = new Mobile_Detect;
 
