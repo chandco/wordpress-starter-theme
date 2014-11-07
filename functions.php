@@ -105,7 +105,7 @@ if ( ! isset( $content_width ) ) {
 
 
 // install our must use plugins
-require_once("install-plugins.php");
+require_once("library/install-plugins.php");
 
 
 

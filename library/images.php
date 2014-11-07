@@ -42,7 +42,7 @@ $imagesizes = array(
 
 
 
-	'gallery-thumb' => array( 300, ( / $cropped_ratio), true ), // same for everything, why not
+	'gallery-thumb' => array( 300, (300 / $cropped_ratio), true ), // same for everything, why not
 
 	/* add mobile sizes */
 
@@ -164,7 +164,7 @@ function responsive_editor_filter($html, $id, $caption, $title, $align, $url, $s
 						),
 					);
 
-    	return create_picture_element($id, $images, $caption, $title)
+    	return create_picture_element($id, $images, $caption, $title);
 
     } else {
     	return $html;
