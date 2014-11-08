@@ -10,6 +10,13 @@ Based on Bones theme.  I'm modifying it to my own standards
 
 */
 
+/*** SITE SETUP ***/
+# Update these things with whatever you need.  the GA is most important
+
+define('GAPROPERTYID','UA-XXXX-Y');
+
+
+
 // BEFORE LOAD CORE 
 
 
@@ -25,6 +32,9 @@ We may want this for other features, so let's load it BEFORE ANYTHING ELSE so th
 /// upload size
 
 **/
+
+
+
 require_once("library/mobile-detect/Mobile_Detect.php");
 
 $detect = new Mobile_Detect;
