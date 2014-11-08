@@ -28,9 +28,7 @@
 
 		<?php // all js scripts are loaded in library/bones.php ?>
 		<?php wp_footer(); ?>
-
-
-		<script data-main="<?php echo get_stylesheet_directory_uri(); ?>/js/main.js" src="<?php echo get_stylesheet_directory_uri(); ?>/js/vendor/require.js"></script>
+		
 		
 
 		<!-- Google Analytics -->

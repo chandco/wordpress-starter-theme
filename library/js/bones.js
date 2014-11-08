@@ -1,3 +1,5 @@
+console.log("bones loaded");
+
 /*
  * Bones Scripts File
  * Author: Eddie Machado
