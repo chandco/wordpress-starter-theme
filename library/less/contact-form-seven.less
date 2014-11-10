@@ -1,4 +1,98 @@
 
+label {
+	input[type='checkbox'] {
+		display: none;
+	}
+
+	input[type='checkbox'] + span {
+		
+		position: relative;
+
+		display: block;
+		cursor: pointer;
+
+		width: 100%;
+		box-sizing: border-box;
+		padding: 4% 2% 4% 15%;
+
+		border-bottom: 2px solid transparent;
+		transition:border 0.4s ease, background 0.6s ease;
+
+		&:hover {
+			.lighten(@white);
+			background: @lighter;
+			&:before {
+				content: @fa-var-check-square;
+			}
+
+
+		}
+		
+		&:before {
+			
+			content: @fa-var-square-o;
+			color: @grey;
+			transition:color 0.4s ease;
+
+			z-index: 2;
+		}
+
+		&:after {
+			
+			content: "";
+
+			transition:text-shadow 0.4s ease, color 0.4s ease;
+			color: @white;
+			
+			
+			z-index: 1;
+
+			text-shadow: 0px 0px 0 @dark, 0px 0px 0 @dark, 0px 0px 0 @dark, 0px 0px 0 @dark;
+
+		}
+
+		&:after, &:before {
+			.fa();
+			font-size: 1.4em;
+			position: absolute;
+			width: 2%;
+			left: 2%;
+			top:50%;
+			transform: translateY(-50%);
+			
+		}
+	}
+	input[type='checkbox']:checked + span {
+		.lighten(@white, 50, 0.7);
+		background: @white;
+		border-bottom: 2px solid @formbg;
+	
+	
+		color: @dark;
+
+		&:before {
+			
+			content: @fa-var-check-square;
+			color: @light;
+
+		}
+
+		&:after {
+			
+			content: @fa-var-square;
+			color: @dark;
+			text-shadow: 2px 2px 0 @dark, -2px -2px 0 @dark, 2px -2px 0 @dark, -2px 2px 0 @dark;
+		
+
+		}
+
+		&:hover {
+			.lighten(@white, 0, 0.5);
+			background: @white;
+		}
+
+	}
+}
 
 
 
@@ -257,50 +351,7 @@ div.wpcf7 {
 
 
 			// full width for textareas but you could use this for anything
-			&.checkboxes {
-				width: (@width * 2) - @margin - @margin;
-				
-				float: none;
-				clear: both;
-				margin: 1%;
-				padding: @padding;
-				box-sizing: border-box;
-				background: @lighter-grey;
-				border-bottom:solid 2px #ddd;
-				overflow:hidden;
-
-				white-space: normal;
-				span.wpcf7-list-item  {
-					width: (@width) - @margin;
-					display: inline-block;
-					box-sizing: border-box;
-					&:nth-of-type(odd) {
-						margin-right: @margin * 2;	
-					}
-					
-				}
-				input[type='checkbox']+span label,input[type='radio']+span label {
-					top: 0;
-					left: 0;
-					background: none;
-					
-					box-sizing: border-box;
-					margin: auto;
-					width: 100%;
-					
-
-					&:hover {
-						background: @formbg;
-					}
-				}
-
-				input[type='checkbox']:checked + span label,input[type='radio']:checked + span label {
-					.lighten(@light);
-					background: @formbg;
-					border-bottom:solid 2px #ddd;
-				}
-
-			}
+			
 
 
 			&.textarea {
@@ -380,7 +431,7 @@ div.wpcf7 {
 			}
 			input[type='checkbox'], input[type='radio'] {
 
-				display: none;
+				//display: none;
 
 				& + span {
 					width: 100%;
