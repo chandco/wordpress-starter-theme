@@ -1,15 +1,32 @@
+@import "variables"; // colour and so on,  - try and avoid any actual style here, this should be for config only
 
 @import "bones"; // legacy bones styles, we should probably remove stuff from here and eventually delete this bit
 @import "ie"; // we need to check what we need from this
 @import "font-awesome/less/font-awesome";
 
-@import "variables"; // colour and so on, seting up the styles.
 
 @import "mixins"; //tools and so on.
 
-@import "contact-form-seven"; // input fields are styled generically in here but there's an emphasis on cf7
 
+@import "design"; // colours and some stuff like borders and so on - not necessarily layout
+@import "typography"; // setting fonts in places
+
+// Components is things like colouring and styling your basic links
+// Or standard input[type=submit] or whatever elements that might appear 'anywhere' and aren't specific to their location
+@import "components";
+
+
+// Layout and styling by section:
 @import "header";
 @import "navigation";
 @import "content"; // may need to be more granular with this eg single page, treat like wp style templating
+/*
+	@import "single-post";
+	@import "archive-post";
+	@import "metadata"; // perhaps this is too specific
+
+*/
 @import "footer"; 
+
+
+@import "contact-form-seven"; // input fields are styled generically in here but there's an emphasis on cf7
