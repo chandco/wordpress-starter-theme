@@ -8,6 +8,7 @@ This is a generic theme that includes as many components that we *might* need, w
 * add some kind of placeholder for the logo?  an SVG such that in other builds you just change the SVG code
 * Add some carousel system.  Attached images define the carousel?  
 * Basic Layout in LESS:
+	* Colours in variables.less
 	* Header
 	* Navigation (responsive menu)
 	* Content layout
@@ -23,12 +24,16 @@ This is a generic theme that includes as many components that we *might* need, w
 
 * Shortcodes:
 	* Column System
-
+	* create cut and paste exaple for CF7
 	* FAQ system.
 
 * JS
 	* Google Analytics system.  Perhaps add the config in wordpress options?
 	* analytics inview etc events system
+
+* Yarp
+
+* Lazy Load Blog
 
 
 
