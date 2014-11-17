@@ -2,6 +2,30 @@
 
 This is a generic theme that includes as many components that we *might* need, with as minimal stylings as possible but some layout to make it easy to skin builds based on the kind of sites we build.  It doesn't work for everyone and it's not supposed to be some easy fit-all starter theme for developers, it's basically a personal kind of build.
 
+## To do list:
+
+* Add gulp or grunt config to create wordpress style responsive images for the theme images
+* add some kind of placeholder for the logo?  an SVG such that in other builds you just change the SVG code
+* Add some carousel system.  Attached images define the carousel?  
+* Basic Layout in LESS:
+	* Header
+	* Navigation (responsive menu)
+	* Content layout
+	* Gallery
+	* Carousel (swipe to change?)
+	* Column System (with shortcode)
+	* Widget layout areas
+	* Finish contact form styles
+
+* Add Widget Areas based on example layouts
+	* Footer Widgets
+	* Sidebar Widgets (general sidebar)
+
+* Shortcodes:
+	* Column System
+
+
+
 ## Some details:
 
 * It's made from Bones.  If Bones ever updates, we may want to look into that
