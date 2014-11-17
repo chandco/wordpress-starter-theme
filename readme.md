@@ -24,7 +24,7 @@ This is a generic theme that includes as many components that we *might* need, w
 * Shortcodes:
 	* Column System
 
-
+	* FAQ system.
 
 * JS
 	* Google Analytics system.  Perhaps add the config in wordpress options?
