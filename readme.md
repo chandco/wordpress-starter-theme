@@ -26,6 +26,12 @@ This is a generic theme that includes as many components that we *might* need, w
 
 
 
+* JS
+	* Google Analytics system.  Perhaps add the config in wordpress options?
+	* analytics inview etc events system
+
+
+
 ## Some details:
 
 * It's made from Bones.  If Bones ever updates, we may want to look into that
