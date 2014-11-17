@@ -17,22 +17,17 @@ This is a generic theme that includes as many components that we *might* need, w
 	* Column System (with shortcode)
 	* Widget layout areas
 	* Finish contact form styles
-
 * Add Widget Areas based on example layouts
 	* Footer Widgets
 	* Sidebar Widgets (general sidebar)
-
 * Shortcodes:
 	* Column System
 	* create cut and paste exaple for CF7
 	* FAQ system.
-
 * JS
 	* Google Analytics system.  Perhaps add the config in wordpress options?
 	* analytics inview etc events system
-
 * Yarp
-
 * Lazy Load Blog
 
 
