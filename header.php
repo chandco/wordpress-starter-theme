@@ -32,9 +32,9 @@
 
 		<?php // echo the correct url so that requirejs knows where things are going, and then require BEFORE jquery so jquery is defines as an AMD module, but still part of WP enqueue ?>
 		<script>
-		rjs_baseURL = "<?php echo get_stylesheet_directory_uri(); ?>/library/js/libs/";
+		rjs_baseURL = "<?php echo get_stylesheet_directory_uri(); ?>/library/dist/js/libs/";
 		</script>
-		<script data-main="<?php echo get_stylesheet_directory_uri(); ?>/library/js/main.js" src="<?php echo get_stylesheet_directory_uri(); ?>/library/js/require.js"></script>
+		<script data-main="<?php echo get_stylesheet_directory_uri(); ?>/library/dist/js/main.js" src="<?php echo get_stylesheet_directory_uri(); ?>/library/dist/js/require.js"></script>
 		
 
 		<?php // wordpress head functions ?>

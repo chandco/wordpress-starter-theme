@@ -1,0 +1,1 @@
+!function(t){t.fn.exists=function(t){var n=[].slice.call(arguments,1);return this.length&&t.call(this,n),this}}(jQuery);

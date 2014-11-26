@@ -1,12 +1,7 @@
 
 
 
-console.log($);
 
-
-
-
-console.log(jQuery);
 
 
 
@@ -21,13 +16,21 @@ console.log(jQuery);
 // Cycle needs to see jQuery as well as $
 
 
-require(['cycle2'], function() {
+require(['slick'], function() {
   
-  $('.cycle-slideshow').cycle({
-  	next : '> .cycle-next',
-  	prev : '> .cycle-prev',
+  $('.cycle-slideshow').slick({
+  		slide: 'div',
+  		//autoplay: true,
+  		prevArrow: '.cycle-prev',
+  		nextArrow: '.cycle-next'
+
   });
-  $('.cycle-slideshow').cycle('resume');
+
+ 
+
+
+
+
 
   
 });

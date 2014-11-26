@@ -15,6 +15,11 @@ require.config({
         app     : "../app",
         bones   : "../bones"
     },
+    "shim": {
+        'slick': {
+            deps: ['jquery']
+        }
+      }
 });
 
 
@@ -23,6 +28,7 @@ require.config({
   ALWAYS ON STUFF 
   Basically anything that we would want on every page, not conditional on what's there, eg responsive stuff.
 */
+
 
 require(["modernizr"]);
 

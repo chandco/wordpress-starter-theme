@@ -8,6 +8,9 @@
     	"gulp-watch": "latest",
     	"gulp-less" : "latest",
     	"gulp-autoprefixer" : "latest",
-    	"browser-sync" : "latest"
+    	"browser-sync" : "latest",
+    	"gulp-uglify" : "latest",
+    	"gulp-jshint" : "latest",
+    	"gulp-sourcemaps" : "latest"
   	}
  }

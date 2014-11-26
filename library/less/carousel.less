@@ -1,64 +1,91 @@
 // CONFIGURATION:
 // Carousel
 
+@cycle-carousel-width : 100%;
 @carousel-next-fa-icon : @fa-var-caret-right;
 @carousel-prev-fa-icon : @fa-var-caret-left;
 @skip-offset : 5%;
 @skip-button-color : @white;
-@carousel-aspect-ratio : 0.5625;
+@carousel-aspect-ratio : (4 / 6);
+@slide-background: @darkgrey;
+
+.slick-prev:before { content: @carousel-prev-fa-icon; }
+.slick-next:before { content: @carousel-next-fa-icon; }
+[dir="rtl"] .slick-prev:before { content: @carousel-next-fa-icon; }
+[dir="rtl"] .slick-next:before { content: @carousel-prev-fa-icon; }
 
 
 .cycle-slideshow {
 
-	 @cycle-carousel-width: 100%;
+		
 
-	width:  @cycle-carousel-width; // maybe shouldn't declare this here - but maybe they should control with a container.
 
-	height: 0;
-	padding-bottom: @carousel-aspect-ratio * @cycle-carousel-width; // setting aspect ratio.  Probably change based on the theme.
+		position: relative;
+		width: @cycle-carousel-width;
 
-	position: relative;
+		height: 0;
+		padding-bottom: @carousel-aspect-ratio * @cycle-carousel-width; // setting aspect ratio.  Probably change based on the theme.
 
-	overflow: hidden;
+		overflow: hidden;
+
+
 
 	.cycle-next, .cycle-prev {
 
-		position: absolute;
-		z-index: 200; // m ore than the cycle default
+			position: absolute;
+			z-index: 200; // m ore than the cycle default
 
-		top: 50%;
-		
-		transform:translateY(-50%);
-		cursor: pointer;
-		color: #f00; //@skip-button-color;
-
-
-		transition:transform .4s ease;
-
-			&:hover {
-				transform:scale(1.1,1.1) translateY(-50%);
-			}
-
-		&:before {
-			.fa-icon();
-			font-size: 5em;
-
+			top: 50%;
 			
-		}
-	}
+			transform:translateY(-50%);
+			cursor: pointer;
+			color: @skip-button-color;
 
-	.cycle-next {
-		right: @skip-offset;
-		&:before {
-			content: @carousel-next-fa-icon;
+
+			transition:transform .4s ease;
+
+				&:hover {
+					transform:scale(1.1,1.1) translateY(-50%);
+				}
+
+			&:before {
+				.fa-icon();
+				font-size: 5em;
+
+				
+			}
+		}
+
+		.cycle-next {
+			right: @skip-offset;
+			&:before {
+				content: @carousel-next-fa-icon;
+		
+			}
+		}
+
+		.cycle-prev {
+			left: @skip-offset;
+			&:before {
+				content:  @carousel-prev-fa-icon;
+			}
+		}
+
+
 	
-		}
-	}
 
-	.cycle-prev {
-		left: @skip-offset;
-		&:before {
-			content:  @carousel-prev-fa-icon;
+		.slick-slide {
+			overflow: hidden;
+			background: @slide-background;
+			img {
+				display: block;
+				margin: auto;
+				height: 100%;
+				width: auto;
+			}
 		}
-	}
+
+		
+	
+
 }
