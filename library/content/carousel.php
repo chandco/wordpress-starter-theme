@@ -10,8 +10,10 @@ function display_attached_images_carousel($atts) {
 			'tag' => false,
 			'id' => false,
 			'fill' => false,
+			'page' => false
 		), $atts, 'images_carousel' );
 	
+
 
 	
 	if ($atts["tag"]) {
@@ -29,7 +31,8 @@ function display_attached_images_carousel($atts) {
 		);
 
 		global $post; 
-		$imageArgs['post_parent'] = ($atts["id"]) ? $atts["id"] : get_the_ID();
+		$imageArgs['post_parent'] = ($atts["page"]) ? $atts["page"] : get_the_ID();
+
 		$images = get_posts($imageArgs);
 	}
 		
@@ -53,7 +56,9 @@ function display_attached_images_carousel($atts) {
 		$big_output = wp_get_attachment_image_src( $attachment->ID, $newsize );
 		$big_output = current($big_output);
 		// <span class='tooltip'>" . $newsize . "</span>
-		$output .= "<div class='carousel-slide'><img data-lazy='" . $big_output . "' title='" . $attachment->post_excerpt . "' alt='" . $attachment->post_title . "' /></div>";
+
+		$domid = ($atts["id"]) ? "id='" . $atts["id"] . "'" : '';
+		$output .= "<div class='carousel-slide' " . $domid . "><img data-lazy='" . $big_output . "' title='" . $attachment->post_excerpt . "' alt='" . $attachment->post_title . "' /></div>";
 	
 	}
 

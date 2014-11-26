@@ -2538,7 +2538,7 @@ a:visited:link {
 }
 .slick-dots {
   position: absolute;
-  bottom: -45px;
+  bottom: 5%;
   list-style: none;
   display: block;
   text-align: center;
@@ -2576,22 +2576,23 @@ a:visited:link {
   opacity: 1;
 }
 .slick-dots li button:before {
+  text-shadow: 0px 2px 0px #000;
   position: absolute;
   top: 0;
   left: 0;
   content: "•";
   width: 20px;
   height: 20px;
-  font-size: 16px;
+  font-size: 36px;
   line-height: 20px;
   text-align: center;
-  color: black;
+  color: white;
   opacity: 0.25;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .slick-dots li.slick-active button:before {
-  color: black;
+  color: white;
   opacity: 0.75;
 }
 /*# sourceMappingURL=slick.css.map */
@@ -2657,6 +2658,8 @@ a:visited:link {
   margin: auto;
   height: 100%;
   width: auto;
+  border: 0;
+  outline: 0;
 }
 .comment-respond {
   zoom: 1;

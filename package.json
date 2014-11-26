@@ -11,6 +11,9 @@
     	"browser-sync" : "latest",
     	"gulp-uglify" : "latest",
     	"gulp-jshint" : "latest",
-    	"gulp-sourcemaps" : "latest"
+    	"gulp-sourcemaps" : "latest",
+        "gulp-image-resize" : "latest",
+        "gulp-changed" : "latest",
+        "gulp-rename" : "latest"
   	}
  }
