@@ -9,6 +9,7 @@ function display_attached_images_carousel($atts) {
 		array(
 			'tag' => false,
 			'id' => false,
+			'fill' => false,
 		), $atts, 'images_carousel' );
 	
 
@@ -35,22 +36,23 @@ function display_attached_images_carousel($atts) {
 // either get attached from post.  Attached from another post OR a certain media tag depending on ATTs
 		
 	//	$output .= "<div class='cycle-container'>";
-	
-		$output .= "<div class='fill-width cycle-slideshow' data-cycle-fx='fade' >";
+		$cropwide = ($atts["fill"]) ? 'fill-width' : '';
+		$output .= "<div class='" . $cropwide . " cycle-slideshow' data-cycle-fx='fade' >";
 
-		$output .= '<span id="cycle-prev" class="cycle-prev">&nbsp;</span>';
-		$output .= '<span id="cycle-next" class="cycle-next">&nbsp;</span>';
+		//$output .= '<span id="cycle-prev" class="cycle-prev">&nbsp;</span>';
+		//$output .= '<span id="cycle-next" class="cycle-next">&nbsp;</span>';
 			
 		$newsize = 'gallery-large';
 		if (ISMOBILE) {
-		$newsize = $size . "-mobile";
+		$newsize = $newsize . "-mobile";
 		} else if (ISTABLET) { 
-			$newsize = $size . "-tablet";		
+			$newsize = $newsize . "-tablet";		
 		}
 	foreach ($images as $attachment) {
 		
 		$big_output = wp_get_attachment_image_src( $attachment->ID, $newsize );
 		$big_output = current($big_output);
+		// <span class='tooltip'>" . $newsize . "</span>
 		$output .= "<div class='carousel-slide'><img data-lazy='" . $big_output . "' title='" . $attachment->post_excerpt . "' alt='" . $attachment->post_title . "' /></div>";
 	
 	}

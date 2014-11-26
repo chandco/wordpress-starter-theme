@@ -2469,23 +2469,25 @@ a:visited:link {
 }
 /* Icons */
 /* Arrows */
-.slick-prev,
-.slick-next {
-  position: absolute;
-  display: block;
-  height: 20px;
-  width: 20px;
-  line-height: 0;
-  font-size: 0;
-  cursor: pointer;
-  background: transparent;
-  color: transparent;
-  top: 50%;
-  margin-top: -10px;
-  padding: 0;
-  border: none;
-  outline: none;
-}
+/*
+.slick-prev, .slick-next { position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0; cursor: pointer; background: transparent; color: transparent; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus { outline: none; background: transparent; color: transparent; }
+.slick-prev:hover:before, .slick-prev:focus:before, .slick-next:hover:before, .slick-next:focus:before { opacity: 1; }
+.slick-prev.slick-disabled:before, .slick-next.slick-disabled:before { opacity: 0.25; }
+
+
+
+.slick-prev:before, .slick-next:before { font-family: "slick"; font-size: 20px; line-height: 1; color: white; opacity: 0.75; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.slick-prev { left: -25px; }
+[dir="rtl"] .slick-prev { left: auto; right: -25px; }
+
+
+
+
+.slick-next { right: -25px; }
+[dir="rtl"] .slick-next { left: -25px; right: auto; }
+*/
 .slick-prev:hover,
 .slick-prev:focus,
 .slick-next:hover,
@@ -2494,39 +2496,41 @@ a:visited:link {
   background: transparent;
   color: transparent;
 }
-.slick-prev:hover:before,
-.slick-prev:focus:before,
-.slick-next:hover:before,
-.slick-next:focus:before {
-  opacity: 1;
+.slick-next,
+.slick-prev {
+  background: none;
+  border: none;
+  color: transparent;
+  position: absolute;
+  z-index: 200;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: pointer;
 }
-.slick-prev.slick-disabled:before,
-.slick-next.slick-disabled:before {
-  opacity: 0.25;
-}
-.slick-prev:before,
-.slick-next:before {
-  font-family: "slick";
-  font-size: 20px;
-  line-height: 1;
-  color: white;
-  opacity: 0.75;
+.slick-next:before,
+.slick-prev:before {
+  color: #ffffff;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-.slick-prev {
-  left: -25px;
-}
-[dir="rtl"] .slick-prev {
-  left: auto;
-  right: -25px;
+  font-size: 2em;
 }
 .slick-next {
-  right: -25px;
+  right: 5%;
 }
-[dir="rtl"] .slick-next {
-  left: -25px;
-  right: auto;
+.slick-next:before {
+  content: "\f0da";
+}
+.slick-prev {
+  left: 5%;
+}
+.slick-prev:before {
+  content: "\f0d9";
 }
 /* Dots */
 .slick-slider {
@@ -2578,8 +2582,7 @@ a:visited:link {
   content: "•";
   width: 20px;
   height: 20px;
-  font-family: "slick";
-  font-size: 6px;
+  font-size: 16px;
   line-height: 20px;
   text-align: center;
   color: black;
@@ -2626,7 +2629,15 @@ a:visited:link {
   width: 100%;
   height: 500px;
   max-height: 40vh;
-  overflow: hidden;
+}
+.cycle-slideshow .tooltip {
+  position: absolute;
+  top: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+  color: #fff;
+  z-index: 500;
 }
 .cycle-slideshow.slick-initialized {
   opacity: 1;
@@ -2646,47 +2657,6 @@ a:visited:link {
   margin: auto;
   height: 100%;
   width: auto;
-}
-.cycle-slideshow .cycle-next,
-.cycle-slideshow .cycle-prev {
-  position: absolute;
-  z-index: 200;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-  cursor: pointer;
-  color: #ffffff;
-  -webkit-transition: -webkit-transform .4s ease;
-          transition: transform .4s ease;
-}
-.cycle-slideshow .cycle-next:hover,
-.cycle-slideshow .cycle-prev:hover {
-  -webkit-transform: scale(1.1, 1.1) translateY(-50%);
-      -ms-transform: scale(1.1, 1.1) translateY(-50%);
-          transform: scale(1.1, 1.1) translateY(-50%);
-}
-.cycle-slideshow .cycle-next:before,
-.cycle-slideshow .cycle-prev:before {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 5em;
-}
-.cycle-slideshow .cycle-next {
-  right: 5%;
-}
-.cycle-slideshow .cycle-next:before {
-  content: "\f0da";
-}
-.cycle-slideshow .cycle-prev {
-  left: 5%;
-}
-.cycle-slideshow .cycle-prev:before {
-  content: "\f0d9";
 }
 .comment-respond {
   zoom: 1;

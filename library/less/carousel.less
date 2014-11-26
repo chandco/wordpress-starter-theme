@@ -45,6 +45,16 @@
 }
 .cycle-slideshow {
 
+		.tooltip {
+			position: absolute;
+			top: 0;
+			margin: auto;
+			left: 0;
+			right: 0;
+			color: #fff;
+			z-index: 500;
+		}
+
 		background: @slide-background;
 		opacity: 0;
 		transition:opacity .5s ease;
@@ -61,8 +71,8 @@
 
 		
 
-		overflow: hidden;
-
+		
+		
 
 		// here you would change it to be a 'fill width' thing.
 	.slick-list {
@@ -83,46 +93,7 @@
 	}
 
 
-	.cycle-next, .cycle-prev {
 
-			position: absolute;
-			z-index: 200; // m ore than the cycle default
-
-			top: 50%;
-			
-			transform:translateY(-50%);
-			cursor: pointer;
-			color: @skip-button-color;
-
-
-			transition:transform .4s ease;
-
-				&:hover {
-					transform:scale(1.1,1.1) translateY(-50%);
-				}
-
-			&:before {
-				.fa-icon();
-				font-size: 5em;
-
-				
-			}
-		}
-
-		.cycle-next {
-			right: @skip-offset;
-			&:before {
-				content: @carousel-next-fa-icon;
-		
-			}
-		}
-
-		.cycle-prev {
-			left: @skip-offset;
-			&:before {
-				content:  @carousel-prev-fa-icon;
-			}
-		}
 
 
 		
