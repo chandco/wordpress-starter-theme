@@ -9,25 +9,78 @@
 @carousel-aspect-ratio : (4 / 6);
 @slide-background: @darkgrey;
 
+@carousel-max-height: 40vh;
+@carousel-height: 500px; 
+
 .slick-prev:before { content: @carousel-prev-fa-icon; }
 .slick-next:before { content: @carousel-next-fa-icon; }
 [dir="rtl"] .slick-prev:before { content: @carousel-next-fa-icon; }
 [dir="rtl"] .slick-next:before { content: @carousel-prev-fa-icon; }
 
 
+.cycle-slideshow.fill-width {
+	.slick-list {
+		//width: 100%;
+		//height: auto;
+		.slick-track {
+			//width: 100%;
+		//height: auto;
+			.slick-slide {
+			//display: block; // so that it appears on init.
+			//overflow: hidden;
+			position: relative;
+				img {
+				//	display: block;
+					//margin: auto;
+					position: absolute;
+					width: 100%;
+					height: auto;
+					top: 50%;
+					transform: translateY(-50%);
+					min-height: 100%; //ouch
+				}
+			}
+		}
+	}
+}
 .cycle-slideshow {
 
-		
+		background: @slide-background;
+		opacity: 0;
+		transition:opacity .5s ease;
 
+		&.slick-initialized {
+			opacity: 1;
+		}
 
 		position: relative;
 		width: @cycle-carousel-width;
 
-		height: 0;
-		padding-bottom: @carousel-aspect-ratio * @cycle-carousel-width; // setting aspect ratio.  Probably change based on the theme.
+		height: @carousel-height;
+		max-height: @carousel-max-height;
+
+		
 
 		overflow: hidden;
 
+
+		// here you would change it to be a 'fill width' thing.
+	.slick-list {
+		height: 100%;
+		.slick-track {
+			height: 100%;
+			.slick-slide {
+			display: block; // so that it appears on init.
+			overflow: hidden;
+				img {
+					display: block;
+					margin: auto;
+					height: 100%;
+					width: auto;
+				}
+			}
+		}
+	}
 
 
 	.cycle-next, .cycle-prev {
@@ -72,18 +125,9 @@
 		}
 
 
-	
+		
 
-		.slick-slide {
-			overflow: hidden;
-			background: @slide-background;
-			img {
-				display: block;
-				margin: auto;
-				height: 100%;
-				width: auto;
-			}
-		}
+		
 
 		
 	

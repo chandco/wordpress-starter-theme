@@ -36,7 +36,7 @@ function display_attached_images_carousel($atts) {
 		
 	//	$output .= "<div class='cycle-container'>";
 	
-		$output .= "<div class='cycle-slideshow' data-cycle-fx='fade' >";
+		$output .= "<div class='fill-width cycle-slideshow' data-cycle-fx='fade' >";
 
 		$output .= '<span id="cycle-prev" class="cycle-prev">&nbsp;</span>';
 		$output .= '<span id="cycle-next" class="cycle-next">&nbsp;</span>';
@@ -51,7 +51,7 @@ function display_attached_images_carousel($atts) {
 		
 		$big_output = wp_get_attachment_image_src( $attachment->ID, $newsize );
 		$big_output = current($big_output);
-		$output .= "<div><img src='" . $big_output . "' title='" . $attachment->post_excerpt . "' alt='" . $attachment->post_title . "' /></div>";
+		$output .= "<div class='carousel-slide'><img data-lazy='" . $big_output . "' title='" . $attachment->post_excerpt . "' alt='" . $attachment->post_title . "' /></div>";
 	
 	}
 

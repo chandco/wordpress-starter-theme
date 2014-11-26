@@ -22,7 +22,8 @@ require(['slick'], function() {
   		slide: 'div',
   		//autoplay: true,
   		prevArrow: '.cycle-prev',
-  		nextArrow: '.cycle-next'
+  		nextArrow: '.cycle-next',
+  		lazyLoad: 'ondemand',
 
   });
 
