@@ -233,4 +233,5 @@ add_action('wp_enqueue_scripts ', 'bones_fonts');
 /* cleanup */
 require_once("library/plugin-cleanup.php");
 
+require_once("library/content/carousel.php");
 

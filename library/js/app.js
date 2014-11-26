@@ -22,11 +22,14 @@ console.log(jQuery);
 
 
 require(['cycle2'], function() {
-  $('.cycle2').cycle();
+  
+  $('.cycle-slideshow').cycle({
+  	next : '> .cycle-next',
+  	prev : '> .cycle-prev',
+  });
+  $('.cycle-slideshow').cycle('resume');
 
-  $('.cycle2').cycle('resume');
-
-  console.log($('.cycle2'));
+  
 });
 
 
