@@ -55,13 +55,18 @@
 				<div id="inner-header" class="wrap cf">
 
 					<?php // to use a image just replace the bloginfo('name') with your img src and remove the surrounding <p> ?>
-					<p id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></p>
-
+					
+					
 					<?php // if you'd like to use the site description you can un-comment it below ?>
 					<?php // bloginfo('description'); ?>
 
 
 					<nav role="navigation">
+					<button id='navigation-dropdown' title='expand navigation menu'><i class='fa fa-bars'></i></button>						
+					<div id="logo"><a href="<?php echo home_url(); ?>" rel="nofollow">
+						<?php include( get_stylesheet_directory() . "/library/images/logo.svg" ); ?>
+						<?php // No info on this for now.  Is this an issue?bloginfo('name'); ?></a></div>
+					
 						<?php wp_nav_menu(array(
     					'container' => false,                           // remove nav container
     					'container_class' => 'menu cf',                 // class of container (should you choose to use it)

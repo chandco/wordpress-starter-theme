@@ -4,7 +4,13 @@
 
 
 
-
+// navigation stuff
+$("#navigation-dropdown").click(function(e) {
+        e.preventDefault();
+        $("#menu-primary-navigation").toggleClass("open");
+        $("#navigation-dropdown i").toggleClass('fa-bars').toggleClass('fa-caret-up');
+       
+    });
 
 
 
@@ -25,16 +31,7 @@ require(['slick'], function() {
   	//	nextArrow: '.cycle-next',
   		lazyLoad: 'ondemand',
   		dots: true,
-
-  });
-
- 
-
-
-
-
-
-  
+  });  
 });
 
 
