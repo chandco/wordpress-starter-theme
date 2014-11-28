@@ -4,7 +4,13 @@
 
 
 
-
+// navigation stuff
+$("#navigation-dropdown").click(function(e) {
+        e.preventDefault();
+        $("#menu-primary-navigation").toggleClass("open");
+        $("#navigation-dropdown i").toggleClass('fa-bars').toggleClass('fa-caret-up');
+       
+    });
 
 
 
@@ -25,29 +31,7 @@ require(['slick'], function() {
   	//	nextArrow: '.cycle-next',
   		lazyLoad: 'ondemand',
   		dots: true,
-<<<<<<< HEAD
   });  
-<<<<<<< HEAD
-=======
-$(".cycle2").exists( function() {
-	require(['cycle2'], function() {
-	  	$('.cycle2').cycle();
-	});
->>>>>>> Stashed changes
-=======
-
-  });
-
- 
-
-
-
-
-
-  
->>>>>>> parent of 6cacb20... Header CSS done
-=======
->>>>>>> parent of 9c004e4... conflict
 });
 
 
