@@ -14,7 +14,6 @@
     	"gulp-sourcemaps" : "latest",
         "gulp-image-resize" : "latest",
         "gulp-changed" : "latest",
-        "gulp-rename" : "latest",
-        "multistream" : "latest"
+        "gulp-rename" : "latest"
   	}
  }

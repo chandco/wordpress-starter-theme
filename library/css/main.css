@@ -529,6 +529,71 @@ POSTS & CONTENT STYLES
   display: block;
   clear: both;
 }
+.nav {
+  border: 0
+  /* end .menu ul li */
+  /* highlight current page */
+  /* end current highlighters */
+}
+.nav ul {
+  margin-top: 0;
+}
+.nav li {
+  float: left;
+  position: relative
+  /*
+    plan your menus and drop-downs wisely.
+    */
+  /* showing sub-menus */
+}
+.nav li a {
+  border-bottom: 0
+  /*
+      you can use hover styles here even though this size
+      has the possibility of being a mobile device.
+      */
+}
+.nav li a:hover,
+.nav li a:focus {
+  color: white;
+  text-decoration: underline;
+}
+.nav li ul.sub-menu,
+.nav li ul.children {
+  margin-top: 0;
+  border: 1px solid #ccc;
+  border-top: 0;
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
+  z-index: 8999
+  /* highlight sub-menu current page */
+}
+.nav li ul.sub-menu li,
+.nav li ul.children li {
+  /*
+        if you need to go deeper, go nuts
+        just remember deeper menus suck
+        for usability. k, bai.
+        */
+}
+.nav li ul.sub-menu li a,
+.nav li ul.children li a {
+  padding-left: 10px;
+  border-right: 0;
+  display: block;
+  width: 180px;
+  border-bottom: 1px solid #ccc;
+}
+.nav li ul.sub-menu li:last-child a,
+.nav li ul.children li:last-child a {
+  border-bottom: 0;
+}
+.nav li:hover ul {
+  top: auto;
+  overflow: visible;
+  visibility: visible;
+}
 .sidebar {
   margin-top: 2.2em;
 }
@@ -2311,104 +2376,6 @@ a:visited:link {
 }
 .header {
   background-color: #323944;
-}
-#logo {
-  width: 30%;
-  display: inline-block;
-  vertical-align: middle;
-}
-#logo svg {
-  height: 100%;
-  width: auto;
-}
-#logo svg path {
-  fill: #fff;
-}
-#logo svg .st0 {
-  fill: #cccccc;
-}
-#logo svg .st1 {
-  fill: transparent;
-}
-@media screen and (max-width: 768px) {
-  #logo {
-    width: 60%;
-    height: 80px;
-    margin: auto;
-    display: block;
-  }
-}
-nav[role="navigation"] {
-  width: 100%;
-  position: relative;
-}
-nav[role="navigation"] #navigation-dropdown {
-  display: none;
-}
-nav[role="navigation"] ul {
-  width: 69%;
-  display: inline-block;
-  vertical-align: middle;
-  text-align: right;
-}
-nav[role="navigation"] ul li {
-  display: inline-block;
-  -webkit-transition: background 0.5s ease;
-          transition: background 0.5s ease;
-}
-nav[role="navigation"] ul li:nth-of-type(n+2) {
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-}
-nav[role="navigation"] ul li:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-nav[role="navigation"] ul li.current-menu-item a {
-  color: #c9e2b1;
-}
-@media screen and (max-width: 768px) {
-  nav[role="navigation"] {
-    width: 100%;
-    float: none;
-    clear: both;
-  }
-  nav[role="navigation"] ul {
-    text-align: left;
-    width: 100%;
-    -webkit-transition: height .6s ease;
-            transition: height .6s ease;
-    overflow: hidden;
-    height: 0;
-  }
-  nav[role="navigation"] ul.open {
-    height: auto;
-  }
-  nav[role="navigation"] ul li {
-    display: block;
-  }
-  nav[role="navigation"] ul li:nth-of-type(n+2) {
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    border-left: none;
-  }
-  nav[role="navigation"] #navigation-dropdown {
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: block;
-    margin: auto;
-    background: none;
-    border: none;
-    text-transform: uppercase;
-    font-size: 3em;
-    width: 20%;
-    box-sizing: border-box;
-    padding: 2% 5%;
-    text-align: left;
-    cursor: pointer;
-    border-bottom: 2px solid #333333;
-    color: #ffffff;
-    outline: none;
-    height: 80px;
-  }
 }
 /*
 	@import "single-post";

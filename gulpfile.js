@@ -17,9 +17,9 @@ gulp.task('default', function () {
 
 
 	browserSync({
-	      proxy: "ornc.local",
-	    files: "library/css/*.css"
-	  });
+	        proxy: "ornc.local",
+	        files: "library/css/*.css"
+	    });
 	
 	gulp.watch('./library/less/**/*.less', ['compile-css']);
 
@@ -43,9 +43,7 @@ gulp.task('javascript', function() {
 gulp.task('compile-css', function () {
 	gulp.src('./library/less/main.less')
 				.pipe(sourcemaps.init())
-			    .pipe(less().on('error', function(err) {
-                    console.log(err);  
-                } ))
+			    .pipe(less())
 			    .pipe(autoprefixer())
 			    .pipe(sourcemaps.write('./maps'))
 			    .pipe(gulp.dest('./library/css/'));

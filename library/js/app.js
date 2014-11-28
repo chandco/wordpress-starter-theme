@@ -4,13 +4,7 @@
 
 
 
-// navigation stuff
-$("#navigation-dropdown").click(function(e) {
-        e.preventDefault();
-        $("#menu-primary-navigation").toggleClass("open");
-        $("#navigation-dropdown i").toggleClass('fa-bars').toggleClass('fa-caret-up');
-       
-    });
+
 
 
 
@@ -32,6 +26,7 @@ require(['slick'], function() {
   	//	nextArrow: '.cycle-next',
   		lazyLoad: 'ondemand',
   		dots: true,
+<<<<<<< HEAD
   });  
 =======
 $(".cycle2").exists( function() {
@@ -39,6 +34,18 @@ $(".cycle2").exists( function() {
 	  	$('.cycle2').cycle();
 	});
 >>>>>>> Stashed changes
+=======
+
+  });
+
+ 
+
+
+
+
+
+  
+>>>>>>> parent of 6cacb20... Header CSS done
 });
 
 
