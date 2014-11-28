@@ -16,7 +16,6 @@
 // Cycle needs to see jQuery as well as $
 
 
-<<<<<<< Updated upstream
 require(['slick'], function() {
   
   $('.cycle-slideshow').slick({
@@ -28,6 +27,7 @@ require(['slick'], function() {
   		dots: true,
 <<<<<<< HEAD
   });  
+<<<<<<< HEAD
 =======
 $(".cycle2").exists( function() {
 	require(['cycle2'], function() {
@@ -46,13 +46,16 @@ $(".cycle2").exists( function() {
 
   
 >>>>>>> parent of 6cacb20... Header CSS done
+=======
+>>>>>>> parent of 9c004e4... conflict
 });
 
 
 // Magnific popup should be external
 
+$("div.gallery").exists( function() {
 
-var popup = {
+	var popup = {
 		    gallery : {
 		                type:'image', 
 		                delegate: 'a', 
@@ -99,10 +102,10 @@ var popup = {
 		    },
 		}
 
-// THIS SHOULD BE A FUNCTION TYPE THING THAT LOOPS THROUGH STUFF MAYBE?
-$("div.gallery").exists( function() {
 	var $gallery = $(this);
 	require(['magnific-popup'], function(  ) {
+
+		console.log($gallery);
 		$gallery.magnificPopup(popup.gallery);	
 	});
 });
