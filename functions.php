@@ -128,6 +128,9 @@ require_once("library/install-plugins.php");
 /** image based updates - this also includes gallery updates, required within the file below **/
 require_once("library/images.php");
 
+/** Column system **/
+require_once("library/columns.php");
+
 
 /************* THEME CUSTOMIZE *********************/
 
@@ -169,6 +172,8 @@ add_action( 'customize_register', 'bones_theme_customizer' );
 /************* ACTIVE SIDEBARS ********************/
 
 require_once("library/sidebars.php");
+
+
 
 
 /************* COMMENT LAYOUT *********************/
