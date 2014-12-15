@@ -1,0 +1,70 @@
+
+
+.cf_columns {
+
+	
+	overflow: hidden;
+	@padding: 4%;
+	position: relative;
+
+	.debug {
+		background: #f00;
+		position: absolute;
+		left: 0;
+		top: 0;
+		color: #fff;
+		padding: 10px;
+	}
+	> div[class^="col-"] {
+		position: relative;
+		vertical-align: top;
+		box-sizing: border-box;
+		float: left;
+		padding-right: @padding / 2;
+		padding-left: @padding / 2;
+
+		&:last-of-type {
+			padding-right: 0;
+		}
+
+		&:first-of-type {
+			padding-left: 0;
+		}
+
+		
+	}
+
+	.col-quarter { width: 25%;  }
+	.col-half { width: 50%; }
+	.col-threequarters { width: 75%; }
+	.col-third { width: 33.333%; }
+	.col-twothirds { width: 66.666%; }
+
+	@media screen and (max-width: 768px) {
+		> div[class^="col-"] {
+			width: 100%;
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		&.no-respond {
+			.col-quarter { width: 25%;  }
+			.col-half { width: 50%; }
+			.col-threequarters { width: 75%; }
+			.col-third { width: 33.333%; }
+			.col-twothirds { width: 66.666%; }
+
+			> div[class^="col-"] {
+				&:last-of-type {
+					padding-right: 0;
+				}
+
+				&:first-of-type {
+					padding-left: 0;
+				}
+			}
+		}
+	}
+
+
+}

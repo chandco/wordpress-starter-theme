@@ -18,6 +18,20 @@
 
 */
 
+function arr_closest_key($array, $number) {
+
+    asort($array);
+    $b = key($array);
+    
+    foreach ($array as $key => $a) {
+    	
+
+        if (round($a,2) >= round($number,2)) return $key;
+        $b = $key;
+    }
+    end($array);
+    return key($array); // or return NULL;
+}
 
 function cf_column_system($atts, $content) {
 
@@ -39,14 +53,13 @@ function cf_column_system($atts, $content) {
 	$cols = array();
 
 	$colvalues = array(
-		"half" => (1/2),
-		"third" => (1/3),
-		"twothirds" => (2/3),
-		"quarter" => (1/4),
-		"threequarters" => (3/4)
+		"half" => 0.5,
+		"third" => 1/3,
+		"twothirds" => 2/3,
+		"quarter" => 0.25,
+		"threequarters" => 0.75
 		);
 
-	var_dump($colvalues);
 	$coltotal = 1;
 
 	foreach ($matches[1] as $key => $chunk) {
@@ -56,20 +69,24 @@ function cf_column_system($atts, $content) {
 
 		$coltotal = $coltotal - $colvalues[$columnid];
 		
-		$output .= "div class='col-" . $columnid . "' <BR />";
+		$output .= "<div class='col-" . $columnid . "'>";
+		//$output .= "<span class='debug'>" .  $colvalues[$columnid] . " / " . $columnid . "</span>";
 		$inner = wpautop( strstr($content, $chunk, true) );
-		$output .= $inner . " /div ";
+		$output .= $inner . "</div>";
 
 
 		// remaining content:
 		$content = substr( strstr($content, $chunk), strlen($chunk) );
 	}
 
-
-	$output .= "Last column is " . ceil(100 * $colvalues["twothirds"]) . " % wide <BR />";
 	
+	$lastcol = arr_closest_key($colvalues, $coltotal);
+	$output .= "<div class='col-" . $lastcol . "'>";
+	//$output .= "<span class='debug'>" .  $coltotal . " / " . $lastcol . "</span>";
 	$output .= wpautop( $content );	
-
+	$output .= "</div>";
+	
+	
 
 	$output .= "</div>";
 	return $output;
