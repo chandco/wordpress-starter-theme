@@ -50,7 +50,7 @@
 
 		<div id='popup-menu-container'>
 
-
+		<?php // put whatever you want here as a pop up window, maybe footer info etc ?>
 		</div>
 
 	</body>

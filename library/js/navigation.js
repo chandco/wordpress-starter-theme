@@ -41,9 +41,9 @@
 */
 
 
-$menu = $("#menu-primary-navigation-1").clone();
-$menu.attr("id","popup-menu").appendTo("#popup-menu-container");
-
+$menu = $("#inner-footer nav").clone();
+$menu.find('.nav').attr("id","popup-menu");
+$menu.appendTo("#popup-menu-container");
 
 
 

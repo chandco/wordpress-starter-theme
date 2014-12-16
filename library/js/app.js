@@ -79,7 +79,7 @@ $("div.gallery").exists( function() {
 		          },
 		        closeOnContentClick: true,
 		    },
-		}
+		};
 
 	var $gallery = $(this);
 	require(['magnific-popup'], function(  ) {

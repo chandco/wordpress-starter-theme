@@ -30,7 +30,7 @@ gulp.task('default', function () {
 
 
 gulp.task('javascript', function() {
-	 gulp.src('./library/js/*.js')  	// ignore vendor stuff
+	 gulp.src(['./library/js/*.js','!./library/js/require.js'])  	// ignore vendor stuff
         .pipe(jshint())
       	.pipe(jshint.reporter('default'));
 
