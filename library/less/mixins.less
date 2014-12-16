@@ -83,3 +83,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 
   @lighter : rgba( @red, @green, @blue, @opacity );  
 }
+
+.alpha-color(@color,  @opacity : 0.5) {
+
+  @red : red(@color);
+  @green : green(@color);
+  @blue :   blue(@color);
+
+  @alpha-color : rgba( @red, @green, @blue, @opacity );  
+}
+
+
+
+
+.button-reset() {
+  // remove default appearance for a button.  Only use this if you don't want backgrounds, borders, etc
+  border: none;
+  background: none;
+}
+
+
+.vertical-center() {
+  top: 50%;
+  transform:translateY(-50%);
+  position: absolute;
+}
+
+
+.max-central(@max-width:1000px) {
+      width: 100%;
+      max-width: @max-width;
+      margin: auto;
+      position: relative;
+}

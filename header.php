@@ -52,15 +52,15 @@
 
 			<header class="header" role="banner">
 
-				<div id="inner-header" class="wrap cf">
+				<div id="inner-header">
 
 					<?php // to use a image just replace the bloginfo('name') with your img src and remove the surrounding <p> ?>
-					<p id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></p>
+					<div id='logo'><a href="<?php echo home_url(); ?>" rel="nofollow"><img src='<?php echo get_stylesheet_directory_uri(); ?>/library/images/logo.svg' alt='<?php bloginfo('name'); ?>' title='<?php bloginfo('name'); ?>' /></a></div>
 
 					<?php // if you'd like to use the site description you can un-comment it below ?>
 					<?php // bloginfo('description'); ?>
 
-
+					<button id='navigation-dropdown' title='expand navigation menu'><i class='fa fa-bars'></i></button>
 					<nav role="navigation">
 						<?php wp_nav_menu(array(
     					'container' => false,                           // remove nav container
@@ -75,7 +75,7 @@
         			'depth' => 0,                                   // limit the depth of the nav
     					'fallback_cb' => ''                             // fallback function (if there is one)
 						)); ?>
-
+					
 					</nav>
 
 				</div>

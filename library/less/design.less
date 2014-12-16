@@ -1,4 +1,37 @@
+
+// mostly this is setting variables to change the look of the site.
+
+@dark : @purple;
+@light : @yellow;
+
+
+
+@link-color : @darkgrey;
+
+// general colour as a default - this just sets the body tag
+@default-text : @black;
+
+
+// use mixins to make cleaner CSS, but keep the config here.
+
+.body-style() {
+	color: @default-text;
+	background: @white; // may want image.
+}
+
+
+.footer-style() {
+	background: @lightgrey;
+}
+
+
+.header-style() {
+	background: @lightgrey;
+}
+
+
+
+
 body {
-	color:#5c6b80;
-  	background-color:#eaedf2;
+	.body-style();
 }
