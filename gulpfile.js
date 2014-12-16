@@ -17,7 +17,7 @@ gulp.task('default', function () {
 
 
 	browserSync({
-	        proxy: "ornc.local",
+	        proxy: "starterpress.local",
 	        files: "library/css/*.css"
 	    });
 	
