@@ -37,6 +37,7 @@ body {
   margin: 0;
   font-size: 100%;
   line-height: 1.5;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
 }
 h1 {
@@ -2263,23 +2264,26 @@ a:visited:link {
 .header {
   position: relative;
   z-index: 500;
-  height: 400px;
-  height: 20vh;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  height: 80px;
   width: 100%;
   background: #cccccc;
 }
 .header #inner-header {
-  padding: 2%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  box-sizing: content-box;
   max-width: 1000px;
   margin: auto;
   position: relative;
   background: #cccccc;
   width: 100%;
-  height: 400px;
-  height: 20vh;
+  height: 80px;
 }
 @media screen and (max-width: 900px) {
   .header #inner-header {
+    max-width: 100%;
     position: fixed;
     top: 0;
   }
@@ -2368,6 +2372,9 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
 #navigation-dropdown {
   display: none;
 }
+#popup-menu-container {
+  display: none;
+}
 @media screen and (max-width: 900px) {
   #navigation-dropdown {
     display: block;
@@ -2384,36 +2391,28 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
             transform: translateY(-50%);
     position: absolute;
   }
-  .header #inner-header nav[role="navigation"] {
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transition: opacity .4s ease;
-            transition: opacity .4s ease;
-    background: #ffffff;
-    position: fixed;
-    top: 400px;
-    top: 20vh;
-    margin: auto;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    -webkit-transform: translateY(0%);
-        -ms-transform: translateY(0%);
-            transform: translateY(0%);
+  #inner-header nav[role="navigation"] {
+    display: none;
   }
   .navigation-menu-open {
-    max-height: 100%;
+    height: 100%;
     overflow: hidden;
-    width: 100%;
+    box-sizing: content-box;
   }
-  .navigation-menu-open .header #inner-header nav[role="navigation"] {
-    opacity: 1;
-    background: #bbe3e8;
-    visibility: visible;
+  .navigation-menu-open .header {
+    box-sizing: content-box;
   }
-  .navigation-menu-open .header #inner-header nav[role="navigation"] li {
+  .navigation-menu-open .header #inner-header {
+    box-sizing: content-box;
+  }
+  .navigation-menu-open #popup-menu-container {
     display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 80px;
+    background: #ffffff;
+    z-index: 500;
   }
 }
 .footer nav[role="navigation"] {

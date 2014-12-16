@@ -48,9 +48,7 @@
 
 	<body <?php body_class(); ?>>
 
-		<div id="container">
-
-			<header class="header" role="banner">
+		<header class="header" role="banner">
 
 				<div id="inner-header">
 
@@ -81,3 +79,7 @@
 				</div>
 
 			</header>
+			
+		<div id="container">
+
+			
