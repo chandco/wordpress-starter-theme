@@ -2,7 +2,6 @@
 
 // Sidebars & Widgetizes Areas
 
-## THIS IS NOT CALLED - UNCOMMENT IN functions.php WHEN YOU WANT THIS TO KICK IN! ##
 function cf_register_sidebars() {
 
 
@@ -10,6 +9,26 @@ function cf_register_sidebars() {
 		'id' => 'sidebar1',
 		'name' => __( 'Sidebar 1', 'bonestheme' ),
 		'description' => __( 'The first (primary) sidebar.', 'bonestheme' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widgettitle">',
+		'after_title' => '</h4>',
+	));
+
+	register_sidebar(array(
+		'id' => 'footer-middle',
+		'name' => __( 'Footer Middle', 'bonestheme' ),
+		'description' => __( 'Appears in the footer, in the middle', 'bonestheme' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widgettitle">',
+		'after_title' => '</h4>',
+	));
+
+	register_sidebar(array(
+		'id' => 'footer-right',
+		'name' => __( 'Footer Right', 'bonestheme' ),
+		'description' => __( 'Appears in the footer, on the right.', 'bonestheme' ),
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h4 class="widgettitle">',

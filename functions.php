@@ -98,7 +98,7 @@ function bones_ahoy() {
 
   // adding sidebars to Wordpress (these are created in library/sidebars.php
   // Disabled until a theme requires it
-  // add_action( 'widgets_init', 'cf_register_sidebars' );
+  add_action( 'widgets_init', 'cf_register_sidebars' );
 
   // cleaning up random code around images
   add_filter( 'the_content', 'bones_filter_ptags_on_images' );
@@ -240,3 +240,4 @@ require_once("library/plugin-cleanup.php");
 
 require_once("library/content/carousel.php");
 
+require_once("library/content/shortcodes.php");

@@ -1,4 +1,8 @@
 
+span.wpcf7-list-item {
+	display: block;
+	margin-top: -5px;
+}
 label {
 	input[type='checkbox'] {
 		display: none;
@@ -13,20 +17,20 @@ label {
 
 		width: 100%;
 		box-sizing: border-box;
-		padding: 4% 2% 4% 15%;
+		padding: 1.5% 1% 1.5% 6%;
 
 		border-bottom: 2px solid transparent;
 		transition:border 0.4s ease, background 0.6s ease;
 
 		&:hover {
-			.lighten(@white);
-			background: @lighter;
+			.alpha-color(@white);
+			background: @alpha-color;
 			&:before {
 				content: @fa-var-check-square;
 			}
-
-
 		}
+
+
 		
 		&:before {
 			
@@ -155,7 +159,7 @@ label {
 		width: 50px;
 		padding: 0;
 		background: none;
-		font-family: "Bliss 2";
+		
 		font-weight:bold;
 		line-height: 1.2;
 		border: none;
@@ -278,7 +282,7 @@ div.wpcf7 {
 			label  {
 				position: absolute;
 				z-index: 3;
-				font-family: "Bliss Bold";
+				
 				font-weight: 700;
 				color: #9D9D9D;
 				margin: 0;
@@ -308,7 +312,7 @@ div.wpcf7 {
 			padding: 0;
 			border: none;
 			color: #000;
-			font-family: "Bliss Bold";
+			
 			font-weight: 700;
 			margin: @margin;
 
@@ -408,7 +412,7 @@ div.wpcf7 {
 				transition:background .4s ease;
 					margin:0;
 					color:@black;
-					font-family:"Bliss Bold";
+					
 					font-weight:bold;
 					height:40px;
 					border-bottom:solid 2px #ddd;
@@ -584,6 +588,11 @@ div.wpcf7 {
 				
 					.darken(@light);
 					border-bottom: 2px solid @darker;
+
+					transition:background .3s ease;
+					&:hover {
+						background: @white;
+					}
 				}
 			
 			&.textarea, &.submit {

@@ -31,6 +31,9 @@
   }
   p {
     margin:0 0 1.5em;
+    &:last-of-type {
+      margin: 0 0 0;
+    }
   }
   table {
     width:100%;
@@ -92,3 +95,32 @@
     border-radius:3px;
   }
 }
+
+
+
+
+
+
+#main { .max-central(); }
+
+#inner-footer { 
+  .max-central(); 
+  padding: 2% 0;
+
+  div[class^="col-"] nav {
+    width: 95%;
+  }
+
+}
+
+footer {
+  .copyright {
+    padding-bottom: 20px;
+  }
+
+  .widget:first-of-type {
+    margin-top:0;
+  }
+}
+
+

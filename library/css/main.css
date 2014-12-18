@@ -130,8 +130,7 @@ menu {
 ol,
 ul {
   margin: 1em 0;
-  padding: 0;
-  list-style-type: none;
+  padding: 0 0 0 1.5em;
 }
 dd {
   margin: 0;
@@ -2105,9 +2104,37 @@ POSTS & CONTENT STYLES
   content: "\f20c";
 }
 /* LESS Document */
+.central-column {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+}
 body {
   color: #000000;
   background: #ffffff;
+}
+#content {
+  overflow-x: hidden;
+}
+#inner-content .full-width-background {
+  position: relative;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+#inner-content .full-width-background:before {
+  content: "";
+  width: 4000px;
+  left: -1000px;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  display: block;
+  position: absolute;
+  z-index: -1;
+}
+#inner-content .full-width-background.blue:before {
+  background: #bbe3e8;
 }
 body {
   font-family: sans-serif;
@@ -2204,7 +2231,7 @@ a:visited:link {
   color: #fff;
   padding: 10px;
 }
-.cf_columns > div[class^="col-"] {
+.cf_columns > *[class^="col-"] {
   position: relative;
   vertical-align: top;
   box-sizing: border-box;
@@ -2212,10 +2239,10 @@ a:visited:link {
   padding-right: 2%;
   padding-left: 2%;
 }
-.cf_columns > div[class^="col-"]:last-of-type {
+.cf_columns > *[class^="col-"]:last-of-type {
   padding-right: 0;
 }
-.cf_columns > div[class^="col-"]:first-of-type {
+.cf_columns > *[class^="col-"]:first-of-type {
   padding-left: 0;
 }
 .cf_columns .col-quarter {
@@ -2332,7 +2359,7 @@ nav[role="navigation"] .nav li {
   background: transparent;
 }
 nav[role="navigation"] .nav li:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: #bbe3e8;
 }
 nav[role="navigation"] .nav li a {
   display: block;
@@ -2344,7 +2371,7 @@ nav[role="navigation"] .nav li .sub-menu,
 nav[role="navigation"] .nav li .children {
   visibility: hidden;
   position: absolute;
-  background: #cccccc;
+  background: #bbe3e8;
   overflow: hidden;
   margin: 0;
   box-shadow: 0px 2px 0px 1px rgba(0, 0, 0, 0.2);
@@ -2352,6 +2379,10 @@ nav[role="navigation"] .nav li .children {
 nav[role="navigation"] .nav li .sub-menu li,
 nav[role="navigation"] .nav li .children li {
   display: block;
+}
+nav[role="navigation"] .nav li .sub-menu li:hover,
+nav[role="navigation"] .nav li .children li:hover {
+  background: #ffffff;
 }
 nav[role="navigation"] .nav li:hover .sub-menu,
 nav[role="navigation"] .nav li .sub-menu:hover {
@@ -2467,8 +2498,8 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
     padding: 5px;
     box-sizing: content-box;
     margin-left: 0;
-    line-height: 50px;
-    min-height: 50px;
+    line-height: 20px;
+    min-height: 20px;
     text-align: left;
     background: #ffffff;
   }
@@ -2498,8 +2529,8 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
   body.navigation-menu-open #popup-menu-container #popup-menu li .children > li a:before {
     content: "";
     display: inline-block;
-    width: 12.5px;
-    height: 25px;
+    width: 5px;
+    height: 10px;
     margin-right: 10px;
     border-left: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
@@ -2515,22 +2546,55 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
 }
 .footer nav[role="navigation"] .nav > li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 5px;
 }
 .footer nav[role="navigation"] .nav li {
   display: block;
   float: none;
+  padding: 5px;
+  box-sizing: content-box;
   margin-left: 0;
+  line-height: 20px;
+  min-height: 20px;
+  text-align: left;
+  background: transparent;
+}
+.footer nav[role="navigation"] .nav li:nth-of-type(n+2) {
+  border-top: 1px solid #cccccc;
 }
 .footer nav[role="navigation"] .nav li .sub-menu,
 .footer nav[role="navigation"] .nav li .children {
   margin-top: 1em;
-}
-.footer nav[role="navigation"] .nav li:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-.footer nav[role="navigation"] .nav li .sub-menu {
+  box-shadow: none;
+  background: none;
   visibility: visible;
   position: relative;
+  display: block;
+  top: 0;
+}
+.footer nav[role="navigation"] .nav li .sub-menu:hover,
+.footer nav[role="navigation"] .nav li .children:hover {
+  top: 0;
+}
+.footer nav[role="navigation"] .nav li .sub-menu > li,
+.footer nav[role="navigation"] .nav li .children > li {
+  border-top: none;
+  position: relative;
+}
+.footer nav[role="navigation"] .nav li .sub-menu > li a:before,
+.footer nav[role="navigation"] .nav li .children > li a:before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 10px;
+  margin-right: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  vertical-align: top;
+  background: none;
+}
+.footer nav[role="navigation"] .nav li:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 #content {
   margin-top: 1.5em;
@@ -2557,6 +2621,9 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
 }
 .entry-content p {
   margin: 0 0 1.5em;
+}
+.entry-content p:last-of-type {
+  margin: 0 0 0;
 }
 .entry-content table {
   width: 100%;
@@ -2616,6 +2683,28 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
   padding: 1.5em;
   margin: 0 0 1.5em;
   border-radius: 3px;
+}
+#main {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+}
+#inner-footer {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+  padding: 2% 0;
+}
+#inner-footer div[class^="col-"] nav {
+  width: 95%;
+}
+footer .copyright {
+  padding-bottom: 20px;
+}
+footer .widget:first-of-type {
+  margin-top: 0;
 }
 /*
 	@import "single-post";
@@ -3025,6 +3114,10 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
   clear: both;
   background: #cccccc;
 }
+span.wpcf7-list-item {
+  display: block;
+  margin-top: -5px;
+}
 label input[type='checkbox'] {
   display: none;
 }
@@ -3034,13 +3127,13 @@ label input[type='checkbox'] + span {
   cursor: pointer;
   width: 100%;
   box-sizing: border-box;
-  padding: 4% 2% 4% 15%;
+  padding: 1.5% 1% 1.5% 6%;
   border-bottom: 2px solid transparent;
   -webkit-transition: border 0.4s ease, background 0.6s ease;
           transition: border 0.4s ease, background 0.6s ease;
 }
 label input[type='checkbox'] + span:hover {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.5);
 }
 label input[type='checkbox'] + span:hover:before {
   content: "\f14a";
@@ -3142,7 +3235,6 @@ label input[type='checkbox']:checked + span:hover {
   width: 50px;
   padding: 0;
   background: none;
-  font-family: "Bliss 2";
   font-weight: bold;
   line-height: 1.2;
   border: none;
@@ -3252,14 +3344,12 @@ div.wpcf7 form.wpcf7-form div {
   padding: 0;
   border: none;
   color: #000;
-  font-family: "Bliss Bold";
   font-weight: 700;
   margin: 1%;
 }
 div.wpcf7 form.wpcf7-form div label {
   position: absolute;
   z-index: 3;
-  font-family: "Bliss Bold";
   font-weight: 700;
   color: #9D9D9D;
   margin: 0;
@@ -3349,7 +3439,6 @@ div.wpcf7 form.wpcf7-form textarea {
           transition: background .4s ease;
   margin: 0;
   color: #000000;
-  font-family: "Bliss Bold";
   font-weight: bold;
   height: 40px;
   border-bottom: solid 2px #ddd;
@@ -3512,6 +3601,11 @@ div.wpcf7 form.wpcf7-form input[type="submit"] {
   margin: auto;
   padding: 2%;
   border-bottom: 2px solid #9a9a9a;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease;
+}
+div.wpcf7 form.wpcf7-form input[type="submit"]:hover {
+  background: #ffffff;
 }
 div.wpcf7 form.wpcf7-form.textarea,
 div.wpcf7 form.wpcf7-form.submit {
