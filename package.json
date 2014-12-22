@@ -7,6 +7,7 @@
 		"gulp" : "latest",
     	"gulp-watch": "latest",
     	"gulp-less" : "latest",
+        "gulp-uglifycss" : "latest",
     	"gulp-autoprefixer" : "latest",
     	"browser-sync" : "latest",
     	"gulp-uglify" : "latest",

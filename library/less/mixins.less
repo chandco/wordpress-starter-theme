@@ -32,6 +32,16 @@
   }
 }
 
+
+.fa-this(@icon) {
+  
+  &:before {
+    content: @icon;
+    margin-right: 0.2em;
+    .fa();
+  }
+}
+
 .ratiobox(@width : 100%, @x : 16, @y : 9) {
 	
 	width:@width;

@@ -97,10 +97,10 @@ This is flawed in that it may encourage content editors to not use it, which is 
 
 // prepare and return the actual final responsive image.  This should meet the HTML spec but could be changed if we don't use picture srcset in the future.
 // There is a polyfill in the JS to work this, otherwise this is going to break on a lot of browsers as of Jan 2015
-function create_picture_element($id, $images, $caption, $title) {
+function create_picture_element($id, $images, $caption, $title, $align, $html) {
 
 
-	    $html = '<picture>';
+	    $html = '<picture class="align-' . $align . '">';
 		$html .= '<!--[if IE 9]><video style="display: none;"><![endif]-->';
 
 		global $max, $max_tablet, $max_phone;
@@ -182,7 +182,7 @@ function responsive_image_thumbnail( $post_id = null, $size = 'featured-image', 
 
 		$images = get_image_src_list($size);
 
-		return create_picture_element($post_thumbnail_id, $images, "","");
+		return create_picture_element($post_thumbnail_id, $images, "","", "", "");
 
 	} else {
 		return '';
@@ -196,16 +196,16 @@ function responsive_image_thumbnail( $post_id = null, $size = 'featured-image', 
 function responsive_image_shortcode($atts) {
 
 	$images = get_image_src_list($atts["size"]);
-	return create_picture_element($atts["id"], $images, $atts["caption"], $atts["title"]);
+	return create_picture_element($atts["id"], $images, $atts["caption"], $atts["title"], $atts["align"], ""); // no html
 
 }
 add_shortcode( 'responsive_image', 'responsive_image_shortcode' );
 
 
 // create a shortcode for the responsive image.  We'll be sending that to the editor instead of the original one.
-function create_picture_shortcode($id, $size, $caption, $title, $html) {
+function create_picture_shortcode($id, $size, $caption, $title, $html, $align) {
 
-	return "[responsive_image id='" . $id . "' size='" . $size . "' caption='" . $caption . "' title='" . $title . "']"; 
+	return "[responsive_image id='" . $id . "' size='" . $size . "' caption='" . $caption . "' title='" . $title . "' align='" . $align . "']"; 
 
 	// .  $html . "[/responsive_image]";
 	// we could wrap in the original HTML but we won't as this can break and stops people understanding that the image might get ditched.  Make them put in a new shortcode.
@@ -217,7 +217,7 @@ function responsive_editor_filter($html, $id, $caption, $title, $align, $url, $s
     
     // this should probably be a bit more dynamic but then it's linked to the editor add sizes below so, it's okay for now.
     if ($size == "gallery-large" || $size == "featured-image") {
-	    return create_picture_shortcode($id, $size, $caption, $title, $html);
+	    return create_picture_shortcode($id, $size, $caption, $title, $html, $align);
     } else {
     	return $html;
     }

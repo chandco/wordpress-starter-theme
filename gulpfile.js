@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
 			less = require('gulp-less'),
+            uglifycss = require("gulp-uglifycss"),
 			path = require('path'),
 			watch = require('gulp-watch'),
 			autoprefixer = require('gulp-autoprefixer'),
@@ -45,8 +46,17 @@ gulp.task('compile-css', function () {
 				.pipe(sourcemaps.init())
 			    .pipe(less())
 			    .pipe(autoprefixer())
+                //.pipe(uglifycss())
 			    .pipe(sourcemaps.write('./maps'))
 			    .pipe(gulp.dest('./library/css/'));
+
+    gulp.src('./library/less/editor-style.less')
+                .pipe(sourcemaps.init())
+                .pipe(less())
+                .pipe(autoprefixer())
+                //.pipe(uglifycss())
+                .pipe(sourcemaps.write('./maps'))
+                .pipe(gulp.dest('.'));
 
 });
 
