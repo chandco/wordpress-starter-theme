@@ -2,40 +2,60 @@ body {
 	font-family: sans-serif; // should definitely change this!
 }
 
-.h1 {
-  text-rendering:optimizelegibility;
-  font-weight:500;
-  font-size:2.5em;
-  line-height:1.333em;
+// GRID SYSTEM
+body {
+  font-size: 1em;
+  line-height: 1.8125em;
+  margin: 0 auto;
 }
-h2, .h2 {
-  text-rendering:optimizelegibility;
-  font-weight:500;
-  font-size:1.75em;
-  line-height:1.4em;
-  margin-bottom:0.375em;
+h1 {
+  font-size: 4.25em;
+  line-height: 1.279411764em;
+  margin-top: 0.85294118em;
+  margin-bottom: 0.42647059em;
 }
-h3, .h3 {
-  text-rendering:optimizelegibility;
-  font-weight:500;
-  font-size:1.125em;
+h2 {
+  font-size: 2.625em;
+  line-height: 1.38095238em;
+  margin-top: 1.38095238em;
+  margin-bottom: 0.69047619em;
 }
-h4, .h4 {
-  text-rendering:optimizelegibility;
-  font-weight:500;
-  font-weight:700;
-  font-size:1.1em;
+h3 {
+  font-size: 1.625em;
+  line-height: 1.115384615em;
+  margin-top: 1.11538462em;
+  margin-bottom: 1.11538462em;
 }
-h5, .h5 {
-  text-rendering:optimizelegibility;
-  font-weight:500;
-  font-size:0.846em;
-  line-height:2.09em;
-  text-transform:uppercase;
-  letter-spacing:2px;
+h4 {
+  font-size: 1em;
+  line-height: 1.8125em;
+  margin-top: 1.8125em;
+  margin-bottom: 1.8125em;
 }
-h1 a, .h1 a, h2 a, .h2 a, h3 a, .h3 a, h4 a, .h4 a, h5 a, .h5 a {
-  text-decoration:none;
+p, ul, ol, pre, table, blockquote {
+  margin-top: 1.8125em;
+  margin-bottom: 1.8125em;
+}
+
+/* Sanitation */
+hr {
+  border: 1px solid;
+  margin: -1px 0;
+}
+ul ul, ol ol, ul ol, ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+b, strong, em, small, code {
+  line-height: 1;
+}
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub {
+  top: 0.4em;
 }
 
 
@@ -44,3 +64,5 @@ span.amp {
   font-family:Baskerville, 'Goudy Old Style', Palatino, 'Book Antiqua', serif !important;
   font-style:italic;
 }
+
+
