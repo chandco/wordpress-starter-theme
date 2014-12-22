@@ -7,6 +7,12 @@
 
 @header-height-px : 80px;
 
+
+#container {
+  @media screen and (max-width: 900px) {
+    padding-top: @header-height-px * 1.1;
+  }
+}
 .header {
   position: relative;
   z-index: 500;
@@ -35,6 +41,8 @@
         top: 0;
         height: @header-height-px / 2;
         padding: (@header-height-px * 0.2) 0;
+
+         border-bottom: 2px solid RGBA(0,0,0,0.2);
       }
 
       
