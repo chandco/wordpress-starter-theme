@@ -301,7 +301,7 @@ function bones_excerpt_more($more) {
 
 // stop wordpress from screwing with HTML
 function override_mce_options($initArray) {
-	$opts = '*[*]';
+	$opts = '*[*],source[*]';
 	$initArray['valid_elements'] = $opts;
 	$initArray['extended_valid_elements'] = $opts;
 	return $initArray;

@@ -122,14 +122,16 @@ if ( ! isset( $content_width ) ) {
 // install our must use plugins
 require_once("library/install-plugins.php");
 
-
-
-
 /** image based updates - this also includes gallery updates, required within the file below **/
 require_once("library/images.php");
 
 /** Column system **/
 require_once("library/columns.php");
+
+
+
+
+
 
 
 /************* THEME CUSTOMIZE *********************/

@@ -94,6 +94,9 @@ This is flawed in that it may encourage content editors to not use it, which is 
 
 // only add a responsive image if they asked for one
 
+
+// prepare and return the actual final responsive image.  This should meet the HTML spec but could be changed if we don't use picture srcset in the future.
+// There is a polyfill in the JS to work this, otherwise this is going to break on a lot of browsers as of Jan 2015
 function create_picture_element($id, $images, $caption, $title) {
 
 
@@ -109,7 +112,7 @@ function create_picture_element($id, $images, $caption, $title) {
 		$srcset = "";
 		$srcset .= '<source srcset ="' . $img_mobile[0] . '" media="(max-width: ' . $max_phone . 'px)">';
 		$srcset .= '<source srcset ="' . $img_tablet[0] . '" media="(max-width: ' . $max_tablet . 'px)">';
-		$srcset .=  '<source srcset ="' . $img_full[0] . '" media="(min-width: ' . $max_tablet . 'px)">'; // anything over basically.
+		$srcset .= '<source srcset ="' . $img_full[0] . '" media="(min-width: ' . $max_tablet . 'px)">'; // anything over basically.
 		
 		
 
@@ -125,9 +128,30 @@ function create_picture_element($id, $images, $caption, $title) {
 }
 
 
+// work out what images we can output.  For ease, we're only going with 3 images.
 function get_image_src_list($size) {
-	global $imagesizes;
-	$images = array(
+
+	if ($size == "large" || $size == "medium" || $size == "thumbnail") {
+
+    	global $max, $max_phone, $max_tablet;
+    	// these will always exist in wordpress
+		$images = array(
+					"large" => array(
+						"name" => "large",
+						"size" => $max
+						),
+					"medium" => array(
+						"name" => "medium",
+						"size" => $max_tablet
+						),
+					"small" => array(
+						"name" => "thumbnail",
+						"size" => $max_phone
+						),
+					);
+	} else {
+		global $imagesizes;
+		$images = array(
 					"large" => array(
 						"name" => $size,
 						"size" => $imagesizes[$size][1]
@@ -141,12 +165,15 @@ function get_image_src_list($size) {
 						"size" => $imagesizes[$size . "-mobile"][1]
 						),
 					);
+	}
+	
 	return $images;
 }
 
 
 
 
+// to be used instead of get_the_thumbnail.  However we haven't been able to make the filter work with this so it's a manual call in teh templates.
 function responsive_image_thumbnail( $post_id = null, $size = 'featured-image', $attr = '' ) {
 	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
 	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
@@ -165,43 +192,32 @@ function responsive_image_thumbnail( $post_id = null, $size = 'featured-image', 
 
 
 
-//add_filter('post_thumbnail_html', 'responsive_image_thumbnail');
+// Change a shortcode into a responsive image.  This should stop the 
+function responsive_image_shortcode($atts) {
+
+	$images = get_image_src_list($atts["size"]);
+	return create_picture_element($atts["id"], $images, $atts["caption"], $atts["title"]);
+
+}
+add_shortcode( 'responsive_image', 'responsive_image_shortcode' );
 
 
+// create a shortcode for the responsive image.  We'll be sending that to the editor instead of the original one.
+function create_picture_shortcode($id, $size, $caption, $title, $html) {
 
+	return "[responsive_image id='" . $id . "' size='" . $size . "' caption='" . $caption . "' title='" . $title . "']"; 
+
+	// .  $html . "[/responsive_image]";
+	// we could wrap in the original HTML but we won't as this can break and stops people understanding that the image might get ditched.  Make them put in a new shortcode.
+}
+
+
+// Send a shortcode to the editor IF they picked a size which is a responsive set.
 function responsive_editor_filter($html, $id, $caption, $title, $align, $url, $size) {
     
     // this should probably be a bit more dynamic but then it's linked to the editor add sizes below so, it's okay for now.
     if ($size == "gallery-large" || $size == "featured-image") {
-    	
-    	
-
-	    $images = get_image_src_list($size);
-
-	    return create_picture_element($id, $images, $caption, $title);
-
-
-    } else if ($size == "large" || $size == "medium" || $size == "thumbnail") {
-
-    	global $max, $max_phone, $max_tablet;
-    	// these will always exist in wordpress
-		$images = array(
-					"large" => array(
-						"name" => "large",
-						"size" => $max
-						),
-					"medium" => array(
-						"name" => "medium",
-						"size" => $max_tablet
-						),
-					"small" => array(
-						"name" => "thumbnail",
-						"size" => $max_phone
-						),
-					);
-
-    	return create_picture_element($id, $images, $caption, $title);
-
+	    return create_picture_shortcode($id, $size, $caption, $title, $html);
     } else {
     	return $html;
     }
@@ -211,6 +227,9 @@ add_filter('image_send_to_editor', 'responsive_editor_filter', 10, 9);
 
 
 // We may not want this, but it's going to kick in for the gallery, which won't be using picture fill.
+// This is a server side replacing of the images.  We can only do this because it's a shortcode.
+// We might want to do this for the shortcode of responsive images but the serverside PHP is 
+// less effective than client side media queries
 add_filter("post_thumbnail_size","responsive_conditional_size");
 function responsive_conditional_size($size) {
 
@@ -223,7 +242,6 @@ function responsive_conditional_size($size) {
 		return $size;
 	}
 
-
 	// if we got this far then work out a new size
 	global $imagesizes;
 
@@ -235,25 +253,9 @@ function responsive_conditional_size($size) {
 	}
 }
 
-/*
-to add more sizes, simply copy a line from above
-and change the dimensions & name. As long as you
-upload a "featured image" as large as the biggest
-set width or height, all the other sizes will be
-auto-cropped.
 
-To call a different size, simply change the text
-inside the thumbnail function.
 
-For example, to call the 300 x 100 sized image,
-we would use the function:
-<?php the_post_thumbnail( 'bones-thumb-300' ); ?>
-for the 600 x 150 image:
-<?php the_post_thumbnail( 'bones-thumb-600' ); ?>
-
-You can change the names and dimensions to whatever
-you like. Enjoy!
-*/
+// add the new sizes to the WP image insert thing.
 
 add_filter( 'image_size_names_choose', 'cf_custom_image_sizes' );
 
