@@ -22,7 +22,7 @@
  $max_tablet = 768; // making these up a bit
  $max_phone = 580;
 
-
+$mini = $max_phone / 2;
 
 
 
@@ -71,7 +71,9 @@ $imagesizes = array(
 	'gallery-large-tablet' => 	array( $max_tablet, 	$max_tablet, 	false ), 
 	'gallery-large-mobile' => 	array( $max_phone, 	$max_phone, 	false ), 
 
-	'feed-image' => array( $max_phone, 	($max_phone / $cropped_ratio), 		true ) // duplicates mobile for now, but this is okay, that generally means it's a reusable image, without changing theme code
+	'feed-image' => array( $mini , 	($mini / $cropped_ratio), 		true ), // duplicates mobile for now, but this is okay, that generally means it's a reusable image, without changing theme code
+	'feed-image-tablet' => array( $mini, 	($mini / $cropped_ratio), 		true ), // duplicates mobile for now, but this is okay, that generally means it's a reusable image, without changing theme code
+	'feed-image-mobile' => array( $mini, 	($mini / $cropped_ratio), 		true ), // duplicates mobile for now, but this is okay, that generally means it's a reusable image, without changing theme code
 
 	);
 
@@ -98,15 +100,18 @@ function create_picture_element($id, $images, $caption, $title) {
 	    $html = '<picture>';
 		$html .= '<!--[if IE 9]><video style="display: none;"><![endif]-->';
 
+		global $max, $max_tablet, $max_phone;
 
 		$img_full = wp_get_attachment_image_src($id, $images["large"]["name"]);
 		$img_tablet = wp_get_attachment_image_src($id, $images["medium"]["name"]);
 		$img_mobile = wp_get_attachment_image_src($id, $images["small"]["name"]);
 
-
-		$srcset =  '<source srcset ="' . $img_full[0] . '" media="(min-width: ' . $images["large"]["size"] . 'px)">';
-		$srcset .= '<source srcset ="' . $img_tablet[0] . '" media="(min-width: ' . $images["medium"]["size"] . 'px)">';
-		$srcset .= '<source srcset ="' . $img_mobile[0] . '" media="(min-width: ' . $images["small"]["size"] . 'px)">';
+		$srcset = "";
+		$srcset .= '<source srcset ="' . $img_mobile[0] . '" media="(max-width: ' . $max_phone . 'px)">';
+		$srcset .= '<source srcset ="' . $img_tablet[0] . '" media="(max-width: ' . $max_tablet . 'px)">';
+		$srcset .=  '<source srcset ="' . $img_full[0] . '" media="(min-width: ' . $max_tablet . 'px)">'; // anything over basically.
+		
+		
 
 
 		$html .= '<!--[if IE 9]></video><![endif]-->';
@@ -120,14 +125,9 @@ function create_picture_element($id, $images, $caption, $title) {
 }
 
 
-function responsive_editor_filter($html, $id, $caption, $title, $align, $url, $size) {
-    
-    // this should probably be a bit more dynamic but then it's linked to the editor add sizes below so, it's okay for now.
-    if ($size == "gallery-large" || $size == "featured-image") {
-    	
-    	global $imagesizes;
-
-	    $images = array(
+function get_image_src_list($size) {
+	global $imagesizes;
+	$images = array(
 					"large" => array(
 						"name" => $size,
 						"size" => $imagesizes[$size][1]
@@ -137,10 +137,46 @@ function responsive_editor_filter($html, $id, $caption, $title, $align, $url, $s
 						"size" => $imagesizes[$size . "-tablet"][1]
 						),
 					"small" => array(
-						"name" => $size,
+						"name" => $size . "-mobile",
 						"size" => $imagesizes[$size . "-mobile"][1]
 						),
 					);
+	return $images;
+}
+
+
+
+
+function responsive_image_thumbnail( $post_id = null, $size = 'featured-image', $attr = '' ) {
+	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
+	$post_thumbnail_id = get_post_thumbnail_id( $post_id );
+
+	if ( $post_thumbnail_id ) {
+
+		$images = get_image_src_list($size);
+
+		return create_picture_element($post_thumbnail_id, $images, "","");
+
+	} else {
+		return '';
+	}
+	
+}
+
+
+
+//add_filter('post_thumbnail_html', 'responsive_image_thumbnail');
+
+
+
+function responsive_editor_filter($html, $id, $caption, $title, $align, $url, $size) {
+    
+    // this should probably be a bit more dynamic but then it's linked to the editor add sizes below so, it's okay for now.
+    if ($size == "gallery-large" || $size == "featured-image") {
+    	
+    	
+
+	    $images = get_image_src_list($size);
 
 	    return create_picture_element($id, $images, $caption, $title);
 

@@ -18,6 +18,11 @@
 
                 <header class="article-header">
 
+                  <?php echo responsive_image_thumbnail(null, 'featured-image'); ?> <?php // ignore markup for now ?>
+
+                 
+
+
                   <h1 class="entry-title single-title" itemprop="headline"><?php the_title(); ?></h1>
 
                   <p class="byline vcard">

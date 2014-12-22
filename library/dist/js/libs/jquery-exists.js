@@ -1,1 +1,10 @@
-!function(t){t.fn.exists=function(t){var n=[].slice.call(arguments,1);return this.length&&t.call(this,n),this}}(jQuery);
+;(function($) {
+	$.fn.exists = function(callback) {
+  var args = [].slice.call(arguments, 1);
+
+  if (this.length) {
+    callback.call(this, args);
+  }
+
+  return this;
+};})(jQuery);

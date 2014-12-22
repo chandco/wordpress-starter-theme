@@ -35,7 +35,7 @@ gulp.task('javascript', function() {
       	.pipe(jshint.reporter('default'));
 
     gulp.src('./library/js/**/*.js')  	
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('library/dist/js'));
 });
 

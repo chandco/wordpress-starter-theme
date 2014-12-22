@@ -37,7 +37,7 @@ document.createElement( "picture" );
 require(['picturefill']);
 
 // Anything we build, build it in app, but use app to conditionally load more modules.
-require(['jquery', 'jquery-exists'], function(jQuery) {
+require(['jquery'], function(jQuery) {
   $ = jQuery; // compatability
   require(['app']); // now everything has access to jquery and any plugins we might add above
 });
