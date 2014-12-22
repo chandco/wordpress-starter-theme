@@ -183,7 +183,7 @@
   #main .post { // should only target the actual content and not random other things
 
 	a[href^="mailto:"] {
-		.fa-this(@fa-var-gears);
+		.fa-this(@fa-var-envelope);
 
 	}
 
@@ -203,10 +203,22 @@
 	a[href$=".pdf"] {
 		.fa-this(@fa-var-file-pdf-o);
 	}
-
-	a[href^="http://www.google.com"]) {
+	//\f0ac
+	
+	a[href^="http://"] {
+		
 		.fa-this(@fa-var-globe);
 	}
+
+	a[href^="http://ornc.local"] {
+		&:before {
+			content: "";
+			display: none;
+			margin-right: 0;
+		}
+			
+	}
+
 
 
   }
