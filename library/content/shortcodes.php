@@ -123,3 +123,22 @@ function wptuts_register_buttons( $buttons ) {
     array_push( $buttons, 'feature', 'halves', 'thirds', 'twothirds-third', 'third-twothirds', 'quarters' ); // dropcap', 'recentposts
     return $buttons;
 }
+
+
+add_filter('mce_external_plugins', 'tinymce_core_plugins');
+
+function tinymce_core_plugins () {
+     $plugins = array('noneditable'); //Add any more plugins you want to load here
+     $plugins_array = array();
+
+     //Build the response - the key is the plugin name, value is the URL to the plugin JS
+     foreach ($plugins as $plugin ) {
+          $plugins_array[ $plugin ] = get_stylesheet_directory_uri() . '/library/js/tinymce/' . $plugin . '/plugin.min.js';
+     }
+     return $plugins_array;
+}
+
+
+// ajax for tinymce
+require_once("mce_ajax.php");
+

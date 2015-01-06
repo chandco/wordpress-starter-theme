@@ -5,6 +5,13 @@
 body#tinymce.wp-editor {
 
 
+  .dashicon() {
+        display: inline-block;
+        color: #1EC9B3;
+        -webkit-font-smoothing: antialiased;
+        font: normal 150px/1 'dashicons';
+  }
+
   div.cf_columns {
     margin: 10px auto;
 
@@ -19,11 +26,31 @@ body#tinymce.wp-editor {
     }
   }
   div.feature {
+
+    cursor: pointer;
+
+    &:hover {
+      &:before {
+        .dashicon();
+        content: "\f464"; // pencil
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 2px;
+        color: #fff;
+        background: #ddd;
+      }
+    }
+
+    * {
+      pointer-events: none;
+    }
     position: relative;
     width: 100%;
     max-width: 300px;
 
     background: RGBA(0,0,0,0.2); // stack dem greys
+    margin: 10px;
 
 
     header {
