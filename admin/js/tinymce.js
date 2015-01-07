@@ -110,6 +110,7 @@
                         // specific to shortcode here
                         title : pa_title,
                         content: pa_content,
+                        imgData: { url: null },
                         element: e.target,
                        }
                     );
@@ -144,9 +145,9 @@
         },
 
 
-        _process_popup_form: function(a, b, win, el) {
+        _process_popup_form: function(a, b, c, win, el) {
             
-
+            $(el).find("header").remove("img").append('<img src="' + c + '" />');
             $(el).find("header h2").html(a);
             $(el).find("div.innerContent").html(b);
             win.close();

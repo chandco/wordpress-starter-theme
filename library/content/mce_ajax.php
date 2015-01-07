@@ -47,14 +47,15 @@ add_action( 'admin_enqueue_scripts', 'mce_wp_enqueue_media' );
 		
 	
 
-
+		global $imagesizes;
+		$suffix = "-" . $imagesizes["gallery-thumb"][0] . "x" . $imagesizes["gallery-thumb"][1];
 		
 		?>
 
 		<style>	
 
 		.uploader img {
-			max-width: 400px;
+			max-width: <?php echo $imagesizes["gallery-thumb"][0]; ?>px;
 			width: 100%;
 			height: auto;
 		}
@@ -76,55 +77,106 @@ add_action( 'admin_enqueue_scripts', 'mce_wp_enqueue_media' );
 
 		</style>
 		<script language="JavaScript">
-			jQuery(document).ready(function($){
+		
 
-				
+// Uploading files
+var file_frame;
 
-				
+jQuery(document).ready(function($){
 
-
-
-
-				var _custom_media = true,
-				_orig_send_attachment = wp.media.editor.send.attachment;
-
-				$('a.button.media-button.button-primary.button-large.media-button-insert').html("Add Image");
-			 
-				$('.uploader .button').click(function(e) {
-					var send_attachment_bkp = wp.media.editor.send.attachment;
-					var button = $(this);
-					var id = button.attr('id').replace('_button', '');
-					_custom_media = true;
-					wp.media.editor.send.attachment = function(props, attachment){
-						
-						console.log(props);
-						console.log(attachment);
-						$("#"+id).val(attachment.url);
-						
-
-						console.log(attachment.url);
-						$(".uploader img").remove();
-						$("<img>").attr("src", attachment.url).insertAfter( '#_unique_name_button' );
-						console.log(wp.media.editor.insert);
-						
-					}
-					
-			 
-					wp.media.editor.open(button);
-					return false;
-				});
-			 
-				
+  $('.button').on('click', function( event ) {
 
 
 
-			});
+    event.preventDefault();
+
+    // If the media frame already exists, reopen it.
+    if ( file_frame ) {
+      file_frame.open();
+      return;
+    }
+
+    // Create the media frame.
+    file_frame = wp.media.frames.file_frame = wp.media({
+      title: jQuery( this ).data( 'uploader_title' ),
+      button: {
+        text: jQuery( this ).data( 'uploader_button_text' ),
+      },
+      multiple: false  // Set to true to allow multiple files to be selected
+    });
+
+    // When an image is selected, run a callback.
+    file_frame.on( 'select', function() {
+      // We set multiple to false so only get one image from the uploader
+      attachment = file_frame.state().get('selection').first().toJSON();
+      console.log(attachment);
+
+      $('#_unique_name').val(attachment.url);
+      $(".uploader img").remove();
+      ext = attachment.url.substr(attachment.url.length - 4);
+      thumb = attachment.url.replace(ext, '<?php echo $suffix; ?>' + ext);
+	  $("<img>").attr("src", thumb).insertAfter( '#_unique_name_button' );
+
+
+      // Do something with attachment.id and/or attachment.url here
+    });
+
+    // Finally, open the modal
+    file_frame.open();
+  });
+
+});
+
 		</script>
 
+		
+
+		<form id='mce-feature-box-form'>
+
 		<div class="uploader">
-			<input id="_unique_name" name="settings[_unique_name]" type="text" />
-			<input id="_unique_name_button" class="button" name="_unique_name_button" type="text" value="Upload" />
+			<label>Image For Box<input id="_unique_name" name="settings[_unique_name]" type="text" /></label>
+			<input id="_unique_name_button" class="button" name="_unique_name_button" type="submit" value="Upload" />
 		</div>
+
+		<label>
+			Box Title
+			<input type='text' name='mce-feature-box' id='mce-feature-box' />
+		</label>
+
+		<label>
+			Box Text (Optional)
+			<textarea id='mce-feature-content'></textarea>
+		</label>
+
+		<input type='submit' value='Update' />
+	</form>
+
+	<script>
+	var dialogArguments = parent.tinymce.activeEditor.windowManager.getParams();
+
+
+	console.log(dialogArguments);
+	document.getElementById('mce-feature-box').value = dialogArguments.title;
+	document.getElementById('mce-feature-content').value = dialogArguments.content;
+	document.getElementById('_unique_name').value = dialogArguments.imgData.url;
+
+	document.getElementById('mce-feature-box-form').addEventListener('submit', function(e) {
+
+		console.log('submitted');
+		e.preventDefault();
+		
+		parent.tinymce.activeEditor.plugins.features._process_popup_form(
+			document.getElementById('mce-feature-box').value,
+			document.getElementById('mce-feature-content').value,
+			document.getElementById('_unique_name').value,
+			parent.tinymce.activeEditor.windowManager,
+			dialogArguments.element
+		);
+
+	})
+
+
+	</script>
 <?php
 		 
 		   
