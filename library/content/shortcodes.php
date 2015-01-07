@@ -119,6 +119,10 @@ function wptuts_add_buttons( $plugin_array ) {
     $plugin_array['features'] = get_stylesheet_directory_uri() . '/admin/js/tinymce.js';
     return $plugin_array;
 }
+
+
+
+
 function wptuts_register_buttons( $buttons ) {
     array_push( $buttons, 'feature', 'halves', 'thirds', 'twothirds-third', 'third-twothirds', 'quarters' ); // dropcap', 'recentposts
     return $buttons;
@@ -126,6 +130,16 @@ function wptuts_register_buttons( $buttons ) {
 
 
 add_filter('mce_external_plugins', 'tinymce_core_plugins');
+
+add_action( 'before_wp_tiny_mce', 'custom_before_wp_tiny_mce' );
+function custom_before_wp_tiny_mce() {
+
+	// manual localisation before I find a better way.
+    echo( '<script type="text/javascript">' );
+    echo 'window.mcedata = { adminurl : "' . get_admin_url() . '" };';
+	echo '</script>';
+}
+
 
 function tinymce_core_plugins () {
      $plugins = array('noneditable'); //Add any more plugins you want to load here

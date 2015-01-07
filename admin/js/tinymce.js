@@ -98,8 +98,12 @@
                     pa_title = $(e.target).find("header h2").html();
                     pa_content = $(e.target).find("div.innerContent").html();
 
+                    console.log(mcedata);
+                    console.log('url is', mcedata.adminurl);
+
+
                     popup = ed.windowManager.open({
-                       url: ajaxurl + '?action=custom_mce',
+                       url: mcedata.adminurl + 'admin.php?page=feature-box-edit',
                        width: 800,
                        height: 900
                     }, {
