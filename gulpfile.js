@@ -50,6 +50,14 @@ gulp.task('compile-css', function () {
 			    .pipe(sourcemaps.write('./maps'))
 			    .pipe(gulp.dest('./library/css/'));
 
+    gulp.src('./library/less/admin.less')
+                .pipe(sourcemaps.init())
+                .pipe(less())
+                .pipe(autoprefixer())
+                //.pipe(uglifycss())
+                .pipe(sourcemaps.write('./maps'))
+                .pipe(gulp.dest('./library/css/'));
+
     gulp.src('./library/less/editor-style.less')
                 .pipe(sourcemaps.init())
                 .pipe(less())
@@ -57,6 +65,8 @@ gulp.task('compile-css', function () {
                 //.pipe(uglifycss())
                 .pipe(sourcemaps.write('./maps'))
                 .pipe(gulp.dest('.'));
+
+
 
 });
 

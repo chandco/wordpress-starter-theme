@@ -2110,6 +2110,101 @@ POSTS & CONTENT STYLES
   margin: auto;
   position: relative;
 }
+div.cf_columns {
+  margin: 10px auto;
+}
+div.cf_columns > div[class^='col-'] {
+  border: 1px solid #999;
+  padding: 2%;
+  display: inline-block;
+}
+div.cf_columns .col-half {
+  width: 49%;
+}
+div.feature {
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 10px;
+}
+div.feature:hover:before {
+  display: inline-block;
+  color: #1EC9B3;
+  -webkit-font-smoothing: antialiased;
+  font: normal 150px/1 'dashicons';
+  content: "\f464";
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2px;
+  color: #fff;
+  background: #ddd;
+}
+div.feature * {
+  pointer-events: none;
+}
+div.feature header {
+  width: 100%;
+  display: block;
+  height: 0;
+  padding-bottom: 60%;
+  position: relative;
+  overflow: hidden;
+}
+div.feature header p {
+  padding: 0;
+  margin: 0;
+}
+div.feature header h2 {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  left: 0;
+  color: #fff;
+  z-index: 2;
+  margin: 0;
+  padding: 1%;
+  font-size: 1em;
+}
+div.feature header img {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+div.feature div.content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2%;
+}
+a.cta-button {
+  background: rgba(0, 0, 0, 0.4);
+  display: inline-block;
+  padding: 2%;
+  box-sizing: border-box;
+  color: #fff;
+  text-decoration: none;
+  width: auto;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+}
+div.cf.newline {
+  font-size: 8px;
+  color: #dddddd;
+  width: 100%;
+}
+div.cf.newline:before {
+  font-style: italic;
+  content: "new line (this text will not appear in post)";
+}
 body {
   color: #000000;
   background: #ffffff;

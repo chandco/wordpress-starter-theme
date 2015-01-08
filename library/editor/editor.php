@@ -7,6 +7,29 @@
 	but hopefully we can keep their markup and 
 	naming generic and only the styles would change
 
+	Shortcodes and their styles:
+
+	1. feature-box // for an image / title / text / link thing.  CSS can change the behaviour
+		# TODO LIST:
+			# Decide on Markup
+			# Form for inputting the data
+			# process variables into shortcode atts
+			# CSS for components
+
+
+
+
+
+	2. image-cta // CTA which is an image with a text overlay.  Kinda like feature box without the text and forces a link
+
+	3. CTA button // chunky button, with optional icon
+
+	4. column system.  we should not use views for this due to nesting
+
+
+
+
+
 */
 
 
@@ -49,7 +72,7 @@ function my_mce_before_init_insert_formats( $init_array ) {
   
 } 
 // Attach callback to 'tiny_mce_before_init' 
-add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
+//add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
 
 
 add_action( 'init', 'cf_editor_buttons' );
@@ -58,7 +81,7 @@ function cf_editor_buttons() {
     add_filter( 'mce_buttons', 'wptuts_register_buttons' );
 }
 function wptuts_add_buttons( $plugin_array ) {
-    $plugin_array['features'] = get_stylesheet_directory_uri() . '/admin/js/tinymce.js';
+    $plugin_array['cf_features'] = get_stylesheet_directory_uri() . '/admin/js/tinymce.js';
     return $plugin_array;
 }
 
@@ -66,6 +89,8 @@ function wptuts_add_buttons( $plugin_array ) {
 
 
 function wptuts_register_buttons( $buttons ) {
+
+	// update this after the javascript is done
     array_push( $buttons, 'feature', 'halves', 'thirds', 'twothirds-third', 'third-twothirds', 'quarters' ); // dropcap', 'recentposts
     return $buttons;
 }
@@ -74,6 +99,7 @@ function wptuts_register_buttons( $buttons ) {
 add_filter('mce_external_plugins', 'tinymce_core_plugins');
 
 add_action( 'before_wp_tiny_mce', 'custom_before_wp_tiny_mce' );
+
 function custom_before_wp_tiny_mce() {
 
 	// manual localisation before I find a better way.
@@ -81,17 +107,34 @@ function custom_before_wp_tiny_mce() {
     echo 'window.mcedata = { adminurl : "' . get_admin_url() . '" };';
 	echo '</script>';
 	?>
-		<script type="text/html" id="tmpl-editor-boutique-banner">
-			<div class="boutique_banner_{{ data.type }}"> Aww Yiss</div>
-	        <div class="full_banner" id="banner_{{ data.id }}">
-			    <span class="title">{{ data.title }}</span>
-			    <span class="content">{{ data.innercontent }}</span>
-		        <# if ( data.link ) { #>
-		            <# if ( data.linkhref ) { #>
-			            <a href="{{ data.linkhref }}" class="link dtbaker_button_light">{{ data.link }} </a>
-					<# } #>
+
+	<?php // list the views here ?>
+		<script type="text/html" id="tmpl-editor-feature-box">
+			
+
+
+			<# if ( data.link ) { #>
+			       <a href="{{ data.link }}">
+			<# } #>
+			<div class='feature'>
+				<header>
+					<img src="{{ data.img }}" />
+					<h2>{{ data.title }}</h2>
+				</header>
+
+				<# if ( data.innercontent ) { #>
+					<div class='content'>{{ data.innercontent }}</div>
 				<# } #>
+
 			</div>
+
+
+
+			<# if ( data.link ) { #>
+			       </a>
+			<# } #>
+
+			
 		</script>
 
 	<?php
@@ -110,6 +153,28 @@ function tinymce_core_plugins () {
 }
 
 
-// ajax for tinymce
-require_once("mce_ajax.php");
+// PHP handling of various ajaxy shortcode stuff:
+// setup media library
+add_action( 'admin_enqueue_scripts', 'mce_wp_enqueue_media' );
+function mce_wp_enqueue_media($hook) {
+	
+	
+	wp_enqueue_style( 'admin-helper-css', get_stylesheet_directory_uri() . '/library/css/admin.css' );
+	if ($hook != 'admin_page_' . 'feature-box-edit') return;
+
+    wp_enqueue_script('jquery');
+    wp_enqueue_script( 'wplink' );
+    wp_enqueue_script('wpdialogs');
+    wp_enqueue_script('wpdialogs-popup'); //also might need this
+
+	// need these styles
+	wp_enqueue_style('wp-jquery-ui-dialog');
+	wp_enqueue_style('thickbox');
+
+    wp_enqueue_media();
+}
+
+
+// ajaxes for tinymce
+require_once("mce_feature-box.php");
 

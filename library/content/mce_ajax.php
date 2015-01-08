@@ -156,24 +156,15 @@ jQuery(document).ready(function($){
 
 
 	console.log(dialogArguments);
-
-	document.getElementById('mce-feature-box').value = "myVAlue";//dialogArguments.title;
-	//document.getElementById('mce-feature-content').value = dialogArguments.content;
-	//document.getElementById('_unique_name').value = dialogArguments.imgData.url;
+	document.getElementById('mce-feature-box').value = dialogArguments.title;
+	document.getElementById('mce-feature-content').value = dialogArguments.content;
+	document.getElementById('_unique_name').value = dialogArguments.imgData.url;
 
 	document.getElementById('mce-feature-box-form').addEventListener('submit', function(e) {
 
 		console.log('submitted');
-
-
 		e.preventDefault();
-
-		console.log(parent.tinymce.activeEditor);
-
-		parent.wp.mce.boutique_banner.update( document.getElementById('mce-feature-box').value );
 		
-		/*
-
 		parent.tinymce.activeEditor.plugins.features._process_popup_form(
 			document.getElementById('mce-feature-box').value,
 			document.getElementById('mce-feature-content').value,
@@ -181,8 +172,6 @@ jQuery(document).ready(function($){
 			parent.tinymce.activeEditor.windowManager,
 			dialogArguments.element
 		);
-
-		*/
 
 	})
 
