@@ -80,6 +80,21 @@ function custom_before_wp_tiny_mce() {
     echo( '<script type="text/javascript">' );
     echo 'window.mcedata = { adminurl : "' . get_admin_url() . '" };';
 	echo '</script>';
+	?>
+		<script type="text/html" id="tmpl-editor-boutique-banner">
+			<div class="boutique_banner_{{ data.type }}"> Aww Yiss</div>
+	        <div class="full_banner" id="banner_{{ data.id }}">
+			    <span class="title">{{ data.title }}</span>
+			    <span class="content">{{ data.innercontent }}</span>
+		        <# if ( data.link ) { #>
+		            <# if ( data.linkhref ) { #>
+			            <a href="{{ data.linkhref }}" class="link dtbaker_button_light">{{ data.link }} </a>
+					<# } #>
+				<# } #>
+			</div>
+		</script>
+
+	<?php
 }
 
 

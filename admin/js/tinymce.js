@@ -7,6 +7,28 @@
          *
          * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
          * @param {string} url Absolute URL to where the plugin is located.
+
+
+         Components we'll need:
+
+        - CTA button with Icon Picker
+        - Image CTA button
+        - Feature Box (eg image title and text)
+
+        - Columns
+
+        -   
+
+            [-][-][-][-]
+
+            [------][---]
+
+            [---][-----]
+
+            [----] [----]
+
+
+
          */
         init : function(ed, url) {
 
@@ -48,7 +70,7 @@
             });
 
             ed.on('BeforeExecCommand', function(e) {
-              console.log('BeforeExecCommand event', e);
+              //console.log('BeforeExecCommand event', e);
           });
 
 
@@ -73,12 +95,20 @@
 
                 $elements = ed.$('div.feature');
 
+                
                 ed.$.each($elements, function(index, value) {
                    
                     $element = ed.$(value);
 
                     restored = t._restore_shortcode($element);
-                    o.content = o.content.replace($element[0].outerHTML, restored);
+
+                    console.log(o.content);
+                    console.log($element[0].outerHTML);
+                    console.log(restored);
+
+                    $element[0].innerHTML = restored;
+                    $element.unwrap;
+                    //o.content = o.content.replace($element[0].outerHTML, restored);
 
                 });               
                 
@@ -87,6 +117,7 @@
             });
 
             ed.onClick.add(function(ed, e) {
+                
                 console.debug('Editor was clicked: ', ed.$(e.target));
 
                 
@@ -98,8 +129,7 @@
                     pa_title = $(e.target).find("header h2").html();
                     pa_content = $(e.target).find("div.innerContent").html();
 
-                    console.log(mcedata);
-                    console.log('url is', mcedata.adminurl);
+                    
 
 
                     popup = ed.windowManager.open({
@@ -125,7 +155,7 @@
 
 
 
-
+                    bookmark.remove();
 
 
 
@@ -157,6 +187,7 @@
             // textarea#content.wp-editor-area
             //content = "TEXT EDITORRRRRR";
 
+            console.log(element);
             // should put some logic here about which shortcode we're replacing.  
             // it'll be a container div that gives it all away, eg which class name will be the 'id' of the shortcode.  
             // if you break from that rule logic here becomes harder.
@@ -171,7 +202,7 @@
             scontent = wp.shortcode.replace( 'feature-box', content, function( obj ) {
                 
 
-                output = '<div class="feature mceNonEditable">';
+                output = '<div class="feature">';
                 if (obj.attrs.named.title) {
                     // do stuff
                     output += '<header><h2>' + obj.attrs.named.title + '</h2></header>';
@@ -185,7 +216,7 @@
 
             } );
 
-            console.log(scontent);
+            
             return scontent;
             //return content.replace(/\[feature-box([^\]]*)\](.?)\[\/feature-box\]/g, function(a,b,c){
               //  return '<div class="feature">\n\t<header>\n\t<h2>' + b + '</h2></header>\n\t<div class="content">\n\t' + b + '</div>';
@@ -383,3 +414,80 @@
 
     tinymce.PluginManager.add('wpgallery', tinymce.plugins.wpGallery);
 })();
+
+
+ (function($){
+                var media = wp.media, shortcode_string = 'boutique_banner';
+
+                console.log(media.template( 'editor-boutique-banner' ));
+
+                wp.mce = wp.mce || {};
+                wp.mce.boutique_banner = {
+
+                    update: function( c ) {
+
+                        // s = the new content.  Will replace everything in teh shortcode with this
+                        
+                        var s = '[' + shortcode_string;
+                                
+                            s += ']';
+                            s += c;
+                            s += '[/' + shortcode_string + ']';
+
+
+                        tinyMCE.activeEditor.insertContent( s );    
+
+
+                    },
+                    shortcode_data: {},
+                    View: {
+                        template: media.template( 'editor-boutique-banner' ),
+                        postID: $('#post_ID').val(),
+                        initialize: function( options ) {
+                            this.shortcode = options.shortcode;
+                            wp.mce.boutique_banner.shortcode_data = this.shortcode;
+                        },
+                        getHtml: function() {
+                            var options = this.shortcode.attrs.named;
+                            options['innercontent'] = this.shortcode.content;
+                            return this.template(options);
+                        }
+                    },
+                    edit: function( node ) {
+                        var data = window.decodeURIComponent( $( node ).attr('data-wpview-text') );
+                        console.debug(this);
+                        var values = this.shortcode_data.attrs.named;
+                        values['innercontent'] = this.shortcode_data.content;
+                        console.log(values);
+                        wp.mce.boutique_banner.popupwindow(tinyMCE.activeEditor, values);
+                        //$( node ).attr( 'data-wpview-text', window.encodeURIComponent( shortcode ) );
+                    },
+                    // this is called from our tinymce plugin, also can call from our "edit" function above
+                    // wp.mce.boutique_banner.popupwindow(tinyMCE.activeEditor, "bird");
+                    popupwindow: function(editor, values, onsubmit_callback){
+                        if(typeof onsubmit_callback != 'function'){
+                            onsubmit_callback = function( e ) {
+                                // not being called right now
+                            };
+                        }
+
+                        editor.windowManager.open( {
+                            title: "Edit Feature Box",
+                            url: mcedata.adminurl + 'admin.php?page=feature-box-edit',
+                            width: 800,
+                            height: 500,
+                        },
+
+                        {
+                            random: 'param',
+                            morandom: 'also param'
+                        }
+                            
+                        );
+                    }
+                };
+                wp.mce.views.register( shortcode_string, wp.mce.boutique_banner );
+
+
+
+            }(jQuery));
