@@ -243,3 +243,5 @@ require_once("library/plugin-cleanup.php");
 require_once("library/content/carousel.php");
 
 require_once("library/content/shortcodes.php");
+
+require_once("library/editor/editor.php");
