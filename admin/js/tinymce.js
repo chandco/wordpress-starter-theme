@@ -106,8 +106,6 @@
  (function($){
                 var media = wp.media, shortcode_string = 'feature-box', wpshortcode = wp.shortcode;
 
-                console.log(media.template( 'editor-feature-box' ));
-
                 wp.mce = wp.mce || {};
                 wp.mce.feature_box = {
 
@@ -122,9 +120,12 @@
                         var s = '[' + shortcode_string;
 
                             
-                            s += ' img="' + data.img + '" ';
+                            //s += ' img="' + data.img + '" ';
+                            s += ' imgid="' + data.imgid + '" ';
                             s += ' link="' + data.link + '" ';
                             s += ' title="' + data.title + '" ';
+                            s += ' linktitle="' + data.linktitle + '" ';
+
                                 
                             s += ']';
                             s += data.innercontent;
@@ -139,16 +140,70 @@
                     View: {
                         template: media.template( 'editor-feature-box' ),
                         postID: $('#post_ID').val(),
-                        initialize: function( options ) {
+                        initialize: function( options, node ) {
                             
                             this.shortcode = options.shortcode;
                             wp.mce.feature_box.shortcode_data = this.shortcode;
+
+                            
+
+
                         },
                         getHtml: function() {
                             var options = this.shortcode.attrs.named;
                             options['innercontent'] = this.shortcode.content;
                             //console.log(this.shortcode);
-                            return this.template(options);
+
+                            // format the template
+                            output = this.template(options);
+
+                            // get HTML as Jquery object
+                            $content = $(output);
+
+                           
+                            // add in the image from the id
+
+                            // get image SRC
+
+                            imgid = this.shortcode.attrs.named.imgid;   
+
+                            idURL = mcedata.apiURL + 'posts/' + imgid;
+
+                            
+                            // fix the ID for this particular element so that AJAX can find it later.
+                            current = this; // so ajax doesn't get confused
+                            current.uid =  tinyMCE.activeEditor.dom.uniqueId('mce_fb_');
+                            $content.attr("id",current.uid);
+
+                            // load the images later when we have them
+                            $.ajax(idURL,{
+                                url : idURL,
+                                type : 'GET',
+                                //data : dataArray,
+                                cache : false,
+                                element : current
+                            }).done( function( response ) {
+
+                                // find teh original one
+                                $content = $( tinyMCE.activeEditor.dom.get( this.element.uid ) );
+
+                                ext = response.guid.substr(response.guid.length - 4);
+                                thumb = response.guid.replace(ext, mcedata.imgSuffix + ext);
+                                
+                                $content
+                                    .find('header')
+                                    .prepend( $('<img src="' + thumb + '" />') )
+                                    .prepend( $("<p>Image ID " + this.element.shortcode.attrs.named.imgid + "</p>") );
+
+                                
+
+                            });
+
+
+                            // replace the image content;
+                            
+                
+                            return $content[0].outerHTML;
                         }
                     },
                     edit: function( node ) {

@@ -206,8 +206,9 @@
 	//\f0ac
 	
 	a[href^="http://"] {
-		
-		.fa-this(@fa-var-globe);
+		// I'm not sure we want this, but if we do we need to work out how to stop it kicking in for anything that isn't just text content.
+		// Perhaps inline link or something. 
+		//.fa-this(@fa-var-globe);
 	}
 
 	a[href^="http://ornc.local"] {

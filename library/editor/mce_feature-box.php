@@ -1,18 +1,92 @@
 <?php
 
 
-	add_action( 'admin_menu', 'mcea_feature_box_init' ); 
+// View for featuer box
+
+
+function views_feature_box() {
+
+	// manual localisation before I find a better way.
+    
+	?>
+
+	<?php // list the views here ?>
+		<script type="text/html" id="tmpl-editor-feature-box">
+			
+
+
+			<# if ( data.link ) { #>
+			       <a href="{{ data.link }}" title="{{ data.linktitle }}">
+			<# } #>
+			<div class='feature'>
+				<header>
+					
+					<h2>{{ data.title }}</h2>
+				</header>
+
+				<# if ( data.innercontent ) { #>
+					<div class='content'>{{ data.innercontent }}</div>
+				<# } #>
+
+			</div>
+
+			<# if ( data.link ) { #>
+			       </a>
+			<# } #>
+
+			
+		</script>
+
+	<?php
+}
+
+
+// the shortcode for the front end
+
+function shortcode_feature_box($atts, $content) {
+
+	$output = "";
+
+	 if ( $atts["link"] ) {
+	 	$output .= '<a href="' . $atts["link"] . '" title="' . $atts["linktitle"] . '">';
+	 } 
+	
+	 // get some sort of image from img id
+
+	$img = wp_get_attachment_image_src($atts["imgid"], responsive_conditional_size('medium'));
+
+	$output .= '<div class="feature">
+		<header>
+			<img src="' . $img[0] . '" />
+			<h2>' . $atts["title"] . '</h2>
+		</header>';
+
+		 if ( $content ) { 
+			$output .= '<div class="content">' . $content . '</div>';
+		 } 
+
+	$output .= '</div>';
+
+	 if ( $atts["link"]) {
+	 	$output .= '</a>';
+	 } 
+
+	 return $output;
+}
+
+add_shortcode( 'feature-box', 'shortcode_feature_box' );
 
 
 
 
+// Create the ajax page needed
+add_action( 'admin_menu', 'mcea_feature_box_init' ); 
+function mcea_feature_box_init() {
+	add_submenu_page( null, 'Edit Feature Box', 'Edit Feature Box', 'upload_files', 'feature-box-edit', 'feature_box_page' );
+}
 
 
-	function mcea_feature_box_init() {
-		add_submenu_page( null, 'Edit Feature Box', 'Edit Feature Box', 'upload_files', 'feature-box-edit', 'feature_box_page' );
-	}
-
-
+// The edit popup that appears in an ifram
 	function feature_box_page() {
 
 		// we might want to reuse this and use some criteria i.e. hiding things.
@@ -28,6 +102,8 @@
 		global $imagesizes;
 		$suffix = "-" . $imagesizes["gallery-thumb"][0] . "x" . $imagesizes["gallery-thumb"][1];
 		
+
+		// this needs to be a dynamic style because of how the gallery might change...
 		?>
 
 		<style>	
@@ -54,120 +130,18 @@
 
 
 		</style>
-		<script language="JavaScript">
+
+
 		
 
-		// Uploading files
-		var file_frame;
 
-		jQuery(document).ready(function($){
-
-			$('body').on('click', '#mce-addlink', function(event) {
-				event.preventDefault();
-	            wpActiveEditor = true; //we need to override this var as the link dialogue is expecting an actual wp_editor instance
-	            
-	            url = $('#_feature_box_link').val();
-	        	title = $('#_feature_box_title').val();
-
-	        	
-
-	        	wpLink.setDefaultValues = function () { 
-			        $('#url-field').val(url);
-	        		$('#link-title-field').val(title);
-			        $('#wp-link-submit').val( 'Use this link' );
-			    };
-
-	            wpLink.open(); //open the link popup
-	            return false;
-	        });
-
-
-	        $('body').on('click', '#wp-link-cancel a, #wp-link-close', function(e) {
-	        	e.preventDefault();
-	        	      
-	            wplinkCloseManual();
-	           
-
-	        });
-
-	        function wplinkCloseManual() {
-	        	$( document.body ).removeClass( 'modal-open' );
-	        	$('#_feature_box_link').focus();
-				$('#wp-link-wrap').hide();
-				$( '#wp-link-backdrop' ).hide();
-	        }
-
-
-	        $('body').on('click', '#wp-link-update .button', function(e) {
-	        	e.preventDefault();
-
-	        	url = $('#url-field').val();
-	        	
-	        	title = $('#link-title-field').val();
-
-	        	$('#_feature_box_link').val(url);
-	        	$('#_feature_box_title').val(title);
-
-	        	wplinkCloseManual();
-	        	
-
-
-	        	
-
-
-	        });
-
-
-		  $('#mce-upload').on('click', function( event ) {
-
-
-
-		    event.preventDefault();
-
-		    // If the media frame already exists, reopen it.
-		    if ( file_frame ) {
-		      file_frame.open();
-		      return;
-		    }
-
-		    // Create the media frame.
-		    file_frame = wp.media.frames.file_frame = wp.media({
-		      title: jQuery( this ).data( 'uploader_title' ),
-		      button: {
-		        text: jQuery( this ).data( 'uploader_button_text' ),
-		      },
-		      multiple: false  // Set to true to allow multiple files to be selected
-		    });
-
-		    // When an image is selected, run a callback.
-		    file_frame.on( 'select', function() {
-		      // We set multiple to false so only get one image from the uploader
-		      attachment = file_frame.state().get('selection').first().toJSON();
-		      console.log(attachment);
-
-		      $('#_unique_name').val(attachment.url);
-		      $("#mce-feature-box-form .feature-box img").remove();
-		      ext = attachment.url.substr(attachment.url.length - 4);
-		      thumb = attachment.url.replace(ext, '<?php echo $suffix; ?>' + ext);
-			  $("<img>").attr("src", thumb).prependTo( '#mce-feature-box-form .feature-box .img' );
-
-
-		      // Do something with attachment.id and/or attachment.url here
-		    });
-
-		    // Finally, open the modal
-		    file_frame.open();
-		  });
-
-		});
-
-		</script>
 
 		
 			<div id="wp-link-backdrop" style="display: none"></div>
 		<div id="wp-link-wrap" class="wp-core-ui search-panel-visible" style="display: none">
 		<form id="wp-link" tabindex="-1">
-		<input type="hidden" id="_ajax_linking_nonce" name="_ajax_linking_nonce" value="4223259a55" />		<div id="link-modal-title">
+		<?php wp_nonce_field( 'internal-linking', '_ajax_linking_nonce', false ); ?>
+		<div id="link-modal-title">
 			Insert/edit link			<button type="button" id="wp-link-close"><span class="screen-reader-text">Close</span></button>
 	 	</div>
 		<div id="link-selector">
@@ -221,15 +195,10 @@
 		</form>
 		</div>
 
+
+
 		<form id='mce-feature-box-form'>
 
-		<label>Turn Feature Box into a link (leave blank if you do not want this to link somewhere):</label><BR>
-		<button class='button' id='mce-addlink'>Find Link on Site</button><Br />
-		URL:
-		<input id="_feature_box_link" name="settings[_feature_box_link]" type="text" value='http://' /><BR />
-		Title:
-		<input id="_feature_box_title" name="settings[_feature_box_title]" type="text" />
-		<hr>
 		<div class='feature-box'>
 
 			<header>
@@ -250,50 +219,25 @@
 				Box Text (Optional)
 				<textarea id='mce-feature-content'></textarea>
 			</label>
+		</div>			
+
+		<div class='controls'>
+			<label>Turn Feature Box into a link (leave blank if you do not want this to link somewhere):</label><BR>
+			<button class='button' id='mce-addlink'>Find Link on Site</button><Br />
+			URL:
+			<input id="_feature_box_link" name="settings[_feature_box_link]" type="text" value='http://' /><BR />
+			Title:
+			<input id="_feature_box_title" name="settings[_feature_box_title]" type="text" />
+			<hr />
+			
+
+			<button id='mce-update' class='button button-primary'>Update</button> <button id='mce-close' class='button'>Close without Updating</button>
 		</div>
-
-		<button id='mce-update' class='button'>Update</button> <button id='mce-close' class='button'>Close without Updating</button>
 	</form>
-
 	<script>
-	
-	jQuery(document).ready(function($){
-
-		atts = parent.tinymce.activeEditor.windowManager.getParams();
-
-	 	$('#mce-feature-content').val( atts.data.innercontent );
-		$('#mce-feature-box-form header .img').prepend( $("<img src='" + atts.data.img + "' />") );
-		$('#mce-feature-box').val( atts.data.title );
-		$('#_feature_box_link').val( atts.data.link );
-
-		$('#mce-update').on('click', function(e) {
-			e.preventDefault();
-
-			data = {
-				innercontent : $('#mce-feature-content').val(),
-				img: $('#mce-feature-box-form header img').attr('src'),
-				title : $('#mce-feature-box').val(),
-				link: $('#_feature_box_link').val(),
-			}
-			parent.wp.mce.feature_box.update( data );
-
-			parent.tinymce.activeEditor.windowManager.close();
-
-
-		})	
-
-		
-	
-	
-
-	
-
-	
-
-	});
-
-
+		var imgSuffix = "<?php echo $suffix; ?>";
 	</script>
+	<script src="<?php echo get_stylesheet_directory_uri(); ?>/admin/js/views_feature-box.js"></script>
 <?php
 		 
 		   

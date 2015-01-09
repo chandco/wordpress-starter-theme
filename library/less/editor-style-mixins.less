@@ -3,6 +3,15 @@
 	// these styles appear in the editor-style.css AND they appear as styles i.e. there may be some specificity 
 	// issues with these styles, careful about declaring things like body or nav[role=navigation] etc 
 
+  .wpview-wrap[data-wpview-type="feature-box"] {
+    max-width: 320px;
+    display: inline-block;
+
+    margin: 20px;
+
+
+  }
+
 	.dashicon() {
         display: inline-block;
         color: #1EC9B3;
@@ -28,19 +37,6 @@
     text-decoration: none;
     
     cursor: pointer;
-
-    &:hover {
-      &:before {
-        .dashicon();
-        content: "\f464"; // pencil
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 2px;
-        color: #fff;
-        background: #ddd;
-      }
-    }
 
     * {
       pointer-events: none;

@@ -44,6 +44,8 @@ function my_mce_buttons_2( $buttons ) {
 add_filter('mce_buttons_2', 'my_mce_buttons_2');
 
 // Callback function to filter the MCE settings
+## This is currently an example, we're not using this yet as we may want to stick with views for now.
+
 function my_mce_before_init_insert_formats( $init_array ) {  
 	// Define the style_formats array
 	$style_formats = array(  
@@ -98,47 +100,7 @@ function wptuts_register_buttons( $buttons ) {
 
 add_filter('mce_external_plugins', 'tinymce_core_plugins');
 
-add_action( 'before_wp_tiny_mce', 'custom_before_wp_tiny_mce' );
 
-function custom_before_wp_tiny_mce() {
-
-	// manual localisation before I find a better way.
-    echo( '<script type="text/javascript">' );
-    echo 'window.mcedata = { adminurl : "' . get_admin_url() . '" };';
-	echo '</script>';
-	?>
-
-	<?php // list the views here ?>
-		<script type="text/html" id="tmpl-editor-feature-box">
-			
-
-
-			<# if ( data.link ) { #>
-			       <a href="{{ data.link }}">
-			<# } #>
-			<div class='feature'>
-				<header>
-					<img src="{{ data.img }}" />
-					<h2>{{ data.title }}</h2>
-				</header>
-
-				<# if ( data.innercontent ) { #>
-					<div class='content'>{{ data.innercontent }}</div>
-				<# } #>
-
-			</div>
-
-
-
-			<# if ( data.link ) { #>
-			       </a>
-			<# } #>
-
-			
-		</script>
-
-	<?php
-}
 
 
 function tinymce_core_plugins () {
@@ -175,6 +137,39 @@ function mce_wp_enqueue_media($hook) {
 }
 
 
-// ajaxes for tinymce
 require_once("mce_feature-box.php");
+
+add_action( 'before_wp_tiny_mce', 'custom_before_wp_tiny_mce' );
+
+function custom_before_wp_tiny_mce() {
+
+	global $imagesizes;
+	$suffix = "-" . $imagesizes["gallery-thumb"][0] . "x" . $imagesizes["gallery-thumb"][1];
+
+	?>
+	<script type="text/javascript">
+    
+    
+
+    window.mcedata = { 
+    	adminurl : '<?php echo get_admin_url(); ?>',
+    	siteurl : '<?php echo get_site_url(); ?>',
+    	apiURL : '<?php echo get_site_url("wp-json"); ?>/wp-json/',
+    	imgSuffix : '<?php echo $suffix; ?>',
+    	};
+
+	</script>
+
+
+	<?php
+
+
+	// load all the views here
+	views_feature_box();
+	// etc
+
+}
+
+// ajaxes for tinymce
+
 

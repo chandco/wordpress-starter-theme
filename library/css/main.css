@@ -2110,6 +2110,11 @@ POSTS & CONTENT STYLES
   margin: auto;
   position: relative;
 }
+.wpview-wrap[data-wpview-type="feature-box"] {
+  max-width: 320px;
+  display: inline-block;
+  margin: 20px;
+}
 div.cf_columns {
   margin: 10px auto;
 }
@@ -2129,19 +2134,6 @@ div.feature {
   max-width: 300px;
   background: rgba(0, 0, 0, 0.2);
   margin: 10px;
-}
-div.feature:hover:before {
-  display: inline-block;
-  color: #1EC9B3;
-  -webkit-font-smoothing: antialiased;
-  font: normal 150px/1 'dashicons';
-  content: "\f464";
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 2px;
-  color: #fff;
-  background: #ddd;
 }
 div.feature * {
   pointer-events: none;
@@ -3081,31 +3073,6 @@ a.cta-button {
   margin-left: .3em;
 }
 #main .post a[href$=".pdf"]:before:before {
-  display: inline-block;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-#main .post a[href^="http://"]:before {
-  content: "\f0ac";
-  margin-right: 0.2em;
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-#main .post a[href^="http://"]:before.pull-left {
-  margin-right: .3em;
-}
-#main .post a[href^="http://"]:before.pull-right {
-  margin-left: .3em;
-}
-#main .post a[href^="http://"]:before:before {
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;

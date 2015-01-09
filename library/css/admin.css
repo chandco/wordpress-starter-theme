@@ -3,6 +3,102 @@
  wp-link
 ------------------------------------------------------------------------------*/
 }
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box {
+  width: 100%;
+  max-width: 250px;
+  float: left;
+  margin-right: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box input,
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box textarea {
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.5);
+  color: #fff;
+  position: relative;
+  z-index: 5;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box button {
+  position: relative;
+  z-index: 5;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box header {
+  width: 100%;
+  height: 0;
+  padding-bottom: 80%;
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box header .img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  padding-top: 2%;
+  text-align: center;
+  overflow: hidden;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box header .img img {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  top: 0;
+  height: 100%;
+  width: auto;
+  z-index: 1;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box header .img input {
+  margin: auto;
+  display: none;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box header .h2 {
+  position: absolute;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+  color: #fff;
+  padding: 2%;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box header .h2 label {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box header .h2 label input {
+  color: #fff;
+  display: block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2%;
+  width: 90%;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  margin: auto;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box label {
+  text-align: center;
+  width: 100%;
+  position: relative;
+  margin: auto;
+  display: block;
+}
+.admin_page_feature-box-edit #mce-feature-box-form .feature-box label textarea {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  padding: 2%;
+  color: #000000;
+  min-height: 150px;
+  font-size: 0.8em;
+}
 .admin_page_feature-box-edit #wp-link-wrap {
   display: none;
   background-color: #fff;
@@ -344,92 +440,6 @@
   .admin_page_feature-box-edit #search-panel .query-results {
     position: static;
   }
-}
-#mce-feature-box-form .feature-box {
-  width: 100%;
-  max-width: 400px;
-  background: rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-}
-#mce-feature-box-form .feature-box input,
-#mce-feature-box-form .feature-box textarea {
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.5);
-  color: #fff;
-}
-#mce-feature-box-form .feature-box header {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-  position: relative;
-  background: rgba(0, 0, 0, 0.2);
-}
-#mce-feature-box-form .feature-box header .img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  box-sizing: border-box;
-  padding-top: 2%;
-  text-align: center;
-  overflow: hidden;
-}
-#mce-feature-box-form .feature-box header .img img {
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
-  top: 0;
-  height: 100%;
-  width: auto;
-  z-index: 1;
-}
-#mce-feature-box-form .feature-box header .img input {
-  margin: auto;
-}
-#mce-feature-box-form .feature-box header .h2 {
-  position: absolute;
-  bottom: 0;
-  box-sizing: border-box;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 3;
-  color: #fff;
-  padding: 2%;
-}
-#mce-feature-box-form .feature-box header .h2 label {
-  width: 90%;
-  margin: auto;
-  text-align: center;
-}
-#mce-feature-box-form .feature-box header .h2 label input {
-  color: #fff;
-  display: block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 2%;
-  width: 90%;
-  border: none;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin: auto;
-}
-#mce-feature-box-form .feature-box label {
-  text-align: center;
-  width: 100%;
-  position: relative;
-  margin: auto;
-  display: block;
-}
-#mce-feature-box-form .feature-box label textarea {
-  position: relative;
-  width: 90%;
-  margin: auto;
-  padding: 2%;
-  color: #000000;
-  min-height: 200px;
 }
 
 /*# sourceMappingURL=maps/admin.css.map */
