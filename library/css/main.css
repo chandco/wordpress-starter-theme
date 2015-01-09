@@ -238,7 +238,7 @@ table {
   float: left;
   display: inline;
   overflow: hidden;
-  border-right: 1px solid #eaedf2;
+  border-right: 1px solid #f0f0f0;
 }
 .pagination .current {
   cursor: default;
@@ -2213,15 +2213,12 @@ body {
   content: "";
   width: 4000px;
   left: -1000px;
-  background: rgba(0, 0, 0, 0.5);
+  background: #e3e8ee;
   top: 0;
   bottom: 0;
   display: block;
   position: absolute;
   z-index: -1;
-}
-#inner-content .full-width-background.blue:before {
-  background: #bbe3e8;
 }
 body {
   font-family: sans-serif;
@@ -2468,12 +2465,14 @@ nav[role="navigation"] .nav li {
   margin-left: 0.5em;
   padding: 0.5em;
   background: transparent;
+  color: #333333;
 }
 nav[role="navigation"] .nav li:hover {
   background: #bbe3e8;
 }
 nav[role="navigation"] .nav li a {
   display: block;
+  color: inherit;
 }
 nav[role="navigation"] .nav li:first-of-type {
   margin-left: 0;
@@ -2615,7 +2614,7 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
     background: #ffffff;
   }
   body.navigation-menu-open #popup-menu-container #popup-menu li:nth-of-type(n+2) {
-    border-top: 1px solid #cccccc;
+    border-top: 1px solid #bbe3e8;
   }
   body.navigation-menu-open #popup-menu-container #popup-menu li .sub-menu,
   body.navigation-menu-open #popup-menu-container #popup-menu li .children {
@@ -2643,8 +2642,8 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
     width: 5px;
     height: 10px;
     margin-right: 10px;
-    border-left: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
+    border-left: 1px solid #bbe3e8;
+    border-bottom: 1px solid #bbe3e8;
     vertical-align: top;
     background: none;
   }
@@ -2656,7 +2655,6 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
   font-size: 0.8em;
 }
 .footer nav[role="navigation"] .nav > li {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
   padding: 5px;
 }
 .footer nav[role="navigation"] .nav li {
@@ -2671,7 +2669,7 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
   background: transparent;
 }
 .footer nav[role="navigation"] .nav li:nth-of-type(n+2) {
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid rgba(51, 51, 51, 0.4);
 }
 .footer nav[role="navigation"] .nav li .sub-menu,
 .footer nav[role="navigation"] .nav li .children {
@@ -2738,7 +2736,7 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
 }
 .entry-content table {
   width: 100%;
-  border: 1px solid #eaedf2;
+  border: 1px solid #f0f0f0;
   margin-bottom: 1.5em;
 }
 .entry-content table caption {
@@ -2749,22 +2747,22 @@ nav[role="navigation"] .nav li .sub-menu:hover li {
   letter-spacing: 1px;
 }
 .entry-content tr {
-  border-bottom: 1px solid #eaedf2;
+  border-bottom: 1px solid #f0f0f0;
 }
 .entry-content tr:nth-child(even) {
   background-color: #f8f9fa;
 }
 .entry-content td {
   padding: 7px;
-  border-right: 1px solid #eaedf2;
+  border-right: 1px solid #f0f0f0;
 }
 .entry-content td:last-child {
   border-right: 0;
 }
 .entry-content th {
   background-color: #f8f9fa;
-  border-bottom: 1px solid #eaedf2;
-  border-right: 1px solid #eaedf2;
+  border-bottom: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
 }
 .entry-content th:last-child {
   border-right: 0;
@@ -3088,7 +3086,7 @@ a.cta-button {
 }
 footer.article-footer a[rel="category tag"] {
   padding: 0.2em 0.4em;
-  background: #cccccc;
+  background: #e3e8ee;
   color: #333333;
   margin: 0.2em;
   border-bottom: 2px solid rgba(0, 0, 0, 0.25);
@@ -3872,7 +3870,7 @@ img.mfp-img {
 .comment-respond {
   zoom: 1;
   padding: 1.5em;
-  border-top: 1px solid #eaedf2;
+  border-top: 1px solid #f0f0f0;
 }
 .clearfix:before,
 .cf:before,
@@ -3910,7 +3908,7 @@ img.mfp-img {
   padding: 5px 18px;
   border: 1px solid;
   border-color: #f8cdce;
-  background: #eaedf2;
+  background: #f0f0f0;
 }
 .alert-success {
   margin: 10px;
@@ -4074,7 +4072,7 @@ label input[type='checkbox']:checked + span {
 }
 label input[type='checkbox']:checked + span:before {
   content: "\f14a";
-  color: #cccccc;
+  color: #e3e8ee;
 }
 label input[type='checkbox']:checked + span:after {
   content: "\f0c8";
@@ -4179,7 +4177,7 @@ label input[type='checkbox']:checked + span:hover {
   left: 2%;
   top: 1px;
   z-index: 1;
-  color: #cccccc;
+  color: #e3e8ee;
   -webkit-transform: scale(1.5, 1.5);
       -ms-transform: scale(1.5, 1.5);
           transform: scale(1.5, 1.5);
@@ -4350,7 +4348,7 @@ div.wpcf7 form.wpcf7-form input,
 div.wpcf7 form.wpcf7-form textarea {
   border: none;
   padding: 1%;
-  background: #f5f5f5;
+  background: #f0f0f0;
   -webkit-transition: background .4s ease;
           transition: background .4s ease;
   margin: 0;
@@ -4365,7 +4363,7 @@ div.wpcf7 form.wpcf7-form textarea:focus {
 }
 div.wpcf7 form.wpcf7-form input:selection,
 div.wpcf7 form.wpcf7-form textarea:selection {
-  background: #cccccc;
+  background: #e3e8ee;
 }
 div.wpcf7 form.wpcf7-form .wpcf7-list-item {
   line-height: 1;
@@ -4464,7 +4462,7 @@ div.wpcf7 form.wpcf7-form input[type='radio']:checked + span label {
 div.wpcf7 form.wpcf7-form input[type='checkbox']:checked + span label:before,
 div.wpcf7 form.wpcf7-form input[type='radio']:checked + span label:before {
   content: "\f14a";
-  color: #cccccc;
+  color: #e3e8ee;
 }
 div.wpcf7 form.wpcf7-form input[type='checkbox']:checked + span label:after,
 div.wpcf7 form.wpcf7-form input[type='radio']:checked + span label:after {
@@ -4530,19 +4528,20 @@ div.wpcf7 form.wpcf7-form .submit {
   border: none;
 }
 div.wpcf7 form.wpcf7-form input[type="submit"] {
-  background: #cccccc;
+  background: #98165d;
   border: none;
   font-size: 2em;
   height: auto;
   position: relative;
   margin: auto;
   padding: 2%;
-  border-bottom: 2px solid #9a9a9a;
+  border-bottom: 2px solid #66002b;
+  color: #ffffff;
   -webkit-transition: background .3s ease;
           transition: background .3s ease;
 }
 div.wpcf7 form.wpcf7-form input[type="submit"]:hover {
-  background: #ffffff;
+  background: #ca488f;
 }
 div.wpcf7 form.wpcf7-form.textarea,
 div.wpcf7 form.wpcf7-form.submit {
@@ -4560,7 +4559,7 @@ div.wpcf7 form.wpcf7-form .wpcf7-response-output {
   white-space: normal;
 }
 div.wpcf7 form.wpcf7-form .wpcf7-mail-sent-ok {
-  background: #cccccc;
+  background: #e3e8ee;
   position: absolute;
   top: 2%;
   left: 2%;
@@ -4701,7 +4700,7 @@ select {
   border: 0;
   width: 100%;
   max-width: 400px;
-  background-color: #eaedf2;
+  background-color: #f0f0f0;
   -webkit-transition: background-color 0.24s ease-in-out;
   transition: background-color 0.24s ease-in-out;
   -webkit-appearance: none;
@@ -4730,7 +4729,7 @@ textarea {
   width: 100%;
   max-width: 400px;
   max-width: 100%;
-  background-color: #eaedf2;
+  background-color: #f0f0f0;
   -webkit-transition: background-color 0.24s ease-in-out;
   transition: background-color 0.24s ease-in-out;
   min-height: 120px;
@@ -4778,7 +4777,7 @@ input[type="color"],
   border: 0;
   width: 100%;
   max-width: 400px;
-  background-color: #eaedf2;
+  background-color: #f0f0f0;
   -webkit-transition: background-color 0.24s ease-in-out;
   transition: background-color 0.24s ease-in-out;
 }

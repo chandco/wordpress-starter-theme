@@ -2,8 +2,17 @@
 // mostly this is setting variables to change the look of the site.
 
 @dark : @darkgrey;
-@light : @lightgrey;
+@light : @lighter-grey;
 
+
+// used for navigation, amongst other things.
+@highlight : @blue;
+@highlight-text : @dark;
+
+
+
+@emphasis : @purple;
+@emphasis-text: @white; // if @emphasis was a background etc.
 
 
 @link-color : @darkgrey;
@@ -62,11 +71,11 @@ body {
 #inner-content {
 	
     .full-width-background {
-      .full-width-background-maker();
+      .full-width-background-maker(@light);
 
       &.blue {
       	&:before {
-      		background: @blue;
+      		//background: @blue;
       	}
       }
     }

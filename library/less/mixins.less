@@ -95,6 +95,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
   @blue :   blue(@color)-@darken;
 
   @darker : rgba( @red, @green, @blue, @opacity );  
+  
 }
 
 .lighten(@color, @lighten: 50, @opacity : 1) {
@@ -104,6 +105,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
   @blue :   blue(@color)+@lighten;
 
   @lighter : rgba( @red, @green, @blue, @opacity );  
+
 }
 
 .alpha-color(@color,  @opacity : 0.5) {

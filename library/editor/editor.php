@@ -165,7 +165,28 @@ function custom_before_wp_tiny_mce() {
 
 
 	// load all the views here
-	views_feature_box();
+	views_feature_box(); // [feature-box]
+
+	#	[wide_background]
+
+	#	[CTA]
+
+	#	
+
+	#	[carousel]
+
+	#	[columns]
+
+
+	## LATER ##
+	#	CF7
+
+	// Insert normal HTML with classes:
+
+	# Bulleted List with special bullets
+	# 
+
+
 	// etc
 
 }

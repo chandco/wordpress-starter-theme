@@ -102,6 +102,12 @@ function my_theme_register_required_plugins() {
         ),
 
         array(
+            'name'      => 'Black Studio TinyMCE Widget',
+            'slug'      => 'black-studio-tinymce-widget',
+            'require'   => true,
+        ),
+
+        array(
             'name'      => 'Media Tags',
             'slug'      => 'media-tags',
             'required'  => false,

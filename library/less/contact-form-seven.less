@@ -408,7 +408,7 @@ div.wpcf7 {
 				padding: @padding/4;
 				
 				margin: 0;
-				background:@lighter-grey;
+				background:@off-white;
 				transition:background .4s ease;
 					margin:0;
 					color:@black;
@@ -576,7 +576,7 @@ div.wpcf7 {
 			}		
 
 			input[type="submit"] {
-					background:@light;
+					background:@emphasis;
 					border:none;
 					
 					font-size:2em;
@@ -586,12 +586,15 @@ div.wpcf7 {
 					margin:auto;
 					padding: @padding/2;
 				
-					.darken(@light);
+					.darken(@emphasis);
 					border-bottom: 2px solid @darker;
+
+					color: @emphasis-text;
 
 					transition:background .3s ease;
 					&:hover {
-						background: @white;
+						.lighten(@emphasis);
+						background: @lighter;
 					}
 				}
 			

@@ -1,7 +1,7 @@
   .alpha-color(@white);
   @menu-hover : @alpha-color; 
   @menu-background : transparent;// could be a colour
-  @child-background : @lightgrey;
+  @child-background : @highlight;
   @mobile-line-height: 20px;
 
 
@@ -100,12 +100,16 @@ nav[role="navigation"] {
         background: @menu-background;
 
         &:hover {
-          background: @blue;
+          background: @highlight;
         }
+
+        color: @highlight-text;
 
         a {
           display: block;
+          color: inherit;
         }
+
 
 
         &:first-of-type {
@@ -116,7 +120,7 @@ nav[role="navigation"] {
 
           visibility: hidden;
           position: absolute;
-          background: @blue;
+          background: @highlight;
           overflow: hidden;
           margin: 0;
           box-shadow: 0px 2px 0px 1px rgba(0,0,0,0.2);
@@ -254,8 +258,10 @@ nav[role="navigation"] {
           text-align: left;
           background: @white;
 
+
+
           &:nth-of-type(n+2) {
-            border-top: 1px solid @light;
+            border-top: 1px solid @highlight;
           }
 
 
@@ -290,8 +296,8 @@ nav[role="navigation"] {
                 width: @mobile-line-height / 4;
                 height: @mobile-line-height / 2;
                 margin-right: 10px;
-                border-left: 1px solid @light;
-                border-bottom: 1px solid @light;
+                border-left: 1px solid @highlight;
+                border-bottom: 1px solid @highlight;
                 vertical-align: top;
                 background: none;
               }
@@ -322,8 +328,8 @@ nav[role="navigation"] {
 
   .nav {
     > li {
-          .alpha-color(@white, 0.8);
-          border-bottom: 1px solid @alpha-color;
+          .alpha-color(@dark, 0.8);
+          
           padding: 5px;
         }
 
@@ -341,7 +347,8 @@ nav[role="navigation"] {
           background: transparent;
 
           &:nth-of-type(n+2) {
-            border-top: 1px solid @light;
+            .darken(@dark, 0, 0.4);
+            border-top: 1px solid @darker;
           }
 
 
