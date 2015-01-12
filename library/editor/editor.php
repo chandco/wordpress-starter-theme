@@ -94,7 +94,7 @@ function wptuts_add_buttons( $plugin_array ) {
 function wptuts_register_buttons( $buttons ) {
 
 	// update this after the javascript is done
-    array_push( $buttons, 'feature', 'halves', 'thirds', 'twothirds-third', 'third-twothirds', 'quarters' ); // dropcap', 'recentposts
+    array_push( $buttons, 'feature', 'columns' ); //'thirds', 'twothirds-third', 'third-twothirds', 'quarters' ); // dropcap', 'recentposts
     return $buttons;
 }
 

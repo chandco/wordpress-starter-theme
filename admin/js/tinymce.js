@@ -49,46 +49,49 @@
 
                 $content = jQuery("<div id='temp-wrapper'>" + o.content + "</div>");
                 jQuery.each( $content.find('.cf_columns > div'), function(index, element) {
-
-
                     
                         jQuery(element)
                             .prepend("<button class='col-control-add mceNonEditable'>+</button>")
                             .prepend("<button class='col-control-remove mceNonEditable'>-</button>");    
-                    
-                    
 
                 });
-
-
-                
                 
                 o.content = $content.html();
             });
 
+            // Just the columns, start with two, add more if needed.  in the future we can add a feature to add predefined layouts with less functionality but
+            // for the most part it should be enough for uniformity.  We could also maybe add in a class to set the width dynamically.
 
+            // eg "col-smart' but :first-of-type { width 66% } for wider etc"
 
-            ed.addButton('halves', {
-                title: 'Insert 2 columns',
-                cmd: 'halves',
+            ed.addButton('columns', {
+                title: 'Insert Columns',
+                cmd: 'columns',
                 image : url + '/../img/halves.png'
             });
 
-            ed.addCommand('halves', function() {
+            ed.addCommand('columns', function() {
                 var selected_text = ed.selection.getContent();
                 var return_text = '';
-                return_text = '<div class="cf_columns">\n\t<div class="col-smart">&nbsp;</div>\n\t<div class="col-smart">&nbsp;</div></div>\n&nbsp;';
+
+                var button_text = "<button class='col-control-add mceNonEditable'>+</button><button class='col-control-remove mceNonEditable'>-</button>";
+                var col_text = '<div class="col-smart">' + button_text + '&nbsp;</div>';
+                return_text = '<div class="cf_columns">\n\t' + col_text + '\n\t' + col_text + '</div>\n&nbsp;';
+
+
                 ed.execCommand('mceInsertContent', 0, return_text);
             });
 
             ed.on('SaveContent', function(o) {
 
-                // remove the controls from the content.
+                
               
+
                 $content = jQuery("<div id='temp-wrapper'>" + o.content + "</div>");
+
+                // find any columns and remove the buttons
                 jQuery.each( $content.find('div'), function(index, element) {
                     
-
                     if (jQuery(element).hasClass('cf_columns')) {
                         // loop through any spans (buttons in a minute);
                         $(element).find('button[class^="col-control-"]').remove();
@@ -99,11 +102,7 @@
                             });
                         */
                     }
-                    
-
                 });
-
-
                 
                 
                 o.content = $content.html();
@@ -111,12 +110,14 @@
 
             });
 
+
             ed.onClick.add(function(ed, e) {
                 
-                console.debug('Editor was clicked: ', ed.$(e.target));
+                //console.debug('Editor was clicked: ', ed.$(e.target));
 
                 $element = ed.$(e.target);
 
+                // add a column
                 if ($element.hasClass('col-control-add')) {
                     $('<div class="col-smart">&nbsp;</div>')
                             .prepend("<button class='col-control-add mceNonEditable'>+</button>")
@@ -128,44 +129,47 @@
 
                 } 
 
+                // remove a column
                 if ($element.hasClass('col-control-remove')) {
 
                     // get column
                     $contents = $element.closest('div[class^="col-"]');
 
                     // remove the buttons we added temporarily
+
                     $contents.find('button[class^="col-control-"]').remove();
 
+
+
                     // get the column row
-                    $wrapper = $element.closest('div.cf_columns');
+                    $wrapper = $contents.parent()
+
+                    console.log(  $contents.parent() );
+
+
 
                     // put the contents afterwards, outside of the container
                     $wrapper.after( $contents.html() ); // inner HTML not the container as well
 
                     // now get rid of this column
                     $contents.remove(); 
-
-
                     //console.log(ed);
-                    
 
+                    if ($wrapper.find('div[class^="col-"]').length < 1) {
+                        console.log('Nothing Left in columns');
+                        $wrapper.remove();
+                    }
                 }
-
-
-                
-                
             });
  
         },
 
-
- 
-         /**
-         * Returns information about the plugin as a name/value array.
-         * The current keys are longname, author, authorurl, infourl and version.
-         *
-         * @return {Object} Name/value array containing information about the plugin.
-         */
+        /**
+        * Returns information about the plugin as a name/value array.
+        * The current keys are longname, author, authorurl, infourl and version.
+        *
+        * @return {Object} Name/value array containing information about the plugin.
+        */
         getInfo : function() {
             return {
                 longname : 'Nathans Wordpress Starter Theme Editor Features',
@@ -181,7 +185,7 @@
 })();
 
 
-// Views
+// Views - this is for the feature box
  (function($){
                 var media = wp.media, shortcode_string = 'feature-box', wpshortcode = wp.shortcode;
 
