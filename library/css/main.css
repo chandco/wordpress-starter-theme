@@ -2115,17 +2115,6 @@ POSTS & CONTENT STYLES
   display: inline-block;
   margin: 20px;
 }
-div.cf_columns {
-  margin: 10px auto;
-}
-div.cf_columns > div[class^='col-'] {
-  border: 1px solid #999;
-  padding: 2%;
-  display: inline-block;
-}
-div.cf_columns .col-half {
-  width: 49%;
-}
 div.feature {
   text-decoration: none;
   cursor: pointer;
@@ -2324,6 +2313,23 @@ a:visited:link {
 .cf_columns {
   overflow: hidden;
   position: relative;
+  width: 100%
+  /* One */
+  /* Two */
+  /* Three */
+  /* Four */
+  /* Last image doesn't need a margin, regardless of count */
+  /* Five, eight, eleven, ... */
+  /* First two are half-sized (99% / 2) */
+  /* Last n - 2 are (98% / 3) */
+  /* But second, fifth, eighth, ... have no right margin */
+  /* Six, nine, twelve, ... */
+  /* Six, nine, twelve, ... are all (98% / 3) */
+  /* Every third one of these has no right margin. */
+  /* Seven, ten, thirteen, ... */
+  /* First four are half-sized (99% / 2) */
+  /* Last n - 4 are (98% / 3) */
+  /* The second and fourth, seventh, tenth, ... have no right margin */
 }
 .cf_columns .debug {
   background: #f00;
@@ -2340,6 +2346,7 @@ a:visited:link {
   float: left;
   padding-right: 2%;
   padding-left: 2%;
+  width: 100%;
 }
 .cf_columns > *[class^="col-"]:last-of-type {
   padding-right: 0;
@@ -2348,19 +2355,52 @@ a:visited:link {
   padding-left: 0;
 }
 .cf_columns .col-quarter {
-  width: 25%;
+  max-width: 25%;
 }
 .cf_columns .col-half {
-  width: 50%;
+  max-width: 50%;
 }
 .cf_columns .col-threequarters {
-  width: 75%;
+  max-width: 75%;
 }
 .cf_columns .col-third {
-  width: 33.333%;
+  max-width: 33.333%;
 }
 .cf_columns .col-twothirds {
-  width: 66.666%;
+  max-width: 66.666%;
+}
+.cf_columns .col-smart:only-child {
+  max-width: 100%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(2) ~ .col-smart,
+.cf_columns .col-smart:first-child:nth-last-child(2) {
+  max-width: 49.5%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(3) ~ .col-smart,
+.cf_columns .col-smart:first-child:nth-last-child(3) {
+  max-width: 32.6%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(4) ~ .col-smart,
+.cf_columns .col-smart:first-child:nth-last-child(4) {
+  max-width: 24.25%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(3n+5) ~ .col-smart,
+.cf_columns .col-smart:first-child:nth-last-child(3n+5) {
+  max-width: 49.5%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(3n+5) + .col-smart ~ .col-smart {
+  max-width: 32.6%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(3n+6) ~ .col-smart,
+.cf_columns .col-smart:first-child:nth-last-child(3n+6) {
+  max-width: 32.6%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(3n+7) ~ .col-smart,
+.cf_columns .col-smart:first-child:nth-last-child(3n+7) {
+  max-width: 49.5%;
+}
+.cf_columns .col-smart:first-child:nth-last-child(3n+7) + .col-smart + .col-smart + .col-smart ~ .col-smart {
+  max-width: 32.6%;
 }
 @media screen and (max-width: 768px) {
   .cf_columns > div[class^="col-"] {

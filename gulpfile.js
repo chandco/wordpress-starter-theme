@@ -59,13 +59,13 @@ gulp.task('compile-css', function () {
                 .pipe(gulp.dest('./library/css/'));
 
     gulp.src('./library/less/editor-style.less')
-                //.pipe(sourcemaps.init())
+                .pipe(sourcemaps.init())
                 .pipe(less(), function() {
                     console.log('something');
                 })
                 .pipe(autoprefixer())
-                .pipe(uglifycss())
-                //.pipe(sourcemaps.write('./maps'))
+                //.pipe(uglifycss())
+                .pipe(sourcemaps.write('./maps'))
                 .pipe(gulp.dest('.'));
 
 

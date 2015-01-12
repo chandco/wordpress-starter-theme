@@ -51,21 +51,14 @@ function my_mce_before_init_insert_formats( $init_array ) {
 	$style_formats = array(  
 		// Each array child is a format with it's own settings
 		array(  
-			'title' => 'Call To Action',  
-			'selector' => 'a',  
-			'classes' => 'cta-button',
-			'wrapper' => false,
-			
-		),  
-		
-		array(  
-			'title' => 'New Line',  
-			'block' => 'div',  
-			'classes' => 'cf newline',
+			'title' => 'Wrapper Div',  
+			'block' => 'div',
+			'class' => 'cf_columns',
 			'wrapper' => true,
 		),
+	
 
-		array()
+		
 	);  
 	// Insert the array, JSON ENCODED, into 'style_formats'
 	$init_array['style_formats'] = json_encode( $style_formats );  
@@ -74,8 +67,16 @@ function my_mce_before_init_insert_formats( $init_array ) {
   
 } 
 // Attach callback to 'tiny_mce_before_init' 
-//add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
+add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
 
+function change_mce_options($init){
+    $init["forced_root_block"] = false;
+    $init["force_br_newlines"] = true;
+    $init["force_p_newlines"] = false;
+    $init["convert_newlines_to_brs"] = true;
+    return $init;       
+}
+add_filter('tiny_mce_before_init','change_mce_options');
 
 add_action( 'init', 'cf_editor_buttons' );
 function cf_editor_buttons() {

@@ -25,6 +25,8 @@
                 image : url + '/../img/feature.png'
             });
 
+            
+
            /* ed.addCommand('feature', function() {
                 var selected_text = ed.selection.getContent();
                 var return_text = '';
@@ -40,9 +42,29 @@
                 ed.execCommand('mceInsertContent', 0, return_text);
             });
 
-            //ed.onBeforeSetContent.add(function(ed, o) {
-           //     o.content = t._do_featurebox(o.content);
-           // });
+            ed.onBeforeSetContent.add(function(ed, o) {
+                
+                // add controls to the element for adjustments
+                
+
+                $content = jQuery("<div id='temp-wrapper'>" + o.content + "</div>");
+                jQuery.each( $content.find('.cf_columns > div'), function(index, element) {
+
+
+                    
+                        jQuery(element)
+                            .prepend("<button class='col-control-add mceNonEditable'>+</button>")
+                            .prepend("<button class='col-control-remove mceNonEditable'>-</button>");    
+                    
+                    
+
+                });
+
+
+                
+                
+                o.content = $content.html();
+            });
 
 
 
@@ -55,15 +77,36 @@
             ed.addCommand('halves', function() {
                 var selected_text = ed.selection.getContent();
                 var return_text = '';
-                return_text = '<div class="cf_columns">\n\t<div class="col-half">&nbsp;</div>\n\t<div class="col-half">&nbsp;</div></div>';
+                return_text = '<div class="cf_columns">\n\t<div class="col-smart">&nbsp;</div>\n\t<div class="col-smart">&nbsp;</div></div>\n&nbsp;';
                 ed.execCommand('mceInsertContent', 0, return_text);
             });
 
             ed.on('SaveContent', function(o) {
-                //console.log('SaveContent event', e);
-                // var parser = new tinymce.html.DomParser({validate: true});
-                // var contentDOM = parser.parse(o.content   
+
+                // remove the controls from the content.
+              
+                $content = jQuery("<div id='temp-wrapper'>" + o.content + "</div>");
+                jQuery.each( $content.find('div'), function(index, element) {
+                    
+
+                    if (jQuery(element).hasClass('cf_columns')) {
+                        // loop through any spans (buttons in a minute);
+                        $(element).find('button[class^="col-control-"]').remove();
+                        
+                        /*
+                            jQuery.each( $(element).find('button[class^="col-control-"]'), function(index, child) {
+                                $(child).remove();
+                            });
+                        */
+                    }
+                    
+
+                });
+
+
                 
+                
+                o.content = $content.html();
 
 
             });
@@ -71,6 +114,42 @@
             ed.onClick.add(function(ed, e) {
                 
                 console.debug('Editor was clicked: ', ed.$(e.target));
+
+                $element = ed.$(e.target);
+
+                if ($element.hasClass('col-control-add')) {
+                    $('<div class="col-smart">&nbsp;</div>')
+                            .prepend("<button class='col-control-add mceNonEditable'>+</button>")
+                            .prepend("<button class='col-control-remove mceNonEditable'>-</button>")
+                            .insertAfter( $element.closest('div[class^="col-"]') );
+                    
+                    //console.log(ed);
+                    
+
+                } 
+
+                if ($element.hasClass('col-control-remove')) {
+
+                    // get column
+                    $contents = $element.closest('div[class^="col-"]');
+
+                    // remove the buttons we added temporarily
+                    $contents.find('button[class^="col-control-"]').remove();
+
+                    // get the column row
+                    $wrapper = $element.closest('div.cf_columns');
+
+                    // put the contents afterwards, outside of the container
+                    $wrapper.after( $contents.html() ); // inner HTML not the container as well
+
+                    // now get rid of this column
+                    $contents.remove(); 
+
+
+                    //console.log(ed);
+                    
+
+                }
 
 
                 
