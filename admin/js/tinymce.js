@@ -51,8 +51,8 @@
                 jQuery.each( $content.find('.cf_columns > div'), function(index, element) {
                     
                         jQuery(element)
-                            .prepend("<button class='col-control-add mceNonEditable'>+</button>")
-                            .prepend("<button class='col-control-remove mceNonEditable'>-</button>");    
+                            .prepend("<button class='col-control-add mceNonEditable'>Add Column</button>")
+                            .prepend("<button class='col-control-remove mceNonEditable'>Remove Column</button>");    
 
                 });
                 
@@ -74,8 +74,8 @@
                 var selected_text = ed.selection.getContent();
                 var return_text = '';
 
-                var button_text = "<button class='col-control-add mceNonEditable'>+</button><button class='col-control-remove mceNonEditable'>-</button>";
-                var col_text = '<div class="col-smart">' + button_text + '&nbsp;</div>';
+                var button_text = "<button class='col-control-add mceNonEditable'>Add Column</button><button class='col-control-remove mceNonEditable'>Remove Column</button>";
+                var col_text = '<div class="col-smart">' + button_text + '</div>';
                 return_text = '<div class="cf_columns">\n\t' + col_text + '\n\t' + col_text + '</div>\n&nbsp;';
 
 
@@ -119,9 +119,9 @@
 
                 // add a column
                 if ($element.hasClass('col-control-add')) {
-                    $('<div class="col-smart">&nbsp;</div>')
-                            .prepend("<button class='col-control-add mceNonEditable'>+</button>")
-                            .prepend("<button class='col-control-remove mceNonEditable'>-</button>")
+                    $('<div class="col-smart"></div>')
+                            .prepend("<button class='col-control-add mceNonEditable'>Add Column</button>")
+                            .prepend("<button class='col-control-remove mceNonEditable'>Remove Column</button>")
                             .insertAfter( $element.closest('div[class^="col-"]') );
                     
                     //console.log(ed);

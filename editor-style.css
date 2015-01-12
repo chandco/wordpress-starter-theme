@@ -1,3 +1,10 @@
+/* LESS Document */
+.central-column {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+}
 .cf_columns {
   overflow: hidden;
   position: relative;
@@ -18,14 +25,6 @@
   /* First four are half-sized (99% / 2) */
   /* Last n - 4 are (98% / 3) */
   /* The second and fourth, seventh, tenth, ... have no right margin */
-}
-.cf_columns .debug {
-  background: #f00;
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #fff;
-  padding: 10px;
 }
 .cf_columns > *[class^="col-"] {
   position: relative;
@@ -62,26 +61,26 @@
 }
 .cf_columns .col-smart:first-child:nth-last-child(2) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(2) {
-  max-width: 49.5%;
+  max-width: 50%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3) {
-  max-width: 32.6%;
+  max-width: 33.33%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(4) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(4) {
-  max-width: 24.25%;
+  max-width: 25%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+5) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3n+5) {
-  max-width: 49.5%;
+  max-width: 50%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+5) + .col-smart ~ .col-smart {
-  max-width: 32.6%;
+  max-width: 33.3%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+6) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3n+6) {
-  max-width: 32.6%;
+  max-width: 33.333%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+7) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3n+7) {
@@ -92,7 +91,7 @@
 }
 @media screen and (max-width: 768px) {
   .cf_columns > div[class^="col-"] {
-    width: 100%;
+    max-width: 100% !important;
     padding-left: 0;
     padding-right: 0;
   }
@@ -560,14 +559,6 @@ body#tinymce.wp-editor div.cf.newline:before {
   font-style: italic;
   content: "new line (this text will not appear in post)";
 }
-body#tinymce.wp-editor .debug {
-  background: #f00;
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #fff;
-  padding: 10px;
-}
 body#tinymce.wp-editor > *[class^="col-"] {
   position: relative;
   vertical-align: top;
@@ -603,26 +594,26 @@ body#tinymce.wp-editor .col-smart:only-child {
 }
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(2) ~ .col-smart,
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(2) {
-  max-width: 49.5%;
+  max-width: 50%;
 }
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3) ~ .col-smart,
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3) {
-  max-width: 32.6%;
+  max-width: 33.33%;
 }
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(4) ~ .col-smart,
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(4) {
-  max-width: 24.25%;
+  max-width: 25%;
 }
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+5) ~ .col-smart,
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+5) {
-  max-width: 49.5%;
+  max-width: 50%;
 }
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+5) + .col-smart ~ .col-smart {
-  max-width: 32.6%;
+  max-width: 33.3%;
 }
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+6) ~ .col-smart,
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+6) {
-  max-width: 32.6%;
+  max-width: 33.333%;
 }
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+7) ~ .col-smart,
 body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+7) {
@@ -633,7 +624,7 @@ body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+7) + .col-smart 
 }
 @media screen and (max-width: 768px) {
   body#tinymce.wp-editor > div[class^="col-"] {
-    width: 100%;
+    max-width: 100% !important;
     padding-left: 0;
     padding-right: 0;
   }
@@ -662,6 +653,7 @@ body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+7) + .col-smart 
 body#tinymce.wp-editor div.cf_columns {
   margin: 10px auto;
   width: 95%;
+  padding: 10px;
 }
 body#tinymce.wp-editor div.cf_columns > div[class^='col-'] {
   border-style: dotted;
@@ -670,26 +662,60 @@ body#tinymce.wp-editor div.cf_columns > div[class^='col-'] {
   padding: 2%;
   display: inline-block;
   position: relative;
-  padding-top: 40px;
+  min-height: 200px;
 }
 body#tinymce.wp-editor div.cf_columns > div[class^='col-']:last-of-type {
   border-right: 1px dotted #999;
 }
 body#tinymce.wp-editor div.cf_columns > div[class^='col-'] button[class^='col-control-'] {
   position: absolute;
-  margin: auto;
-  top: 10px;
+  margin: 0;
+  display: none;
+  z-index: 50;
+  border: none;
+  font-size: 30px;
+  width: 15px;
+  padding: 3px 5px 5px 31px;
+  background: none;
+  overflow: hidden;
+  height: 35px;
+  box-sizing: border-box;
+  color: transparent;
+  background: #FFF;
+  border-radius: 66px;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+}
+body#tinymce.wp-editor div.cf_columns > div[class^='col-'] button[class^='col-control-']:before {
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  font: normal 30px/1 'dashicons';
+  vertical-align: top;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 24px;
+}
+body#tinymce.wp-editor div.cf_columns > div[class^='col-']:hover button[class^='col-control-'] {
   display: block;
 }
 body#tinymce.wp-editor div.cf_columns > div[class^='col-'] .col-control-add {
-  top: 50%;
+  top: 40px;
+  right: -15px;
+}
+body#tinymce.wp-editor div.cf_columns > div[class^='col-'] .col-control-add:before {
+  color: #5e7;
+  content: "\f502";
+}
+body#tinymce.wp-editor div.cf_columns > div[class^='col-'] .col-control-remove {
+  top: 10px;
+  left: 50%;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
-  right: 0;
 }
-body#tinymce.wp-editor div.cf_columns > div[class^='col-'] .col-control-remove {
-  top: 5px;
+body#tinymce.wp-editor div.cf_columns > div[class^='col-'] .col-control-remove:before {
+  color: #900;
+  content: "\f153";
 }
 body#tinymce.wp-editor article,
 body#tinymce.wp-editor aside,

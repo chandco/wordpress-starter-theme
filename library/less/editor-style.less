@@ -1,4 +1,5 @@
 
+@import "mixins";
 @import "editor-style-mixins";
 @import "columns";
 
@@ -15,6 +16,7 @@ body#tinymce.wp-editor {
   div.cf_columns {
     margin: 10px auto;
     width: 95%;
+    padding: 10px;
 
 
     > div[class^='col-'] {
@@ -25,7 +27,7 @@ body#tinymce.wp-editor {
       display: inline-block;
       position: relative;
 
-      padding-top: 40px;
+      min-height: 200px;
 
       &:last-of-type {
         border-right: 1px dotted #999;
@@ -34,20 +36,64 @@ body#tinymce.wp-editor {
 
       button[class^='col-control-'] {
         position: absolute;
-        margin: auto;
-        top:10px;
-        display: block;
+        margin: 0;
+        display: none;
+        z-index: 50;
+        border: none;
+        font-size: 30px;
+        width: 15px;
+        padding: 3px 5px 5px 31px;
+        background: none;
+        overflow: hidden;
+        height: 35px;
+        box-sizing: border-box;
+        color: transparent;
+        background: #FFF;
+        border-radius: 66px;
+        box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+        &:before {
+          display: block;
+          -webkit-font-smoothing: antialiased;
+          font: normal 30px/1 'dashicons';
+          vertical-align: top;
+          position: absolute;
+          left: 4px;
+          top: 4px;
+          width: 24px;
+
+        }
+
+      }
+
+      &:hover {
+          button[class^='col-control-'] {
+            display: block;
+          }
       }
 
       .col-control-add {
-        top: 50%;
-        transform:translateY(-50%);
+        top: 40px;
+        right: -15px;
+        
 
-        right: 0;
+        &:before {
+          color: #5e7;
+          content: "\f502";
+        }
+        
+
+
       }
 
       .col-control-remove {
-        top: 5px;
+        top: 10px;
+        left: 50%;
+        transform:translateY(-50%);
+        
+        &:before {
+          color: #900;
+          content: "\f153";
+        }
       }
 
     }

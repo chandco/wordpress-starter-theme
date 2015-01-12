@@ -2331,14 +2331,6 @@ a:visited:link {
   /* Last n - 4 are (98% / 3) */
   /* The second and fourth, seventh, tenth, ... have no right margin */
 }
-.cf_columns .debug {
-  background: #f00;
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #fff;
-  padding: 10px;
-}
 .cf_columns > *[class^="col-"] {
   position: relative;
   vertical-align: top;
@@ -2374,26 +2366,26 @@ a:visited:link {
 }
 .cf_columns .col-smart:first-child:nth-last-child(2) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(2) {
-  max-width: 49.5%;
+  max-width: 50%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3) {
-  max-width: 32.6%;
+  max-width: 33.33%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(4) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(4) {
-  max-width: 24.25%;
+  max-width: 25%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+5) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3n+5) {
-  max-width: 49.5%;
+  max-width: 50%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+5) + .col-smart ~ .col-smart {
-  max-width: 32.6%;
+  max-width: 33.3%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+6) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3n+6) {
-  max-width: 32.6%;
+  max-width: 33.333%;
 }
 .cf_columns .col-smart:first-child:nth-last-child(3n+7) ~ .col-smart,
 .cf_columns .col-smart:first-child:nth-last-child(3n+7) {
@@ -2404,7 +2396,7 @@ a:visited:link {
 }
 @media screen and (max-width: 768px) {
   .cf_columns > div[class^="col-"] {
-    width: 100%;
+    max-width: 100% !important;
     padding-left: 0;
     padding-right: 0;
   }

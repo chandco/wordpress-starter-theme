@@ -7,18 +7,22 @@
 	position: relative;
 	width: 100%;
 
+	//border: 1px solid rgba(255,0,0,0.5);
 
-	
 
 	.debug {
-		background: #f00;
-		position: absolute;
-		left: 0;
-		top: 0;
-		color: #fff;
-		padding: 10px;
+		//background: #f00;
+		//position: absolute;
+		//left: 0;
+		//top: 0;
+		//color: #fff;
+		//padding: 10px;
 	}
 	> *[class^="col-"] {
+
+		//.debug();
+
+		//border: 1px solid rgba(0,0,0,0.5);
 		position: relative;
 		vertical-align: top;
 		box-sizing: border-box;
@@ -54,19 +58,19 @@
 
 	/* Two */
 	.col-smart:first-child:nth-last-child(2) ~ .col-smart, .col-smart:first-child:nth-last-child(2) {
-		max-width: 49.5%;
+		max-width: 50%;
 		//margin-right: 1%;
 	}
 
 	/* Three */
 	.col-smart:first-child:nth-last-child(3) ~ .col-smart, .col-smart:first-child:nth-last-child(3) {
-		max-width: 32.6%;
+		max-width: 33.33%;
 		//margin-right: 1%;
 	}
 
 	/* Four */
 	.col-smart:first-child:nth-last-child(4) ~ .col-smart, .col-smart:first-child:nth-last-child(4) {
-		max-width: 24.25%;
+		max-width: 25%;
 		//margin-right: 1%;
 	}
 
@@ -79,13 +83,14 @@
 
 	/* First two are half-sized (99% / 2) */
 	.col-smart:first-child:nth-last-child(3n+5) ~ .col-smart, .col-smart:first-child:nth-last-child(3n+5) {
-		max-width: 49.5%;
+		max-width: 50%;
+
 		//margin-right: 1%;
 	}
 
 	/* Last n - 2 are (98% / 3) */
 	.col-smart:first-child:nth-last-child(3n+5) + .col-smart ~ .col-smart {
-		max-width: 32.6%;
+		max-width: 33.3%;
 		//margin-right: 1%;
 	}
 
@@ -98,7 +103,7 @@
 
 	/* Six, nine, twelve, ... are all (98% / 3) */
 	.col-smart:first-child:nth-last-child(3n+6) ~ .col-smart, .col-smart:first-child:nth-last-child(3n+6) {
-		max-width: 32.6%;
+		max-width: 33.333%;
 		//margin-right: 1%;
 	}
 
@@ -132,7 +137,7 @@
 
 	@media screen and (max-width: 768px) {
 		> div[class^="col-"] {
-			width: 100%;
+			max-width: 100% !important;
 			padding-left: 0;
 			padding-right: 0;
 		}
