@@ -79,7 +79,8 @@
                 return_text = '<div class="cf_columns">\n\t' + col_text + '\n\t' + col_text + '</div>\n&nbsp;';
 
 
-                ed.execCommand('mceInsertContent', 0, return_text);
+                ed.setContent(return_text + ' \n');
+                
             });
 
             ed.on('SaveContent', function(o) {
@@ -116,6 +117,8 @@
                 //console.debug('Editor was clicked: ', ed.$(e.target));
 
                 $element = ed.$(e.target);
+
+                console.log($element);
 
                 // add a column
                 if ($element.hasClass('col-control-add')) {
