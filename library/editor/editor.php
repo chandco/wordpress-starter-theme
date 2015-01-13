@@ -36,15 +36,19 @@
 
 // not really a shortcode but it is for the editor
 // // Callback function to insert 'styleselect' into the $buttons array
+
+
+//add_filter('mce_buttons_2', 'my_mce_buttons_2');
 function my_mce_buttons_2( $buttons ) {
 	array_unshift( $buttons, 'styleselect' );
 	return $buttons;
 }
 // Register our callback to the appropriate filter
-add_filter('mce_buttons_2', 'my_mce_buttons_2');
+
 
 // Callback function to filter the MCE settings
 ## This is currently an example, we're not using this yet as we may want to stick with views for now.
+
 
 function my_mce_before_init_insert_formats( $init_array ) {  
 	// Define the style_formats array
@@ -66,30 +70,36 @@ function my_mce_before_init_insert_formats( $init_array ) {
 	return $init_array;  
   
 } 
-// Attach callback to 'tiny_mce_before_init' 
-add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
 
+// stop wordpress from screwing with HTML
+
+
+add_filter('tiny_mce_before_init','change_mce_options');
 function change_mce_options($init){
     $init["forced_root_block"] = false;
-    $init["force_br_newlines"] = true;
+    $init["force_br_newlines"] = false;
     $init["force_p_newlines"] = false;
-    $init["convert_newlines_to_brs"] = true;
+    $init["convert_newlines_to_brs"] = false;
+    $opts = '*[*],source[*]';
+	$init['valid_elements'] = $opts;
+	$init['extended_valid_elements'] = $opts;
     return $init;       
 }
-add_filter('tiny_mce_before_init','change_mce_options');
 
-add_action( 'init', 'cf_editor_buttons' );
+
+ add_action( 'init', 'cf_editor_buttons' );
 function cf_editor_buttons() {
     add_filter( "mce_external_plugins", "wptuts_add_buttons" );
     add_filter( 'mce_buttons', 'wptuts_register_buttons' );
 }
+
+
+
+
 function wptuts_add_buttons( $plugin_array ) {
     $plugin_array['cf_features'] = get_stylesheet_directory_uri() . '/admin/js/tinymce.js';
     return $plugin_array;
 }
-
-
-
 
 function wptuts_register_buttons( $buttons ) {
 
@@ -100,10 +110,6 @@ function wptuts_register_buttons( $buttons ) {
 
 
 add_filter('mce_external_plugins', 'tinymce_core_plugins');
-
-
-
-
 function tinymce_core_plugins () {
      $plugins = array('noneditable'); //Add any more plugins you want to load here
      $plugins_array = array();
@@ -118,6 +124,7 @@ function tinymce_core_plugins () {
 
 // PHP handling of various ajaxy shortcode stuff:
 // setup media library
+
 add_action( 'admin_enqueue_scripts', 'mce_wp_enqueue_media' );
 function mce_wp_enqueue_media($hook) {
 	
@@ -140,8 +147,8 @@ function mce_wp_enqueue_media($hook) {
 
 require_once("mce_feature-box.php");
 
-add_action( 'before_wp_tiny_mce', 'custom_before_wp_tiny_mce' );
 
+ add_action( 'before_wp_tiny_mce', 'custom_before_wp_tiny_mce' );
 function custom_before_wp_tiny_mce() {
 
 	global $imagesizes;

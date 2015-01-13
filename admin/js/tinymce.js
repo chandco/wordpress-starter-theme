@@ -16,6 +16,27 @@
          */
         init : function(ed, url) {
 
+
+            function my_cleanup_callback(type,value) {
+              switch (type) {
+                case 'get_from_editor':
+                  // Remove &nbsp; characters
+                  value = value.replace(/&nbsp;/ig, ' ');
+                  break;
+                case 'insert_to_editor':
+                case 'submit_content':
+                case 'get_from_editor_dom':
+                case 'insert_to_editor_dom':
+                case 'setup_content_dom':
+                case 'submit_content_dom':
+                default:
+                  break;
+              }
+              return value;
+            }
+
+            ed.on
+
             var t = this;
 
             
@@ -42,22 +63,7 @@
                 ed.execCommand('mceInsertContent', 0, return_text);
             });
 
-            ed.onBeforeSetContent.add(function(ed, o) {
-                
-                // add controls to the element for adjustments
-                
-
-                $content = jQuery("<div id='temp-wrapper'>" + o.content + "</div>");
-                jQuery.each( $content.find('.cf_columns > div'), function(index, element) {
-                    
-                        jQuery(element)
-                            .prepend("<button class='col-control-add mceNonEditable'>Add Column</button>")
-                            .prepend("<button class='col-control-remove mceNonEditable'>Remove Column</button>");    
-
-                });
-                
-                o.content = $content.html();
-            });
+            
 
             // Just the columns, start with two, add more if needed.  in the future we can add a feature to add predefined layouts with less functionality but
             // for the most part it should be enough for uniformity.  We could also maybe add in a class to set the width dynamically.
@@ -72,42 +78,48 @@
 
             ed.addCommand('columns', function() {
                 var selected_text = ed.selection.getContent();
-                var return_text = '';
+
 
                 var button_text = "<button class='col-control-add mceNonEditable'>Add Column</button><button class='col-control-remove mceNonEditable'>Remove Column</button>";
-                var col_text = '<div class="col-smart">' + button_text + '</div>';
-                return_text = '<div class="cf_columns">\n\t' + col_text + '\n\t' + col_text + '</div>\n&nbsp;';
 
+                return_text =   '<div class="cf_columns">';
+                return_text +=  '<div class="col-smart">' + button_text + selected_text + '</div>';
+                return_text +=  '<div class="col-smart">' + button_text + '</div>';
+                return_text +=  '</div> &nbsp;';
 
-                ed.setContent(return_text + ' \n');
+                ed.selection.setContent(return_text);
                 
+            });
+
+            ed.on('setContent', function(o) {
+                
+                // add controls to the element for adjustments
+
+
+                
+                ed.$.each( ed.$('.cf_columns > div'), function(index, element) {
+                    
+                        ed.$(element)
+                            .prepend("<button class='col-control-add mceNonEditable'>Add Column</button>")
+                            .prepend("<button class='col-control-remove mceNonEditable'>Remove Column</button>");  
+
+                       
+                });
+
+
+
             });
 
             ed.on('SaveContent', function(o) {
 
-                
-              
-
-                $content = jQuery("<div id='temp-wrapper'>" + o.content + "</div>");
-
                 // find any columns and remove the buttons
-                jQuery.each( $content.find('div'), function(index, element) {
-                    
-                    if (jQuery(element).hasClass('cf_columns')) {
-                        // loop through any spans (buttons in a minute);
-                        $(element).find('button[class^="col-control-"]').remove();
-                        
-                        /*
-                            jQuery.each( $(element).find('button[class^="col-control-"]'), function(index, child) {
-                                $(child).remove();
-                            });
-                        */
-                    }
-                });
-                
-                
-                o.content = $content.html();
 
+                // get content in temp element
+
+               $element = ed.$("<div>" + o.content + "</div>"); // wrap it so jquery can make something of it
+               $element.find('button[class^="col-control-"]').remove();
+
+                o.content = $element.html();
 
             });
 
@@ -118,7 +130,7 @@
 
                 $element = ed.$(e.target);
 
-                console.log($element);
+                
 
                 // add a column
                 if ($element.hasClass('col-control-add')) {
@@ -127,7 +139,7 @@
                             .prepend("<button class='col-control-remove mceNonEditable'>Remove Column</button>")
                             .insertAfter( $element.closest('div[class^="col-"]') );
                     
-                    //console.log(ed);
+                    
                     
 
                 } 
@@ -147,7 +159,7 @@
                     // get the column row
                     $wrapper = $contents.parent()
 
-                    console.log(  $contents.parent() );
+                    
 
 
 
@@ -156,7 +168,7 @@
 
                     // now get rid of this column
                     $contents.remove(); 
-                    //console.log(ed);
+                    
 
                     if ($wrapper.find('div[class^="col-"]').length < 1) {
                         console.log('Nothing Left in columns');
@@ -198,9 +210,8 @@
                     update: function( data ) {
 
                         // s = the new content.  Will replace everything in teh shortcode with this
-                        //console.log(data);
+                        
 
-                       // console.log(this.shortcode);
 
 
                         var s = '[' + shortcode_string;
@@ -224,9 +235,12 @@
                     },
                     shortcode_data: {},
                     View: {
+
                         template: media.template( 'editor-feature-box' ),
                         postID: $('#post_ID').val(),
                         initialize: function( options, node ) {
+
+                            
                             
                             this.shortcode = options.shortcode;
                             wp.mce.feature_box.shortcode_data = this.shortcode;
@@ -236,8 +250,11 @@
 
                         },
                         getHtml: function() {
+
                             var options = this.shortcode.attrs.named;
                             options['innercontent'] = this.shortcode.content;
+
+                            
                             //console.log(this.shortcode);
 
                             // format the template
@@ -251,48 +268,56 @@
 
                             // get image SRC
 
-                            imgid = this.shortcode.attrs.named.imgid;   
 
-                            idURL = mcedata.apiURL + 'posts/' + imgid;
+                            if (this.shortcode.attrs.named.imgid) {
 
-                            
-                            // fix the ID for this particular element so that AJAX can find it later.
-                            current = this; // so ajax doesn't get confused
-                            current.uid =  tinyMCE.activeEditor.dom.uniqueId('mce_fb_');
-                            $content.attr("id",current.uid);
 
-                            // load the images later when we have them
-                            $.ajax(idURL,{
-                                url : idURL,
-                                type : 'GET',
-                                //data : dataArray,
-                                cache : false,
-                                element : current
-                            }).done( function( response ) {
+                                imgid = this.shortcode.attrs.named.imgid;   
 
-                                // find teh original one
-                                $content = $( tinyMCE.activeEditor.dom.get( this.element.uid ) );
-
-                                ext = response.guid.substr(response.guid.length - 4);
-                                thumb = response.guid.replace(ext, mcedata.imgSuffix + ext);
-                                
-                                $content
-                                    .find('header')
-                                    .prepend( $('<img src="' + thumb + '" />') )
-                                    .prepend( $("<p>Image ID " + this.element.shortcode.attrs.named.imgid + "</p>") );
+                                idURL = mcedata.apiURL + 'posts/' + imgid;
 
                                 
+                                // fix the ID for this particular element so that AJAX can find it later.
+                                current = this; // so ajax doesn't get confused
+                                current.uid =  tinyMCE.activeEditor.dom.uniqueId('mce_fb_');
+                                $content.attr("id",current.uid);
 
-                            });
+                                // load the images later when we have them
+                                $.ajax(idURL,{
+                                    url : idURL,
+                                    type : 'GET',
+                                    //data : dataArray,
+                                    cache : false,
+                                    element : current
+                                }).done( function( response ) {
+
+                                    // find teh original one
+                                    $content = $( tinyMCE.activeEditor.dom.get( this.element.uid ) );
+
+                                    ext = response.guid.substr(response.guid.length - 4);
+                                    thumb = response.guid.replace(ext, mcedata.imgSuffix + ext);
+                                    
+                                    $content
+                                        .find('header')
+                                        .prepend( $('<img src="' + thumb + '" />') )
+                                        .prepend( $("<p>Image ID " + this.element.shortcode.attrs.named.imgid + "</p>") );
+
+                                    
+
+                                });
+                            } // else no id for image set so no image to find
 
 
                             // replace the image content;
+
                             
                 
                             return $content[0].outerHTML;
                         }
                     },
                     edit: function( node ) {
+
+                        
                         var data = window.decodeURIComponent( $( node ).attr('data-wpview-text') );
                         
 

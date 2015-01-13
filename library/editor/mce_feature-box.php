@@ -11,32 +11,7 @@ function views_feature_box() {
 	?>
 
 	<?php // list the views here ?>
-		<script type="text/html" id="tmpl-editor-feature-box">
-			
-
-
-			<# if ( data.link ) { #>
-			       <a href="{{ data.link }}" title="{{ data.linktitle }}">
-			<# } #>
-			<div class='feature'>
-				<header>
-					
-					<h2>{{ data.title }}</h2>
-				</header>
-
-				<# if ( data.innercontent ) { #>
-					<div class='content'>{{ data.innercontent }}</div>
-				<# } #>
-
-			</div>
-
-			<# if ( data.link ) { #>
-			       </a>
-			<# } #>
-
-			
-		</script>
-
+		<script type="text/html" id="tmpl-editor-feature-box"><# if ( data.link ) { #><a href="{{ data.link }}" title="{{ data.linktitle }}"><# } #><div class='feature'><header><h2>{{ data.title }}</h2></header><# if ( data.innercontent ) { #><div class='content'>{{ data.innercontent }}</div><# } #></div><# if ( data.link ) { #> </a><# } #></script>
 	<?php
 }
 

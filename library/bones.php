@@ -299,13 +299,6 @@ function bones_excerpt_more($more) {
 
 
 
-// stop wordpress from screwing with HTML
-function override_mce_options($initArray) {
-	$opts = '*[*],source[*]';
-	$initArray['valid_elements'] = $opts;
-	$initArray['extended_valid_elements'] = $opts;
-	return $initArray;
-}
-add_filter('tiny_mce_before_init', 'override_mce_options');
+
 
 ?>

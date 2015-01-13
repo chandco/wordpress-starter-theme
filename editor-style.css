@@ -488,6 +488,9 @@ body#tinymce.wp-editor .wpview-wrap[data-wpview-type="feature-box"] {
   display: inline-block;
   margin: 20px;
 }
+body#tinymce.wp-editor .cf_columns .wpview-wrap[data-wpview-type="feature-box"] {
+  margin: 0;
+}
 body#tinymce.wp-editor div.feature {
   text-decoration: none;
   cursor: pointer;
@@ -495,7 +498,6 @@ body#tinymce.wp-editor div.feature {
   width: 100%;
   max-width: 300px;
   background: rgba(0, 0, 0, 0.2);
-  margin: 10px;
 }
 body#tinymce.wp-editor div.feature * {
   pointer-events: none;
