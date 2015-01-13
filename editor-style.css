@@ -652,6 +652,24 @@ body#tinymce.wp-editor .col-smart:first-child:nth-last-child(3n+7) + .col-smart 
     padding-left: 0;
   }
 }
+body#tinymce.wp-editor div.full-width-background {
+  padding: 10px;
+  position: relative;
+}
+body#tinymce.wp-editor div.full-width-background:before {
+  content: "";
+  width: 4000px;
+  left: -1000px;
+  background: #eee;
+  top: 0;
+  bottom: 0;
+  display: block;
+  position: absolute;
+  z-index: -1;
+}
+body#tinymce.wp-editor div.full-width-background.blue:before {
+  background: #bbe3e8;
+}
 body#tinymce.wp-editor div.cf_columns {
   margin: 10px auto;
   width: 95%;

@@ -46,6 +46,19 @@
                 image : url + '/../img/feature.png'
             });
 
+            ed.addButton('widebg', {
+                title: 'Add full width Background',
+                cmd: 'widebg',
+                image : url + '/../img/widebg.jpg'
+            });
+
+            ed.addCommand('widebg', function() {
+                var selected_text = ed.selection.getContent();
+                var return_text = '';
+                return_text = '[wide_background]' + selected_text + '[/wide_background]';
+                ed.execCommand('mceInsertContent', 0, return_text);
+            });
+
             
 
            /* ed.addCommand('feature', function() {
@@ -97,18 +110,54 @@
 
 
                 
+                // add buttons to columns
                 ed.$.each( ed.$('.cf_columns > div'), function(index, element) {
                     
                         ed.$(element)
                             .prepend("<button class='col-control-add mceNonEditable'>Add Column</button>")
                             .prepend("<button class='col-control-remove mceNonEditable'>Remove Column</button>");  
-
-                       
                 });
 
 
-
+                // add widescreen thing
             });
+
+            ed.on('beforeSetContent', function(o) {
+                //return o.content.replace(/\[icitspot([^\]]*)\]/g, function(a,b)
+                shortcode_string = 'wide_background';
+                var wpshortcode = wp.shortcode;
+
+                /*
+                replace: function( tag, text, callback ) {
+            return text.replace( wp.shortcode.regexp( tag ), function( match, left, tag, attrs, slash, content, closing, right ) {
+                // If both extra brackets exist, the shortcode has been
+                // properly escaped.
+                if ( left === '[' && right === ']' ) {
+                    return match;
+                }
+
+                // Create the match object and pass it through the callback.
+                var result = callback( wp.shortcode.fromMatch( arguments ) );
+
+                // Make sure to return any of the extra brackets if they
+                // weren't used to escape the shortcode.
+                return result ? left + result + right : match;
+            }
+            */  
+
+                result = wp.shortcode.replace(shortcode_string, o.content, function( block ) {
+
+                    var extraClasses = "";
+                    if (block.attrs.named.class) { extraClasses = block.attrs.named.class; }                                        
+                    return "<div class='full-width-background " + extraClasses + "'>" + block.content  + "</div>";
+                });
+
+                o.content = result;
+
+                
+            });
+
+
 
             ed.on('SaveContent', function(o) {
 
@@ -116,8 +165,22 @@
 
                 // get content in temp element
 
-               $element = ed.$("<div>" + o.content + "</div>"); // wrap it so jquery can make something of it
-               $element.find('button[class^="col-control-"]').remove();
+                $element = ed.$("<div>" + o.content + "</div>"); // wrap it so jquery can make something of it
+                $element.find('button[class^="col-control-"]').remove();
+
+                ed.$.each( $element.find('.full-width-background'), function( index, element) {
+                    console.log(element);
+                    console.log(ed.$(element));
+
+                    var newClassList = "";
+                    ed.$.each( element.classList, function (index, class_name) {
+                        if (class_name != "full-width-background") {
+                            newClassList += " " + class_name;
+                        }
+                    });
+                    ed.$(element).html( '[wide_background class="' + newClassList + '"]' + ed.$(element).html() + '[/wide_background]' );
+                    ed.$(element).contents().unwrap();
+                });
 
                 o.content = $element.html();
 
@@ -157,7 +220,7 @@
 
 
                     // get the column row
-                    $wrapper = $contents.parent()
+                    $wrapper = $contents.parent();
 
                     
 

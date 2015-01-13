@@ -11,6 +11,31 @@ body#tinymce.wp-editor {
   .editor-styles(); // this is a mixin of styles
 
   .cf_columns();
+
+  div.full-width-background {
+    padding: 10px;
+
+    position: relative;
+
+    &:before {
+      content: "";
+      width: 4000px;
+      left: -1000px;
+      background: #eee;
+      top: 0;
+      bottom: 0;
+      display: block;
+      position: absolute;
+      z-index: -1;
+    }
+
+
+    &.blue {
+      &:before {
+        background: RGB(187,227,232); // etc
+      }
+    }
+  }
   
 
   div.cf_columns {
